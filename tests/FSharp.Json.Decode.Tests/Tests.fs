@@ -1,6 +1,6 @@
-﻿module FSharp.ProjectScaffold.Tests
+module FSharp.Json.Decode.Tests
 
-open FSharp.ProjectTemplate
+open FSharp.Json.Decode
 open NUnit.Framework
 
 [<Test>]

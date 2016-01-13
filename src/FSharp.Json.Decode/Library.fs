@@ -1,4 +1,4 @@
-﻿namespace FSharp.ProjectTemplate
+namespace FSharp.Json.Decode
 
 /// Documentation for my library
 ///

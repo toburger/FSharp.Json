@@ -11,17 +11,17 @@
 // (This is the original behaviour of ProjectScaffold prior to multi project support)
 let referenceBinaries = []
 // Web site location for the generated documentation
-let website = "/##ProjectName##"
+let website = "/FSharp.Json.Decode"
 
-let githubLink = "http://github.com/##GitHome##/##GitName##"
+let githubLink = "http://github.com/toburger/FSharp.Json.Decode"
 
 // Specify more information about your project
 let info =
-  [ "project-name", "##ProjectName##"
-    "project-author", "##Author##"
-    "project-summary", "##Summary##"
+  [ "project-name", "FSharp.Json.Decode"
+    "project-author", "Tobias Burger"
+    "project-summary", "Elm like Json decoder combinator library"
     "project-github", githubLink
-    "project-nuget", "http://nuget.org/packages/##ProjectName##" ]
+    "project-nuget", "http://nuget.org/packages/FSharp.Json.Decode" ]
 
 // --------------------------------------------------------------------------------------
 // For typical project, no changes are needed below
