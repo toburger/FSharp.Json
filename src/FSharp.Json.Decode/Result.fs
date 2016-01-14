@@ -20,6 +20,7 @@ type ResultBuilder() =
 
 let result = ResultBuilder()
 
+[<RequireQualifiedAccess>]
 module Result =
 
     let succeed = Ok
