@@ -5,12 +5,12 @@ type Result<'a, 'b> =
     | Err of 'a
     | Ok of 'b
 
-let bind binder res =
+let private bind binder res =
     match res with
     | Ok v -> binder v
     | Err e -> Err e
 
-let returnM = Ok
+let private returnM = Ok
 
 type ResultBuilder() =
     member __.Bind(m, f) = bind f m
