@@ -21,7 +21,7 @@ let bind (binder: 'a -> Decoder<'b>) (Decoder decoder): Decoder<'b> =
         | Ok v ->
             let (Decoder result) = binder v
             result value
-        | Err  e -> Err e)
+        | Err e -> Err e)
 
 let (>>=) decoder binder = bind binder decoder
 
