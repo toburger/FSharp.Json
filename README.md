@@ -29,11 +29,12 @@ encode 4 <|
 
 ```fsharp
 
+open Chessie.ErrorHandling
 open FSharp.Json.Decode
 
 let json = "42"
 let parsed = decodeString dint json
-let result = parsed |> Result.withDefault -1 // simple error handling
+let result = parsed |> Trial.returnOrFail
 printfn "answer = %i" result
 
 ```
