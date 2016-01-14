@@ -33,3 +33,19 @@ decodeString
 decodeString
     (at ["number"] dint)
     "{ number: 42 }"
+
+decodeString
+    (tuple1 id dint)
+    "[42]"
+
+decodeString
+    (tuple2 (fun s i -> s, i) dstring dint)
+    "[\"foo\", 42]"
+
+decodeString
+    (tuple3 (fun s i s2 -> s, i, s2) dstring dint dstring)
+    "[\"foo\", 42, \"baz\"]"
+
+decodeString
+    (tuple4 (fun s i s2 b -> s, i, s2, b) dstring dint dstring dbool)
+    "[\"foo\", 42, \"baz\", false]"

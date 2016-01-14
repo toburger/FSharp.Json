@@ -113,3 +113,28 @@ let ``returns email and age at position`` () =
             (at [ "person"; "age" ] dint)
             json
     Assert.AreEqual(42, age)
+
+[<Test>]
+let ``returns tuple (foo, 42)`` () =
+    let (Result result) =
+        decodeString
+            (tuple2 (fun s i -> s, i) dstring dint)
+            "[\"foo\", 42]"
+    Assert.AreEqual(("foo", 42), result)
+
+[<Test>]
+let ``returns tuple (foo, 42, baz)`` () =
+    let (Result result) =
+        decodeString
+            (tuple3 (fun s i s2 -> s, i, s2) dstring dint dstring)
+            "[\"foo\", 42, \"baz\"]"
+    Assert.AreEqual(("foo", 42, "baz"), result)
+
+[<Test>]
+let ``returns tuple (foo, 42, baz, false)`` () =
+    let (Result result) =
+        decodeString
+            (tuple4 (fun s i s2 b -> s, i, s2, b) dstring dint dstring dbool)
+            "[\"foo\", 42, \"baz\", false]"
+    Assert.AreEqual(("foo", 42, "baz", false), result)
+

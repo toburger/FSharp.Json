@@ -142,8 +142,7 @@ let oneOf (decoders: list<Decoder<'a>>) : Decoder<'a> =
         |> Result.mapError (sprintf "expecting one of the following: %A"))
 
 let keyValuePairs (Decoder decoder: Decoder<'a>) : Decoder<list<string * 'a>> =
-    Decoder (fun value ->
-        match value with
+    Decoder (function
         | :? Linq.JObject as o ->
             o.Properties()
             |> Seq.map (fun prop ->
@@ -152,7 +151,7 @@ let keyValuePairs (Decoder decoder: Decoder<'a>) : Decoder<list<string * 'a>> =
             |> Seq.toList
             |> Result.transform
             |> Result.mapError List.head
-        | _ -> crash "an Object" value)
+        | value -> crash "an Object" value)
 
 let dmap (decoder: Decoder<'a>) : Decoder<Map<string, 'a>> =
     map Map.ofList (keyValuePairs decoder)
@@ -170,6 +169,45 @@ let value : Decoder<Value> =
 
 let decodeValue (Decoder decoder: Decoder<'a>) (value: Value) : Result<string, 'a> =
     Err "not implemented"
+
+let tuple1 (f: 'a -> 'value) (Decoder decoder: Decoder<'a>) : Decoder<'value> =
+    Decoder (function
+        | :? Linq.JArray as arr when arr.Count = 1 ->
+            decoder arr.First |> Result.map f
+        | value -> crash "a Tuple of length 1" value)
+
+let tuple2 (f: 'a -> 'b -> 'value) (Decoder decoder1) (Decoder decoder2) : Decoder<'value> =
+    Decoder (function
+        | :? Linq.JArray as arr when arr.Count = 2 ->
+            result {
+                let! res1 = decoder1 <| arr.Item(0)
+                let! res2 = decoder2 <| arr.Item(1)
+                return f res1 res2
+            }
+        | value -> crash "a Tuple of length 2" value)
+
+let tuple3 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) =
+    Decoder (function
+        | :? Linq.JArray as arr when arr.Count = 3 ->
+            result {
+                let! res1 = decoder1 <| arr.Item(0)
+                let! res2 = decoder2 <| arr.Item(1)
+                let! res3 = decoder3 <| arr.Item(2)
+                return f res1 res2 res3
+            }
+        | value -> crash "a Tuple of length 3" value)
+
+let tuple4 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4) =
+    Decoder (function
+        | :? Linq.JArray as arr when arr.Count = 4 ->
+            result {
+                let! res1 = decoder1 <| arr.Item(0)
+                let! res2 = decoder2 <| arr.Item(1)
+                let! res3 = decoder3 <| arr.Item(2)
+                let! res4 = decoder4 <| arr.Item(3)
+                return f res1 res2 res3 res4
+            }
+        | value -> crash "a Tuple of length 4" value)
 
 let customDecoder (Decoder decoder: Decoder<'a>) (callback: 'a -> Result<string, 'b>) : Decoder<'b> =
     Decoder (fun value ->
