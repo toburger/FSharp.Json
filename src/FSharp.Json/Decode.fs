@@ -49,34 +49,83 @@ let private getProperty (Decoder decoder) (o: Linq.JObject) =
         | Some v -> v
         | None -> crash "a Property" o
 
-let object1 (mapping: 'a -> 'value) decoder : Decoder<'value> =
+let private object' f =
     Decoder (function
-        | :? Linq.JObject as o ->
-            o
-            |> getProperty decoder
-            |> Result.map mapping
+        | :? Linq.JObject as o -> f o
         | value -> crash "a Object" value)
+
+let object1 (mapping: 'a -> 'value) decoder : Decoder<'value> =
+    object' (getProperty decoder >> Result.map mapping)
 
 let object2 (mapping: 'a -> 'b -> 'value) (decoder1: Decoder<'a>) (decoder2: Decoder<'b>) : Decoder<'value> =
-    Decoder (function
-        | :? Linq.JObject as o ->
-            result {
-                let! prop1 = getProperty decoder1 o
-                let! prop2 = getProperty decoder2 o
-                return mapping prop1 prop2
-            }
-        | value -> crash "a Object" value)
+    object' (fun o -> result {
+        let! prop1 = getProperty decoder1 o
+        let! prop2 = getProperty decoder2 o
+        return mapping prop1 prop2
+    })
 
 let object3 (mapping: 'a -> 'b -> 'c -> 'value) (decoder1 : Decoder<'a>) (decoder2: Decoder<'b>) (decoder3: Decoder<'c>) : Decoder<'value> =
-    Decoder (function
-        | :? Linq.JObject as o ->
-            result {
-                let! prop1 = getProperty decoder1 o
-                let! prop2 = getProperty decoder2 o
-                let! prop3 = getProperty decoder3 o
-                return mapping prop1 prop2 prop3
-            }
-        | value -> crash "a Object" value)
+    object' (fun o -> result {
+        let! prop1 = getProperty decoder1 o
+        let! prop2 = getProperty decoder2 o
+        let! prop3 = getProperty decoder3 o
+        return mapping prop1 prop2 prop3
+    })
+
+let object4 mapping decoder1 decoder2 decoder3 decoder4 =
+    object' (fun o -> result {
+        let! prop1 = getProperty decoder1 o
+        let! prop2 = getProperty decoder2 o
+        let! prop3 = getProperty decoder3 o
+        let! prop4 = getProperty decoder4 o
+        return mapping prop1 prop2 prop3 prop4
+    })
+
+let object5 mapping decoder1 decoder2 decoder3 decoder4 decoder5 =
+    object' (fun o -> result {
+        let! prop1 = getProperty decoder1 o
+        let! prop2 = getProperty decoder2 o
+        let! prop3 = getProperty decoder3 o
+        let! prop4 = getProperty decoder4 o
+        let! prop5 = getProperty decoder5 o
+        return mapping prop1 prop2 prop3 prop4 prop5
+    })
+
+let object6 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 =
+    object' (fun o -> result {
+        let! prop1 = getProperty decoder1 o
+        let! prop2 = getProperty decoder2 o
+        let! prop3 = getProperty decoder3 o
+        let! prop4 = getProperty decoder4 o
+        let! prop5 = getProperty decoder5 o
+        let! prop6 = getProperty decoder6 o
+        return mapping prop1 prop2 prop3 prop4 prop5 prop6
+    })
+
+let object7 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 decoder7 =
+    object' (fun o -> result {
+        let! prop1 = getProperty decoder1 o
+        let! prop2 = getProperty decoder2 o
+        let! prop3 = getProperty decoder3 o
+        let! prop4 = getProperty decoder4 o
+        let! prop5 = getProperty decoder5 o
+        let! prop6 = getProperty decoder6 o
+        let! prop7 = getProperty decoder7 o
+        return mapping prop1 prop2 prop3 prop4 prop5 prop6 prop7
+    })
+
+let object8 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 decoder7 decoder8 =
+    object' (fun o -> result {
+        let! prop1 = getProperty decoder1 o
+        let! prop2 = getProperty decoder2 o
+        let! prop3 = getProperty decoder3 o
+        let! prop4 = getProperty decoder4 o
+        let! prop5 = getProperty decoder5 o
+        let! prop6 = getProperty decoder6 o
+        let! prop7 = getProperty decoder7 o
+        let! prop8 = getProperty decoder8 o
+        return mapping prop1 prop2 prop3 prop4 prop5 prop6 prop7 prop8
+    })
 
 let dvalue (decoder: obj -> Result<_, 'a>) : Decoder<'a> =
     Decoder (function
