@@ -121,21 +121,29 @@ let ``returns tuple (foo, 42, baz, false)`` () =
             (tuple4 (fun s i s2 b -> s, i, s2, b) dstring dint dstring dbool)
             "[\"foo\", 42, \"baz\", false]"
 
-//[<Test>]
-//let ``returns crazy formatted data`` () =
-//    let variadic2 (f: 'a -> 'b -> 'c list -> 'value) a b (cs: Decoder<'c>): Decoder<'value> =
-//        customDecoder (list value) (function
-//            | one::two::rest ->
-//                let rest' =
-//                    List.map (decodeValue cs) rest
-//                    |> Trial.collect
-//                Trial.lift3 f
-//                    (decodeValue a one)
-//                    (decodeValue b two)
-//                    rest'
-//            | _ -> Err "expecting at least two elements in array")
-//    (false, "test", [ 42; 12; 12 ]) ==
-//        decodeString
-//            (variadic2 (fun a b c -> a, b, c) dbool dstring dint)
-//            "[false, \"test\", 42, 12, 12]"
+module Trial =
+    let lift3 f res1 res2 res3 = trial {
+        let! r1 = res1
+        let! r2 = res2
+        let! r3 = res3
+        return f r1 r2 r3
+    }
+
+[<Test>]
+let ``returns crazy formatted data`` () =
+    let variadic2 (f: 'a -> 'b -> 'c list -> 'value) a b (cs: Decoder<'c>): Decoder<'value> =
+        customDecoder (list value) (function
+            | one::two::rest ->
+                let rest' =
+                    List.map (decodeValue cs) rest
+                    |> Trial.collect
+                Trial.lift3 f
+                    (decodeValue a one)
+                    (decodeValue b two)
+                    rest'
+            | _ -> fail "expecting at least two elements in array")
+    (false, "test", [ 42; 12; 12 ]) ==
+        decodeString
+            (variadic2 (fun a b c -> a, b, c) dbool dstring dint)
+            "[false, \"test\", 42, 12, 12]"
 
