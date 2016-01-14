@@ -1,11 +1,11 @@
 NUGET
-  remote: https://nuget.org/api/v2
+  remote: https://www.nuget.org/api/v2
   specs:
     Newtonsoft.Json (8.0.2)
 
 GROUP Build
 NUGET
-  remote: https://nuget.org/api/v2
+  remote: https://www.nuget.org/api/v2
   specs:
     FAKE (4.14.2)
     FSharp.Compiler.Service (1.4.2.3)
@@ -30,7 +30,7 @@ GITHUB
       Octokit
 GROUP Test
 NUGET
-  remote: https://nuget.org/api/v2
+  remote: https://www.nuget.org/api/v2
   specs:
     NUnit (3.0.1)
     NUnit.Console (3.0.1)

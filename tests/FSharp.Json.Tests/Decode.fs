@@ -14,7 +14,7 @@ let ``returns "hello world"`` () =
 
 [<Test>]
 let ``returns 42`` () =
-  42 == decodeString dint "42"
+    42 == decodeString dint "42"
 
 [<Test>]
 let ``returns 1.23123`` () =
