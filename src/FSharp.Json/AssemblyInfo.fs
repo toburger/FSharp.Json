@@ -1,9 +1,9 @@
 ﻿namespace System
 open System.Reflection
 
-[<assembly: AssemblyTitleAttribute("FSharp.Json.Decode")>]
-[<assembly: AssemblyProductAttribute("FSharp.Json.Decode")>]
-[<assembly: AssemblyDescriptionAttribute("Elm like Json decoder combinator library")>]
+[<assembly: AssemblyTitleAttribute("FSharp.Json")>]
+[<assembly: AssemblyProductAttribute("FSharp.Json")>]
+[<assembly: AssemblyDescriptionAttribute("Elm like Json encoder/decoder combinator library")>]
 [<assembly: AssemblyVersionAttribute("1.0")>]
 [<assembly: AssemblyFileVersionAttribute("1.0")>]
 do ()

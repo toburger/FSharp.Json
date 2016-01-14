@@ -4,11 +4,11 @@ owners
 authors 
     Tobias Burger
 projectUrl
-    http://github.com/toburger/FSharp.Json.Decode
+    http://github.com/toburger/FSharp.Json
 iconUrl
-    https://raw.githubusercontent.com/toburger/FSharp.Json.Decode/master/docs/files/img/logo.png
+    https://raw.githubusercontent.com/toburger/FSharp.Json/master/docs/files/img/logo.png
 licenseUrl
-    http://github.com/toburger/FSharp.Json.Decode/blob/master/LICENSE.txt
+    http://github.com/toburger/FSharp.Json/blob/master/LICENSE.txt
 requireLicenseAcceptance
     false
 copyright

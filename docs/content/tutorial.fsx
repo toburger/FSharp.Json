@@ -1,7 +1,7 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use
 // it to define helpers that you do not want to show in the documentation.
-#I "../../bin/FSharp.Json.Decode"
+#I "../../bin/FSharp.Json"
 
 (**
 Introducing your project
@@ -11,7 +11,7 @@ Say more
 
 *)
 
-#r "FSharp.Json.Decode.dll"
+#r "FSharp.Json.dll"
 open FSharp.Json.Decode
 
 type Record =

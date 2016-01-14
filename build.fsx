@@ -30,24 +30,24 @@ open SourceLink
 
 // The name of the project
 // (used by attributes in AssemblyInfo, name of a NuGet package and directory in 'src')
-let project = "FSharp.Json.Decode"
+let project = "FSharp.Json"
 
 // Short summary of the project
 // (used as description in AssemblyInfo and as a short summary for NuGet package)
-let summary = "Elm like Json decoder combinator library"
+let summary = "Elm like Json encoder/decoder combinator library"
 
 // Longer description of the project
 // (used as a description for NuGet package; line breaks are automatically cleaned up)
-let description = "Allows to decode Json documents the way elm is doint it"
+let description = "Allows to encode/decode Json documents the way elm is doint it"
 
 // List of author names (for NuGet package)
 let authors = [ "Tobias Burger" ]
 
 // Tags for your project (for NuGet package)
-let tags = "json decoding deserialization combinator"
+let tags = "json encoding/decoding deserialization combinator"
 
 // File system information
-let solutionFile  = "FSharp.Json.Decode.sln"
+let solutionFile  = "FSharp.Json.sln"
 
 // Pattern specifying assemblies to be tested using NUnit
 let testAssemblies = "tests/**/bin/Release/*Tests*.dll"
@@ -58,7 +58,7 @@ let gitOwner = "toburger"
 let gitHome = "https://github.com/" + gitOwner
 
 // The name of the project on GitHub
-let gitName = "FSharp.Json.Decode"
+let gitName = "FSharp.Json"
 
 // The url for the raw files hosted
 let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/toburger"
