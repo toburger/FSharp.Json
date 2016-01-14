@@ -1,34 +1,35 @@
 module FSharp.Json.Decode
 
 open Newtonsoft.Json
+open Chessie.ErrorHandling
 
 type Value = Encode.Value
 
-type Decoder<'a> = Decoder of (Value -> Result<string, 'a>)
+type Decoder<'a> = Decoder of (Value -> Result<'a, string>)
 
 let fail (msg: string): Decoder<_> =
-    Decoder (fun _ -> Err msg)
+    Decoder (fun _ -> fail msg)
 
 let succeed (a: 'a) : Decoder<'a> =
-    Decoder (fun _ -> Ok a)
+    Decoder (fun _ -> ok a)
 
 let private crash expected actual =
-    Err (sprintf "expecting %s but got %s" expected (serialize actual))
+    Trial.fail (sprintf "expecting %s but got %s" expected (serialize actual))
 
 let bind (binder: 'a -> Decoder<'b>) (Decoder decoder): Decoder<'b> =
     Decoder (fun value ->
         match decoder value with
-        | Ok v ->
+        | Ok (v, _) ->
             let (Decoder result) = binder v
             result value
-        | Err e -> Err e)
+        | Bad e -> Bad e)
 
 let (>>=) decoder binder = bind binder decoder
 
 let map (mapper: 'a -> 'b) (Decoder decoder): Decoder<'b> =
-    Decoder (decoder >> Result.map mapper)
+    Decoder (decoder >> Trial.lift mapper)
 
-let decodeString (Decoder decoder) (s : string) : Result<string, 'a> =
+let decodeString (Decoder decoder) (s : string) : Result<_, _> =
     decoder (parse s)
 
 let decodeField (field: string) (Decoder decoder) : Decoder<'b> =
@@ -43,7 +44,7 @@ let private getProperty (Decoder decoder) (o: Linq.JObject) =
     o.Properties()
     |> Seq.tryPick (fun p ->
         match decoder p with
-        | Ok v -> Some (Ok v)
+        | Ok (v, w) -> Some (Ok (v, w))
         | _ -> None)
     |> function
         | Some v -> v
@@ -55,17 +56,17 @@ let private object' f =
         | value -> crash "a Object" value)
 
 let object1 (mapping: 'a -> 'value) decoder : Decoder<'value> =
-    object' (getProperty decoder >> Result.map mapping)
+    object' (getProperty decoder >> Trial.lift mapping)
 
 let object2 (mapping: 'a -> 'b -> 'value) (decoder1: Decoder<'a>) (decoder2: Decoder<'b>) : Decoder<'value> =
-    object' (fun o -> result {
+    object' (fun o -> trial {
         let! prop1 = getProperty decoder1 o
         let! prop2 = getProperty decoder2 o
         return mapping prop1 prop2
     })
 
 let object3 (mapping: 'a -> 'b -> 'c -> 'value) (decoder1 : Decoder<'a>) (decoder2: Decoder<'b>) (decoder3: Decoder<'c>) : Decoder<'value> =
-    object' (fun o -> result {
+    object' (fun o -> trial {
         let! prop1 = getProperty decoder1 o
         let! prop2 = getProperty decoder2 o
         let! prop3 = getProperty decoder3 o
@@ -73,7 +74,7 @@ let object3 (mapping: 'a -> 'b -> 'c -> 'value) (decoder1 : Decoder<'a>) (decode
     })
 
 let object4 mapping decoder1 decoder2 decoder3 decoder4 =
-    object' (fun o -> result {
+    object' (fun o -> trial {
         let! prop1 = getProperty decoder1 o
         let! prop2 = getProperty decoder2 o
         let! prop3 = getProperty decoder3 o
@@ -82,7 +83,7 @@ let object4 mapping decoder1 decoder2 decoder3 decoder4 =
     })
 
 let object5 mapping decoder1 decoder2 decoder3 decoder4 decoder5 =
-    object' (fun o -> result {
+    object' (fun o -> trial {
         let! prop1 = getProperty decoder1 o
         let! prop2 = getProperty decoder2 o
         let! prop3 = getProperty decoder3 o
@@ -92,7 +93,7 @@ let object5 mapping decoder1 decoder2 decoder3 decoder4 decoder5 =
     })
 
 let object6 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 =
-    object' (fun o -> result {
+    object' (fun o -> trial {
         let! prop1 = getProperty decoder1 o
         let! prop2 = getProperty decoder2 o
         let! prop3 = getProperty decoder3 o
@@ -103,7 +104,7 @@ let object6 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 =
     })
 
 let object7 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 decoder7 =
-    object' (fun o -> result {
+    object' (fun o -> trial {
         let! prop1 = getProperty decoder1 o
         let! prop2 = getProperty decoder2 o
         let! prop3 = getProperty decoder3 o
@@ -115,7 +116,7 @@ let object7 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 decode
     })
 
 let object8 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 decoder7 decoder8 =
-    object' (fun o -> result {
+    object' (fun o -> trial {
         let! prop1 = getProperty decoder1 o
         let! prop2 = getProperty decoder2 o
         let! prop3 = getProperty decoder3 o
@@ -127,35 +128,35 @@ let object8 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 decode
         return mapping prop1 prop2 prop3 prop4 prop5 prop6 prop7 prop8
     })
 
-let dvalue (decoder: obj -> Result<_, 'a>) : Decoder<'a> =
+let dvalue (decoder: obj -> Result<'a, _>) : Decoder<'a> =
     Decoder (function
         | :? Linq.JValue as v -> decoder v.Value
         | value -> crash "a Value" value)
 
 let dbool : Decoder<bool> =
     dvalue (function
-        | :? bool as b -> Ok b
+        | :? bool as b -> ok b
         | value -> crash "a Boolean" value)
 
 let dstring : Decoder<string> =
     dvalue (function
-        | :? string as s -> Ok s
+        | :? string as s -> ok s
         | value -> crash "a String" value)
 
 let decodeWith<'a> : Decoder<'a> =
     dvalue (function
-        | :? 'a as a -> Ok a
+        | :? 'a as a -> ok a
         | value -> crash (sprintf "a %s" typeof<'a>.FullName) value)
 
 let dfloat : Decoder<float> =
     dvalue (function
-        | :? float as s -> Ok s
+        | :? float as s -> ok s
         | value -> crash "a Float" value)
 
 let dint : Decoder<int> =
     dvalue (function
-        | :? int as i -> Ok i
-        | :? int64 as i -> Ok (int i)
+        | :? int as i -> ok i
+        | :? int64 as i -> ok (int i)
         | value -> crash "a Int" value)
 
 let list (Decoder decoder : Decoder<'a>) : Decoder<list<'a>> =
@@ -164,32 +165,30 @@ let list (Decoder decoder : Decoder<'a>) : Decoder<list<'a>> =
             arr.Values()
             |> Seq.map decoder
             |> Seq.toList
-            |> Result.transform
-            |> Result.mapError List.head
+            |> Trial.collect
         |  value -> crash "a Array" value)
 
 let dnull (v: 'a) : Decoder<'a> =
     Decoder (function
-        | null -> Ok v
+        | null -> ok v
         | value -> crash "null" value)
 
 let maybe (Decoder decoder: Decoder<'a>) : Decoder<option<'a>> =
     Decoder (function
-        | null -> Ok None
+        | null -> ok None
         | v ->
             decoder v
-            |> Result.bind (Ok << Some))
+            |> Trial.bind (ok << Some))
 
 let oneOf (decoders: list<Decoder<'a>>) : Decoder<'a> =
     Decoder (fun v ->
         List.fold (fun s (Decoder decoder) ->
             match decoder v, s with
-            | Ok v, _-> Ok v
-            | Err _, Ok ok -> Ok ok
-            | Err err, Err errs -> Err (err::errs))
-            (Err [])
-            decoders
-        |> Result.mapError (sprintf "expecting one of the following: %A"))
+            | Ok (v, w), _-> Ok (v, w)
+            | Bad _, Ok (ok, w) -> Ok (ok, w)
+            | Bad err, Bad errs -> Bad (err @ errs))
+            (Bad [])
+            decoders)
 
 let keyValuePairs (Decoder decoder: Decoder<'a>) : Decoder<list<string * 'a>> =
     Decoder (function
@@ -197,10 +196,9 @@ let keyValuePairs (Decoder decoder: Decoder<'a>) : Decoder<list<string * 'a>> =
             o.Properties()
             |> Seq.map (fun prop ->
                 decoder prop.Value
-                |> Result.map (fun v -> prop.Name, v))
+                |> Trial.lift (fun v -> prop.Name, v))
             |> Seq.toList
-            |> Result.transform
-            |> Result.mapError List.head
+            |> Trial.collect
         | value -> crash "an Object" value)
 
 let dmap (decoder: Decoder<'a>) : Decoder<Map<string, 'a>> =
@@ -215,9 +213,9 @@ let at (fields: list<string>) (decoder: Decoder<'a>) : Decoder<'a> =
     List.foldBack (fun field d -> dobject (field := d)) fields decoder
 
 let value : Decoder<Value> =
-    Decoder Ok
+    Decoder ok
 
-let decodeValue (Decoder decoder: Decoder<'a>) (value: Value) : Result<string, 'a> =
+let decodeValue (Decoder decoder: Decoder<'a>) (value: Value) : Result<'a, _> =
     decoder value
 
 let tuple' c f =
@@ -227,17 +225,17 @@ let tuple' c f =
         | value -> crash (sprintf "a Tuple of length %i" c) value)
 
 let tuple1 (f: 'a -> 'value) (Decoder decoder: Decoder<'a>) : Decoder<'value> =
-    tuple' 1 (fun arr -> decoder arr.First |> Result.map f)
+    tuple' 1 (fun arr -> decoder arr.First |> Trial.lift f)
 
 let tuple2 (f: 'a -> 'b -> 'value) (Decoder decoder1) (Decoder decoder2) : Decoder<'value> =
-    tuple' 2 (fun arr -> result {
+    tuple' 2 (fun arr -> trial {
         let! res1 = decoder1 <| arr.Item(0)
         let! res2 = decoder2 <| arr.Item(1)
         return f res1 res2
     })
 
 let tuple3 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) =
-    tuple' 3 (fun arr -> result {
+    tuple' 3 (fun arr -> trial {
         let! res1 = decoder1 <| arr.Item(0)
         let! res2 = decoder2 <| arr.Item(1)
         let! res3 = decoder3 <| arr.Item(2)
@@ -245,7 +243,7 @@ let tuple3 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) =
     })
 
 let tuple4 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4) =
-    tuple' 4 (fun arr -> result {
+    tuple' 4 (fun arr -> trial {
         let! res1 = decoder1 <| arr.Item(0)
         let! res2 = decoder2 <| arr.Item(1)
         let! res3 = decoder3 <| arr.Item(2)
@@ -254,7 +252,7 @@ let tuple4 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder d
     })
 
 let tuple5 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4) (Decoder decoder5) =
-    tuple' 5 (fun arr -> result {
+    tuple' 5 (fun arr -> trial {
         let! res1 = decoder1 <| arr.Item(0)
         let! res2 = decoder2 <| arr.Item(1)
         let! res3 = decoder3 <| arr.Item(2)
@@ -265,7 +263,7 @@ let tuple5 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder d
 
 let tuple6 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4)
              (Decoder decoder5) (Decoder decoder6) =
-    tuple' 6 (fun arr -> result {
+    tuple' 6 (fun arr -> trial {
         let! res1 = decoder1 <| arr.Item(0)
         let! res2 = decoder2 <| arr.Item(1)
         let! res3 = decoder3 <| arr.Item(2)
@@ -277,7 +275,7 @@ let tuple6 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder d
 
 let tuple7 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4)
              (Decoder decoder5) (Decoder decoder6) (Decoder decoder7) =
-    tuple' 7 (fun arr -> result {
+    tuple' 7 (fun arr -> trial {
         let! res1 = decoder1 <| arr.Item(0)
         let! res2 = decoder2 <| arr.Item(1)
         let! res3 = decoder3 <| arr.Item(2)
@@ -290,7 +288,7 @@ let tuple7 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder d
 
 let tuple8 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4)
              (Decoder decoder5) (Decoder decoder6) (Decoder decoder7) (Decoder decoder8) =
-    tuple' 8 (fun arr -> result {
+    tuple' 8 (fun arr -> trial {
         let! res1 = decoder1 <| arr.Item(0)
         let! res2 = decoder2 <| arr.Item(1)
         let! res3 = decoder3 <| arr.Item(2)
@@ -302,8 +300,8 @@ let tuple8 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder d
         return f res1 res2 res3 res4 res5 res6 res7 res8
     })
 
-let customDecoder (Decoder decoder: Decoder<'a>) (callback: 'a -> Result<string, 'b>) : Decoder<'b> =
+let customDecoder (Decoder decoder: Decoder<'a>) (callback: 'a -> Result<'b, _>) : Decoder<'b> =
     Decoder (fun value ->
         match decoder value with
-        | Ok v -> callback v
-        | Err err -> Err err)
+        | Ok (v, _) -> callback v
+        | Bad err -> Bad err)

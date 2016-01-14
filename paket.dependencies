@@ -1,5 +1,6 @@
 source https://nuget.org/api/v2
 nuget Newtonsoft.Json
+github fsprojects/Chessie src/Chessie/ErrorHandling.fs
 
 group Build
   source https://nuget.org/api/v2
