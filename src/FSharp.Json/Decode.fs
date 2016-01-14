@@ -253,6 +253,55 @@ let tuple4 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder d
         return f res1 res2 res3 res4
     })
 
+let tuple5 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4) (Decoder decoder5) =
+    tuple' 5 (fun arr -> result {
+        let! res1 = decoder1 <| arr.Item(0)
+        let! res2 = decoder2 <| arr.Item(1)
+        let! res3 = decoder3 <| arr.Item(2)
+        let! res4 = decoder4 <| arr.Item(3)
+        let! res5 = decoder5 <| arr.Item(4)
+        return f res1 res2 res3 res4 res5
+    })
+
+let tuple6 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4)
+             (Decoder decoder5) (Decoder decoder6) =
+    tuple' 6 (fun arr -> result {
+        let! res1 = decoder1 <| arr.Item(0)
+        let! res2 = decoder2 <| arr.Item(1)
+        let! res3 = decoder3 <| arr.Item(2)
+        let! res4 = decoder4 <| arr.Item(3)
+        let! res5 = decoder5 <| arr.Item(4)
+        let! res6 = decoder6 <| arr.Item(5)
+        return f res1 res2 res3 res4 res5 res6
+    })
+
+let tuple7 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4)
+             (Decoder decoder5) (Decoder decoder6) (Decoder decoder7) =
+    tuple' 7 (fun arr -> result {
+        let! res1 = decoder1 <| arr.Item(0)
+        let! res2 = decoder2 <| arr.Item(1)
+        let! res3 = decoder3 <| arr.Item(2)
+        let! res4 = decoder4 <| arr.Item(3)
+        let! res5 = decoder5 <| arr.Item(4)
+        let! res6 = decoder6 <| arr.Item(5)
+        let! res7 = decoder7 <| arr.Item(6)
+        return f res1 res2 res3 res4 res5 res6 res7
+    })
+
+let tuple8 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4)
+             (Decoder decoder5) (Decoder decoder6) (Decoder decoder7) (Decoder decoder8) =
+    tuple' 8 (fun arr -> result {
+        let! res1 = decoder1 <| arr.Item(0)
+        let! res2 = decoder2 <| arr.Item(1)
+        let! res3 = decoder3 <| arr.Item(2)
+        let! res4 = decoder4 <| arr.Item(3)
+        let! res5 = decoder5 <| arr.Item(4)
+        let! res6 = decoder6 <| arr.Item(5)
+        let! res7 = decoder7 <| arr.Item(6)
+        let! res8 = decoder8 <| arr.Item(7)
+        return f res1 res2 res3 res4 res5 res6 res7 res8
+    })
+
 let customDecoder (Decoder decoder: Decoder<'a>) (callback: 'a -> Result<string, 'b>) : Decoder<'b> =
     Decoder (fun value ->
         match decoder value with
