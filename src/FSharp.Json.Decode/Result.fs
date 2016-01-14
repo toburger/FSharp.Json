@@ -15,6 +15,8 @@ let private returnM = Ok
 type ResultBuilder() =
     member __.Bind(m, f) = bind f m
     member __.Return(v) = returnM v
+    member __.Delay(f) = fun () -> f ()
+    member __.Run(f) = f ()
 
 let result = ResultBuilder()
 
