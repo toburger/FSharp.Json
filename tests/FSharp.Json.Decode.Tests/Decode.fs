@@ -1,4 +1,4 @@
-module FSharp.Json.Decode.Tests
+module FSharp.Json.Tests.Decode
 
 open FSharp.Json.Decode
 open NUnit.Framework
