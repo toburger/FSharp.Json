@@ -20,7 +20,7 @@ let ``returns 42`` () =
 
 [<Test>]
 let ``returns 1.23123`` () =
-    let (Result result) = decodeString dint "1.23123"
+    let (Result result) = decodeString dfloat "1.23123"
     Assert.AreEqual(1.23123, result)
 
 [<Test>]
