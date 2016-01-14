@@ -19,7 +19,7 @@ let githubLink = "http://github.com/toburger/FSharp.Json"
 let info =
   [ "project-name", "FSharp.Json"
     "project-author", "Tobias Burger"
-    "project-summary", "Elm like Json decoder combinator library"
+    "project-summary", "Elm inspired Json decoder combinator library"
     "project-github", githubLink
     "project-nuget", "http://nuget.org/packages/FSharp.Json" ]
 
