@@ -1,6 +1,7 @@
 #r @"..\..\packages\Newtonsoft.Json\lib\net40\Newtonsoft.Json.dll"
 #load "Result.fs"
-#load "Library.fs"
+#load "Encode.fs"
+#load "Decode.fs"
 
 open FSharp.Json.Decode
 

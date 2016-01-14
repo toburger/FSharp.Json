@@ -45,7 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Result.fs" />
-    <Compile Include="Library.fs" />
+    <Compile Include="Json.fs" />
+    <Compile Include="Encode.fs" />
+    <Compile Include="Decode.fs" />
     <None Include="Script.fsx" />
     <None Include="paket.references" />
     <None Include="paket.template" />
