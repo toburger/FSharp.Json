@@ -137,7 +137,7 @@ module Decode =
                 |> Seq.map decoder
                 |> Seq.toList
                 |> Result.transform
-                |> Result.mapError (fun l -> List.head l)
+                |> Result.mapError List.head
             |  value -> crash "a Array" value)
 
     let dnull (v: 'a) : Decoder<'a> =
