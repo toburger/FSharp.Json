@@ -62,3 +62,8 @@ module Result =
         match succs, errs with
         | succs, [] -> Ok (succs |> List.choose (function Ok v -> Some v | Err _ -> None))
         | _, errs -> Err (errs |> List.choose (function Err err -> Some err | Ok _ -> None))
+
+    let withDefault (a: 'a) (result: Result<_, 'a>) : 'a =
+        match result with
+        | Ok v -> v
+        | Err _ -> a
