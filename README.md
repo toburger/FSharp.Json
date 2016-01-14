@@ -16,7 +16,7 @@ I plan to use [FParsec](https://bitbucket.org/fparsec/main) for this task.
 
 open FSharp.Json.Encode
 
-encode 4
+encode 4 <|
     jobject [
         "foo", jstring "bar"
         "age", jint 42

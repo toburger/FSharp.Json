@@ -2,16 +2,32 @@
 // This block of code is omitted in the generated HTML documentation. Use
 // it to define helpers that you do not want to show in the documentation.
 #I "../../bin/FSharp.Json"
+#r "FSharp.Json.dll"
+#r "Newtonsoft.Json"
 
 (**
 Introducing your project
 ========================
 
-Say more
+Encoder
 
 *)
 
-#r "FSharp.Json.dll"
+open FSharp.Json.Encode
+
+encode 4 <|
+    jobject [
+        "foo", jstring "bar"
+        "age", jint 42
+        "list", jlist (List.map jint [ 1..10 ])
+    ]
+
+(**
+
+Decoder
+
+*)
+
 open FSharp.Json.Decode
 
 type Record =
@@ -30,5 +46,5 @@ let parsed =
 printfn "%A" parsed
 
 (**
-Some more info
+
 *)
