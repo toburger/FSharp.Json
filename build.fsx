@@ -8,12 +8,14 @@ open Fake.Git
 open Fake.AssemblyInfoFile
 open Fake.ReleaseNotesHelper
 open Fake.UserInputHelper
+open Fake.Testing
 open System
 open System.IO
 #if MONO
 #else
 #load "packages/build/SourceLink.Fake/tools/Fake.fsx"
 open SourceLink
+
 #endif
 
 // --------------------------------------------------------------------------------------
@@ -144,11 +146,11 @@ Target "Build" (fun _ ->
 
 Target "RunTests" (fun _ ->
     !! testAssemblies
-    |> NUnit (fun p ->
+    |> NUnit3 (fun p ->
         { p with
-            DisableShadowCopy = true
+            ShadowCopy = false
             TimeOut = TimeSpan.FromMinutes 20.
-            OutputFile = "TestResults.xml" })
+            ResultSpecs = [ "TestResults.xml" ] })
 )
 
 #if MONO
