@@ -1,5 +1,13 @@
 # FSharp.Json
 
+## Description
+
+A simple implementation of [elm](http://elm-lang.org/)'s Json [encoding](http://package.elm-lang.org/packages/elm-lang/core/1.1.0/Json-Encode) and [decoding](http://package.elm-lang.org/packages/elm-lang/core/1.1.0/Json-Decode) library.  
+It is by no means feature complete nor does it compete with [Chiron](https://github.com/xyncro/chiron) or [Fleece](https://github.com/mausch/Fleece), but I like the simple API.
+
+At the moment it uses [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json) to tokenize the Json, but I plan to replace this part with my own implementation.  
+I plan to use [FParsec](https://bitbucket.org/fparsec/main) for this task.
+
 ## Usage example
 
 ### Encoding
