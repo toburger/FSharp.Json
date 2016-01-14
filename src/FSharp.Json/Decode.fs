@@ -220,44 +220,38 @@ let value : Decoder<Value> =
 let decodeValue (Decoder decoder: Decoder<'a>) (value: Value) : Result<string, 'a> =
     decoder value
 
-let tuple1 (f: 'a -> 'value) (Decoder decoder: Decoder<'a>) : Decoder<'value> =
+let tuple' c f =
     Decoder (function
-        | :? Linq.JArray as arr when arr.Count = 1 ->
-            decoder arr.First |> Result.map f
-        | value -> crash "a Tuple of length 1" value)
+        | :? Linq.JArray as arr when arr.Count = c ->
+            f arr
+        | value -> crash (sprintf "a Tuple of length %i" c) value)
+
+let tuple1 (f: 'a -> 'value) (Decoder decoder: Decoder<'a>) : Decoder<'value> =
+    tuple' 1 (fun arr -> decoder arr.First |> Result.map f)
 
 let tuple2 (f: 'a -> 'b -> 'value) (Decoder decoder1) (Decoder decoder2) : Decoder<'value> =
-    Decoder (function
-        | :? Linq.JArray as arr when arr.Count = 2 ->
-            result {
-                let! res1 = decoder1 <| arr.Item(0)
-                let! res2 = decoder2 <| arr.Item(1)
-                return f res1 res2
-            }
-        | value -> crash "a Tuple of length 2" value)
+    tuple' 2 (fun arr -> result {
+        let! res1 = decoder1 <| arr.Item(0)
+        let! res2 = decoder2 <| arr.Item(1)
+        return f res1 res2
+    })
 
 let tuple3 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) =
-    Decoder (function
-        | :? Linq.JArray as arr when arr.Count = 3 ->
-            result {
-                let! res1 = decoder1 <| arr.Item(0)
-                let! res2 = decoder2 <| arr.Item(1)
-                let! res3 = decoder3 <| arr.Item(2)
-                return f res1 res2 res3
-            }
-        | value -> crash "a Tuple of length 3" value)
+    tuple' 3 (fun arr -> result {
+        let! res1 = decoder1 <| arr.Item(0)
+        let! res2 = decoder2 <| arr.Item(1)
+        let! res3 = decoder3 <| arr.Item(2)
+        return f res1 res2 res3
+    })
 
 let tuple4 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4) =
-    Decoder (function
-        | :? Linq.JArray as arr when arr.Count = 4 ->
-            result {
-                let! res1 = decoder1 <| arr.Item(0)
-                let! res2 = decoder2 <| arr.Item(1)
-                let! res3 = decoder3 <| arr.Item(2)
-                let! res4 = decoder4 <| arr.Item(3)
-                return f res1 res2 res3 res4
-            }
-        | value -> crash "a Tuple of length 4" value)
+    tuple' 4 (fun arr -> result {
+        let! res1 = decoder1 <| arr.Item(0)
+        let! res2 = decoder2 <| arr.Item(1)
+        let! res3 = decoder3 <| arr.Item(2)
+        let! res4 = decoder4 <| arr.Item(3)
+        return f res1 res2 res3 res4
+    })
 
 let customDecoder (Decoder decoder: Decoder<'a>) (callback: 'a -> Result<string, 'b>) : Decoder<'b> =
     Decoder (fun value ->
