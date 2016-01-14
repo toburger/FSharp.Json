@@ -49,3 +49,36 @@ decodeString
 decodeString
     (tuple4 (fun s i s2 b -> s, i, s2, b) dstring dint dstring dbool)
     "[\"foo\", 42, \"baz\", false]"
+
+decodeValue
+    dint
+    (Newtonsoft.Json.Linq.JValue(4))
+
+decodeValue
+    (list dint)
+    (Newtonsoft.Json.Linq.JArray([1..10] |> List.map Newtonsoft.Json.Linq.JValue))
+
+let variadic2 (f: 'a -> 'b -> 'c list -> 'value) a b (cs: Decoder<'c>): Decoder<'value> =
+    customDecoder (list value) (function
+        | one::two::rest ->
+            let rest' =
+                List.map (decodeValue cs) rest
+                |> Result.transform
+                |> Result.mapError (fun ls -> sprintf "%A" ls)
+            Result.map3 f
+                (decodeValue a one)
+                (decodeValue b two)
+                rest'
+        | _ -> Err "expecting at least two elements in array")
+
+decodeString
+    (variadic2 (fun a b c -> a, b, c) dbool dstring dint)
+    "[false, \"test\", 42, 12, 12]"
+
+decodeString
+    (customDecoder dstring (fun v ->
+        match System.Int32.TryParse v with
+        | true, v -> Ok v
+        | false, _ -> Err "not a integer"))
+    "\"42\""
+

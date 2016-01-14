@@ -138,3 +138,23 @@ let ``returns tuple (foo, 42, baz, false)`` () =
             "[\"foo\", 42, \"baz\", false]"
     Assert.AreEqual(("foo", 42, "baz", false), result)
 
+[<Test>]
+let ``returns crazy formatted data`` () =
+    let variadic2 (f: 'a -> 'b -> 'c list -> 'value) a b (cs: Decoder<'c>): Decoder<'value> =
+        customDecoder (list value) (function
+            | one::two::rest ->
+                let rest' =
+                    List.map (decodeValue cs) rest
+                    |> Result.transform
+                    |> Result.mapError (fun ls -> sprintf "%A" ls)
+                Result.map3 f
+                    (decodeValue a one)
+                    (decodeValue b two)
+                    rest'
+            | _ -> Err "expecting at least two elements in array")
+    let (Result result) =
+        decodeString
+            (variadic2 (fun a b c -> a, b, c) dbool dstring dint)
+            "[false, \"test\", 42, 12, 12]"
+    Assert.AreEqual((false, "test", [ 42; 12; 12 ]), result)
+

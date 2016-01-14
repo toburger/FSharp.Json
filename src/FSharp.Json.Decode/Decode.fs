@@ -105,6 +105,7 @@ let dfloat : Decoder<float> =
 
 let dint : Decoder<int> =
     dvalue (function
+        | :? int as i -> Ok i
         | :? int64 as i -> Ok (int i)
         | value -> crash "a Int" value)
 
@@ -165,10 +166,10 @@ let at (fields: list<string>) (decoder: Decoder<'a>) : Decoder<'a> =
     List.foldBack (fun field d -> dobject (field := d)) fields decoder
 
 let value : Decoder<Value> =
-    fail "not implemented"
+    Decoder Ok
 
 let decodeValue (Decoder decoder: Decoder<'a>) (value: Value) : Result<string, 'a> =
-    Err "not implemented"
+    decoder value
 
 let tuple1 (f: 'a -> 'value) (Decoder decoder: Decoder<'a>) : Decoder<'value> =
     Decoder (function
