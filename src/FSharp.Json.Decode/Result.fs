@@ -52,7 +52,7 @@ module Result =
         return mapping a b c d
     }
 
-    let mapError mapping res =
+    let mapError (mapping: 'x -> 'error) res =
         match res with
         | Err err -> Err (mapping err)
         | Ok v -> Ok v
@@ -63,7 +63,17 @@ module Result =
         | succs, [] -> Ok (succs |> List.choose (function Ok v -> Some v | Err _ -> None))
         | _, errs -> Err (errs |> List.choose (function Err err -> Some err | Ok _ -> None))
 
-    let withDefault (a: 'a) (result: Result<_, 'a>) : 'a =
+    let withDefault (a: 'a) (result: Result<'x, 'a>) : 'a =
         match result with
         | Ok v -> v
         | Err _ -> a
+
+    let toOption (result: Result<'x, 'a>) : 'a option =
+        match result with
+        | Ok v -> Some v
+        | Err _ -> None
+
+    let ofOption (x: 'x) (option: 'a option) : Result<'x, 'a> =
+        match option with
+        | Some v -> Ok v
+        | None -> Err x
