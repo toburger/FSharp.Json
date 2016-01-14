@@ -24,7 +24,7 @@ let jbool (value: bool): Value = identity value
 
 let jnull: Value = identity (null: obj)
 
-let jobject (props: (string * #Value) list) : #Value =
+let jobject (props: (string * Value) list) : Value =
     props
     |> List.map (fun (n, v) -> Linq.JProperty(n, v))
     |> Linq.JObject
