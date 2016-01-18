@@ -84,7 +84,9 @@
       <Link>Linked/JsonValue.fs</Link>
     </Compile>
     <Compile Include="Json.fs" />
+    <Compile Include="Encode.fsi" />
     <Compile Include="Encode.fs" />
+    <Compile Include="Decode.fsi" />
     <Compile Include="Decode.fs" />
     <None Include="Script.fsx" />
     <None Include="paket.references" />
