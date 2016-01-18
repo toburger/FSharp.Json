@@ -2,7 +2,7 @@
 
 open Newtonsoft.Json
 
-type Value = Newtonsoft.Json.Linq.JToken
+type Value = Utils.Value
 
 let encode indentLevel (value: Value) =
     use sw = new System.IO.StringWriter()

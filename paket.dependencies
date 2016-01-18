@@ -1,6 +1,11 @@
 source https://nuget.org/api/v2
 nuget Newtonsoft.Json
 github fsprojects/Chessie src/Chessie/ErrorHandling.fs
+github fsharp/FSharp.Data src/Net/UriUtils.fs
+github fsharp/FSharp.Data src/Net/Http.fs
+github fsharp/FSharp.Data src/CommonRuntime/TextConversions.fs
+github fsharp/FSharp.Data src/CommonRuntime/IO.fs
+github fsharp/FSharp.Data src/Json/JsonValue.fs
 
 group Build
   source https://nuget.org/api/v2
