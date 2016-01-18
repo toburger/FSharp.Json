@@ -55,6 +55,6 @@ let parsed =
                  ("prop1" := dstring)
                  ("prop2" := dint)
                  ("prop3" := dbool))
-    "{ prop1: \"hello\", prop2: 42, prop3: false }"
+    "{ \"prop1\": \"hello\", \"prop2\": 42, \"prop3\": false }"
 
 ```
