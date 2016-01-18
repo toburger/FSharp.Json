@@ -54,13 +54,17 @@
           <td class="type-name">
             <a href="fsharp-json-decode-decoder-1.html">Decoder<'a></a>
           </td>
-          <td class="xmldoc"></td>
+          <td class="xmldoc"><p>Represents a way of decoding JSON values. If you have a (Decoder (List String)) it will attempt to take some JSON value and turn it into a list of strings. These decoders are easy to put together so you can create more and more complex decoders.</p>
+
+</td>
         </tr>
         <tr>
           <td class="type-name">
             <a href="fsharp-json-decode-value.html">Value</a>
           </td>
-          <td class="xmldoc"></td>
+          <td class="xmldoc"><p>Represents a JavaScript value.</p>
+
+</td>
         </tr>
     </tbody>
   </table>
@@ -88,7 +92,9 @@
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Applies the decoder to the field with the given name. Fails if the JSON object has no such field.</p>
+
+
               <p>CompiledName: <code>op_ColonEquals</code></p>
         </td>
       </tr>
@@ -103,11 +109,13 @@
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L219-219" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L199-199" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Access a nested field, making it easy to dive into big structures. This is really a helper function so you do not need to write (:=) so many times.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -125,7 +133,9 @@
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Helpful when one field will determine the shape of a bunch of other fields.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -139,11 +149,13 @@
                           <strong>Type parameters:</strong> 'a, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L309-309" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L289-289" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Create a custom decoder that may do some fancy computation. See the value documentation for an example usage.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -157,11 +169,13 @@
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L146-146" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L136-136" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Extract a boolean.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -179,7 +193,9 @@
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Using a certain decoder, attempt to parse a JSON string. If the decoder fails, you will get a string message telling you why.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -193,11 +209,13 @@
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L225-225" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L205-205" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Using a certain decoder, attempt to parse a raw Json.Value. You can pass a Json.Value into Elm through a port, so this can let you handle data with extra weird shapes or stuff that currently is not allowed through ports automatically.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -211,11 +229,13 @@
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L161-161" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L146-146" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Extract a float.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -229,11 +249,13 @@
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L166-166" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L151-151" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Extract an integer.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -247,11 +269,13 @@
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L171-171" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L156-156" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Extract a List from a JS array.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -265,11 +289,13 @@
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L211-211" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L196-196" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Turn any object into a dictionary of key-value pairs.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -283,11 +309,13 @@
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L179-179" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L164-164" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Decode null as the value given, and fail otherwise. Primarily useful for creating other decoders.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -301,11 +329,13 @@
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L151-151" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L141-141" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Extract a string.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -323,7 +353,9 @@
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>A decoder that always fails. Useful when paired with andThen or oneOf to improve error messages when things go wrong. For example, the following decoder is able to provide a much more specific error message when fail is the last option.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -337,11 +369,13 @@
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L201-201" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L186-186" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Turn any object into a list of key-value pairs. Fails if any key can't be decoded with the given decoder.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -359,7 +393,9 @@
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Transform the value returned by a decoder. Most useful when paired with the oneOf function.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -373,11 +409,13 @@
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L184-184" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L169-169" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Extract a Maybe value, wrapping successes with Just and turning any failure in Nothing. If you are expecting that a field can sometimes be null, it's better to check for it explicitly, as this function will swallow errors from ill-formed JSON.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -391,11 +429,13 @@
                           <strong>Type parameters:</strong> 'a, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L70-70" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L60-60" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Apply a function to a decoder. You can use this function as map if you must (which can be done with any objectN function actually).</p>
+
+
         </td>
       </tr>
       <tr>
@@ -409,11 +449,13 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L73-73" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L63-63" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Use two different decoders on a JS value. This is nice for extracting multiple fields from an object.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -427,11 +469,13 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L80-80" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L70-70" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Use three different decoders on a JS value. This is nice for extracting multiple fields from an object.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -445,7 +489,7 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L88-88" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L78-78" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -463,7 +507,7 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L97-97" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L87-87" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -481,7 +525,7 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L107-107" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L97-97" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -499,7 +543,7 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L118-118" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L108-108" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -517,7 +561,7 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L130-130" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L120-120" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -535,11 +579,13 @@
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L191-191" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L176-176" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Try out multiple different decoders. This is helpful when you are dealing with something with a very strange shape and when andThen does not help narrow things down so you can be more targeted.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -557,7 +603,9 @@
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>A decoder that always succeeds. Useful when paired with andThen or oneOf but everything is supposed to work out at the end. For example, maybe you have an optional field that can have a default value when it is missing.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -571,11 +619,13 @@
                           <strong>Type parameters:</strong> 'a, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L233-233" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L213-213" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Handle an array with exactly one element.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -589,11 +639,13 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L236-236" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L216-216" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Handle an array with exactly two elements. Useful for points and simple pairs.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -607,11 +659,13 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L243-243" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L223-223" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Handle an array with exactly three elements.</p>
+
+
         </td>
       </tr>
       <tr>
@@ -625,7 +679,7 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L251-251" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L231-231" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -643,7 +697,7 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L260-260" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L240-240" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -661,7 +715,7 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L270-270" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L250-250" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -679,7 +733,7 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L282-282" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L262-262" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -697,7 +751,7 @@
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L295-295" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L275-275" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -715,11 +769,13 @@
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L222-222" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L202-202" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Bring in an arbitrary JSON value. Useful if you need to work with crazily formatted data. For example, this lets you create a parser for "variadic" lists where the first few types are different, followed by 0 or more of the same type.</p>
+
+
         </td>
       </tr>
     </tbody>
