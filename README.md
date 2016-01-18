@@ -2,11 +2,14 @@
 
 ## Description
 
-A simple implementation of [elm](http://elm-lang.org/)'s Json [encoding](http://package.elm-lang.org/packages/elm-lang/core/1.1.0/Json-Encode) and [decoding](http://package.elm-lang.org/packages/elm-lang/core/1.1.0/Json-Decode) library.  
-It is by no means feature complete nor does it compete with [Chiron](https://github.com/xyncro/chiron) or [Fleece](https://github.com/mausch/Fleece), but I like the simple API.
+A simple port of [elm](http://elm-lang.org/)'s Json [encoding](http://package.elm-lang.org/packages/elm-lang/core/1.1.0/Json-Encode) and [decoding](http://package.elm-lang.org/packages/elm-lang/core/1.1.0/Json-Decode) library.  
+It is a simple to use alternative to [Chiron](https://github.com/xyncro/chiron) and [Fleece](https://github.com/mausch/Fleece).
+
+Documentation for the Decoding API can be found [in the elm packages documentation](http://package.elm-lang.org/packages/elm-lang/core/3.0.0/Json-Decode).  
+The Encoding API is documented [here](http://package.elm-lang.org/packages/elm-lang/core/3.0.0/Json-Encode).
 
 At the moment it uses [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json) to tokenize the Json, but I plan to replace this part with my own implementation.  
-I plan to use [FParsec](https://bitbucket.org/fparsec/main) for this task.
+I plan to use something like [FsPickler](https://github.com/nessos/FsPickler) for this task.
 
 ## Usage example
 
