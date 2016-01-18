@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/dn4k2md0fvc618db?svg=true)](https://ci.appveyor.com/project/toburger/fsharp-json)
+
 # FSharp.Json
 
 ## Description
