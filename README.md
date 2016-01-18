@@ -8,9 +8,6 @@ It is a simple to use alternative to [Chiron](https://github.com/xyncro/chiron) 
 Documentation for the Decoding API can be found [in the elm packages documentation](http://package.elm-lang.org/packages/elm-lang/core/3.0.0/Json-Decode).  
 The Encoding API is documented [here](http://package.elm-lang.org/packages/elm-lang/core/3.0.0/Json-Encode).
 
-At the moment it uses [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json) to tokenize the Json, but I plan to replace this part with my own implementation.  
-I plan to use something like [FsPickler](https://github.com/nessos/FsPickler) for this task.
-
 ## Usage example
 
 ### Encoding
@@ -19,7 +16,7 @@ I plan to use something like [FsPickler](https://github.com/nessos/FsPickler) fo
 
 open FSharp.Json.Encode
 
-encode 4 <|
+encode true <|
     jobject [
         "foo", jstring "bar"
         "age", jint 42
