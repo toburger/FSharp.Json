@@ -173,7 +173,6 @@ let list (Decoder decoder : Decoder<'a>) : Decoder<list<'a>> =
         | JsonValue.Array elems ->
             elems
             |> Seq.map decoder
-            |> Seq.toList
             |> Trial.collect
         |  value -> crash "a Array" value)
 
@@ -206,7 +205,6 @@ let keyValuePairs (Decoder decoder: Decoder<'a>) : Decoder<list<string * 'a>> =
             |> Seq.map (fun (name, value) ->
                 decoder value
                 |> Trial.lift (fun v -> name, v))
-            |> Seq.toList
             |> Trial.collect
         | value -> crash "an Object" value)
 
