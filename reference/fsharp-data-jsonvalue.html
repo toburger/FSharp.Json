@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>JsonValue - FSharp.Json</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Tobias Burger"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/FSharp.Json/content/style.css" />
+    <script type="text/javascript" src="/FSharp.Json/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/toburger/FSharp.Json">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FSharp.Json/index.html">FSharp.Json</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>JsonValue</h1>
+<p>
+  <span>Namespace: FSharp.Data</span><br />
+</p>
+<div class="xmldoc">
+<p>Represents a JSON value. Large numbers that do not fit in the
+Decimal type are represented using the Float case, while
+smaller numbers are represented as decimals to avoid precision loss.</p>
+
+</div>
+  <h3>Union Cases</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Union Case</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '265', 265)" onmouseover="showTip(event, '265', 265)">
+            Array(elements)
+          </code>
+          <div class="tip" id="265">
+            <strong>Signature:</strong> JsonValue []<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L39-39" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '266', 266)" onmouseover="showTip(event, '266', 266)">
+            Boolean(bool)
+          </code>
+          <div class="tip" id="266">
+            <strong>Signature:</strong> bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L40-40" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '267', 267)" onmouseover="showTip(event, '267', 267)">
+            Float(float)
+          </code>
+          <div class="tip" id="267">
+            <strong>Signature:</strong> float<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L37-37" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '268', 268)" onmouseover="showTip(event, '268', 268)">
+            Null
+          </code>
+          <div class="tip" id="268">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L41-41" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '269', 269)" onmouseover="showTip(event, '269', 269)">
+            Number(decimal)
+          </code>
+          <div class="tip" id="269">
+            <strong>Signature:</strong> decimal<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L36-36" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '270', 270)" onmouseover="showTip(event, '270', 270)">
+            Record(properties)
+          </code>
+          <div class="tip" id="270">
+            <strong>Signature:</strong> (string * JsonValue) []<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L38-38" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '271', 271)" onmouseover="showTip(event, '271', 271)">
+            String(string)
+          </code>
+          <div class="tip" id="271">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L35-35" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Instance members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Instance member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '272', 272)" onmouseover="showTip(event, '272', 272)">
+            Post(uri, headers)
+          </code>
+          <div class="tip" id="272">
+            <strong>Signature:</strong> (uri:string * headers:seq&lt;string * string&gt; option) -&gt; HttpResponse<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L416-416" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '273', 273)" onmouseover="showTip(event, '273', 273)">
+            Request(uri, httpMethod, headers)
+          </code>
+          <div class="tip" id="273">
+            <strong>Signature:</strong> (uri:string * httpMethod:string option * headers:seq&lt;string * string&gt; option) -&gt; HttpResponse<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L386-386" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Sends the JSON to the specified uri. Defaults to a POST request.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '274', 274)" onmouseover="showTip(event, '274', 274)">
+            RequestAsync(uri, httpMethod, headers)
+          </code>
+          <div class="tip" id="274">
+            <strong>Signature:</strong> (uri:string * httpMethod:string option * headers:seq&lt;string * string&gt; option) -&gt; Async&lt;HttpResponse&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L401-401" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Sends the JSON to the specified uri. Defaults to a POST request.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '275', 275)" onmouseover="showTip(event, '275', 275)">
+            ToString(saveOptions)
+          </code>
+          <div class="tip" id="275">
+            <strong>Signature:</strong> saveOptions:JsonSaveOptions -&gt; string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L117-117" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '276', 276)" onmouseover="showTip(event, '276', 276)">
+            WriteTo(w, saveOptions)
+          </code>
+          <div class="tip" id="276">
+            <strong>Signature:</strong> (w:TextWriter * saveOptions:JsonSaveOptions) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L49-49" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Serializes the JsonValue to the specified System.IO.TextWriter.</p>
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Static members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Static member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '277', 277)" onmouseover="showTip(event, '277', 277)">
+            AsyncLoad(uri, cultureInfo)
+          </code>
+          <div class="tip" id="277">
+            <strong>Signature:</strong> (uri:string * cultureInfo:CultureInfo option) -&gt; Async&lt;JsonValue&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L366-366" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Loads JSON from the specified uri asynchronously</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '278', 278)" onmouseover="showTip(event, '278', 278)">
+            Load(uri, cultureInfo)
+          </code>
+          <div class="tip" id="278">
+            <strong>Signature:</strong> (uri:string * cultureInfo:CultureInfo option) -&gt; JsonValue<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L373-373" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Loads JSON from the specified uri</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '279', 279)" onmouseover="showTip(event, '279', 279)">
+            Load(reader, cultureInfo)
+          </code>
+          <div class="tip" id="279">
+            <strong>Signature:</strong> (reader:TextReader * cultureInfo:CultureInfo option) -&gt; JsonValue<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L361-361" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Loads JSON from the specified reader</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '280', 280)" onmouseover="showTip(event, '280', 280)">
+            Load(stream, cultureInfo)
+          </code>
+          <div class="tip" id="280">
+            <strong>Signature:</strong> (stream:Stream * cultureInfo:CultureInfo option) -&gt; JsonValue<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L355-355" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Loads JSON from the specified stream</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '281', 281)" onmouseover="showTip(event, '281', 281)">
+            Parse(text, cultureInfo)
+          </code>
+          <div class="tip" id="281">
+            <strong>Signature:</strong> (text:string * cultureInfo:CultureInfo option) -&gt; JsonValue<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L351-351" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Parses the specified JSON string</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '282', 282)" onmouseover="showTip(event, '282', 282)">
+            ParseMultiple(text, cultureInfo)
+          </code>
+          <div class="tip" id="282">
+            <strong>Signature:</strong> (text:string * cultureInfo:CultureInfo option) -&gt; seq&lt;JsonValue&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L382-382" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Parses the specified string into multiple JSON values</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '283', 283)" onmouseover="showTip(event, '283', 283)">
+            ParseSample(text, cultureInfo)
+          </code>
+          <div class="tip" id="283">
+            <strong>Signature:</strong> (text:string * cultureInfo:CultureInfo option) -&gt; JsonValue<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/paket-files/fsharp/FSharp.Data/src/Json/JsonValue.fs#L378-378" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Parses the specified JSON string, tolerating invalid errors like trailing commans, and ignore content with elipsis ... or {...}</p>
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FSharp.Json/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FSharp.Json</li>
+            <li><a href="/FSharp.Json/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <!--<li><a href="http://nuget.org/packages/FSharp.Json">Get Library via NuGet</a></li>-->
+            <li><a href="http://github.com/toburger/FSharp.Json">Source Code on GitHub</a></li>
+            <li><a href="/FSharp.Json/license.html">License</a></li>
+            <li><a href="/FSharp.Json/release-notes.html">Release Notes</a></li>
+
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FSharp.Json/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FSharp.Json/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/toburger/FSharp.Json"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
