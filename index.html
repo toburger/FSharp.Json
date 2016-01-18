@@ -63,10 +63,10 @@ Documentation
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">Chessie</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">ErrorHandling</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">Json</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">Decode</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">json</span> <span class="o">=</span> <span class="s">&quot;42&quot;</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="i">parsed</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="f">decodeString</span> <span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="i">dint</span> <span onmouseout="hideTip(event, 'fs6', 10)" onmouseover="showTip(event, 'fs6', 10)" class="i">json</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 11)" onmouseover="showTip(event, 'fs10', 11)" class="i">result</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs7', 12)" onmouseover="showTip(event, 'fs7', 12)" class="i">parsed</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="t">Trial</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="f">returnOrFail</span>
-<span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="f">printfn</span> <span class="s">&quot;answer = </span><span class="pf">%i</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs10', 16)" onmouseover="showTip(event, 'fs10', 16)" class="i">result</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">json</span> <span class="o">=</span> <span class="s">&quot;[1..10]&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="i">parsed</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="f">decodeString</span> (<span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="f">dlist</span> <span onmouseout="hideTip(event, 'fs10', 10)" onmouseover="showTip(event, 'fs10', 10)" class="i">dint</span>) <span onmouseout="hideTip(event, 'fs6', 11)" onmouseover="showTip(event, 'fs6', 11)" class="i">json</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 12)" onmouseover="showTip(event, 'fs11', 12)" class="i">result</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs7', 13)" onmouseover="showTip(event, 'fs7', 13)" class="i">parsed</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="t">Trial</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="f">returnOrFail</span>
+<span onmouseout="hideTip(event, 'fs14', 16)" onmouseover="showTip(event, 'fs14', 16)" class="f">printfn</span> <span class="s">&quot;answer = </span><span class="pf">%A</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="i">result</span>
 </code></pre></td>
 </tr>
 </table>
@@ -93,13 +93,14 @@ redistribution for both commercial and non-commercial purposes. For more informa
 <div class="tip" id="fs4">namespace FSharp.Json</div>
 <div class="tip" id="fs5">module Decode<br /><br />from FSharp.Json</div>
 <div class="tip" id="fs6">val json : string<br /><br />Full name: Index.json</div>
-<div class="tip" id="fs7">val parsed : Result&lt;int,string&gt;<br /><br />Full name: Index.parsed</div>
+<div class="tip" id="fs7">val parsed : Result&lt;int list,string&gt;<br /><br />Full name: Index.parsed</div>
 <div class="tip" id="fs8">val decodeString : Decoder&lt;&#39;a&gt; -&gt; string -&gt; Result&lt;&#39;a,string&gt;<br /><br />Full name: FSharp.Json.Decode.decodeString</div>
-<div class="tip" id="fs9">val dint : Decoder&lt;int&gt;<br /><br />Full name: FSharp.Json.Decode.dint</div>
-<div class="tip" id="fs10">val result : int<br /><br />Full name: Index.result</div>
-<div class="tip" id="fs11">module Trial<br /><br />from Chessie.ErrorHandling</div>
-<div class="tip" id="fs12">val returnOrFail : result:Result&lt;&#39;a,&#39;b&gt; -&gt; &#39;a<br /><br />Full name: Chessie.ErrorHandling.Trial.returnOrFail</div>
-<div class="tip" id="fs13">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+<div class="tip" id="fs9">val dlist : Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;a list&gt;<br /><br />Full name: FSharp.Json.Decode.dlist</div>
+<div class="tip" id="fs10">val dint : Decoder&lt;int&gt;<br /><br />Full name: FSharp.Json.Decode.dint</div>
+<div class="tip" id="fs11">val result : int list<br /><br />Full name: Index.result</div>
+<div class="tip" id="fs12">module Trial<br /><br />from Chessie.ErrorHandling</div>
+<div class="tip" id="fs13">val returnOrFail : result:Result&lt;&#39;a,&#39;b&gt; -&gt; &#39;a<br /><br />Full name: Chessie.ErrorHandling.Trial.returnOrFail</div>
+<div class="tip" id="fs14">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
 
         </div>
         <div class="span3">
