@@ -58,7 +58,7 @@ let private getProperty (Decoder decoder) props =
         | _ -> None)
     |> function
         | Some (v, w) -> Ok (v, w)
-        | None -> Trial.fail "propety not found"
+        | None -> Trial.fail "could not decode property"
 
 let private apply (Decoder decoder) v = decoder v
 
