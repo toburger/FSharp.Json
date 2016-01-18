@@ -2,9 +2,10 @@
 [<RequireQualifiedAccess>]
 module internal FSharp.Json.Utils
 
-open Newtonsoft.Json
+open System.Globalization
+open FSharp.Data
 
-type Value = Linq.JToken
+type Value = JsonValue
 
-let parse s = JsonConvert.DeserializeObject<Value> s
-let serialize (o: obj) = JsonConvert.SerializeObject o
+let parse s = JsonValue.Parse(s, CultureInfo.InvariantCulture)
+let serialize (v: Value) = string v

@@ -4,7 +4,7 @@ open FSharp.Json.Encode
 open NUnit.Framework
 
 let (==) (expected: string) value =
-    Assert.AreEqual(expected, encode 0 value)
+    Assert.AreEqual(expected, encode false value)
 
 [<Test>]
 let ``returns json`` () =

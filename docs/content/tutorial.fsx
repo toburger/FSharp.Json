@@ -15,7 +15,7 @@ Encoder
 
 open FSharp.Json.Encode
 
-encode 4 <|
+encode true <|
     jobject [
         "foo", jstring "bar"
         "age", jint 42

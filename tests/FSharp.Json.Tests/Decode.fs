@@ -1,5 +1,6 @@
 module FSharp.Json.Tests.Decode
 
+open FSharp.Json.Encode
 open FSharp.Json.Decode
 open Chessie.ErrorHandling
 open NUnit.Framework
@@ -11,32 +12,32 @@ let (==) expected actual =
 
 [<Test>]
 let ``returns "hello world"`` () =
-    "hello world" == decodeString dstring "\"hello world\""
+    "hello world" == decodeValue dstring (jstring "hello world")
 
 [<Test>]
 let ``returns 42`` () =
-    42 == decodeString dint "42"
+    42 == decodeValue dint (jint 42)
 
 [<Test>]
 let ``returns 1.23123`` () =
-    1.23123 == decodeString dfloat "1.23123"
+    1.23123 == decodeValue dfloat (jfloat 1.23123)
 
 [<Test>]
 let ``returns true`` () =
-    true == decodeString dbool "true"
+    true == decodeValue dbool (jbool true)
 
 [<Test>]
 let ``returns false`` () =
-    false == decodeString dbool "false"
+    false == decodeValue dbool (jbool false)
 
 [<Test>]
 let ``returns 42 if null`` () =
-    42 == decodeString (dnull 42) ""
+    42 == decodeValue (dnull 42) jnull
 
 [<Test>]
 let ``returns maybe 42`` () =
-    Some 42 == decodeString (maybe dint) "42"
-    None == decodeString (maybe dint) ""
+    Some 42 == decodeValue (maybe dint) (jint 42)
+    None == decodeValue (maybe dint) jnull
 
 [<Test>]
 let ``returns object1`` () =
@@ -44,7 +45,7 @@ let ``returns object1`` () =
         decodeString
             (object1 id
                      ("name" := dstring))
-            "{ name: \"foo\" }"
+            "{ \"name\": \"foo\" }"
 
 [<Test>]
 let ``returns object2`` () =
@@ -53,7 +54,7 @@ let ``returns object2`` () =
             (object2 (fun name age -> name, age)
                      ("name" := dstring)
                      ("age" := dint))
-            "{ name: \"foo\", age: 42 }"
+            "{ \"name\": \"foo\", \"age\": 42 }"
 
 [<Test>]
 let ``returns integer list`` () =
@@ -65,30 +66,30 @@ let ``returns integer list`` () =
 [<Test>]
 let ``returns either foo or bar if empty`` () =
     let test input =
-        decodeString
+        decodeValue
             (oneOf [dstring; dnull "bar"])
             input
-    "foo" == test "\"foo\""
-    "bar" == test "\"bar\""
-    "bar" == test ""
+    "foo" == test (jstring "foo")
+    "bar" == test (jstring "bar")
+    "bar" == test jnull
 
 [<Test>]
 let ``returns keyvaluepairs`` () =
     [ ("name", "foo"); ("name2", "bar") ] ==
         decodeString
             (keyValuePairs dstring)
-            "{ name: \"foo\", name2: \"bar\" }"
+            "{ \"name\": \"foo\", \"name2\": \"bar\" }"
 
 [<Test>]
 let ``returns map`` () =
     Map.ofList [ ("name", "foo"); ("name2", "bar") ] ==
         decodeString
             (dmap dstring)
-            "{ name: \"foo\", name2: \"bar\" }"
+            "{ \"name\": \"foo\", \"name2\": \"bar\" }"
 
 [<Test>]
 let ``returns email and age at position`` () =
-    let json = "{ person: { contact: { email: \"email@example.com\" }, age: 42 } }"
+    let json = "{ \"person\": { \"contact\": { \"email\": \"email@example.com\" }, \"age\": 42 } }"
     let email =
         decodeString
             (at [ "person"; "contact"; "email" ] dstring)

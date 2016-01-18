@@ -1,34 +1,33 @@
 ﻿module FSharp.Json.Encode
 
-open Newtonsoft.Json
+open FSharp.Data
+open System.Globalization
 
 type Value = Utils.Value
 
-let encode indentLevel (value: Value) =
-    use sw = new System.IO.StringWriter()
-    use writer = new JsonTextWriter(sw, Indentation = indentLevel)
-    if indentLevel > 0 then writer.Formatting <- Formatting.Indented
-    let serializer = JsonSerializer()
-    serializer.Serialize(writer, value)
+let encode indent (value: Value) =
+    use sw = new System.IO.StringWriter(CultureInfo.InvariantCulture)
+    let saveOptions =
+        if indent
+        then JsonSaveOptions.None
+        else JsonSaveOptions.DisableFormatting
+    value.WriteTo(sw, saveOptions)
     sw.ToString()
 
-let identity<'a> (value: 'a) = unbox (Linq.JValue(value))
+let jstring (value: string): Value = JsonValue.String value
 
-let jstring (value: string): Value = identity value
+let jint (value: int): Value = JsonValue.Number (decimal value)
 
-let jint (value: int): Value = identity value
+let jfloat (value: float): Value = JsonValue.Number (decimal value)
 
-let jfloat (value: float): Value = identity value
+let jbool (value: bool): Value = JsonValue.Boolean value
 
-let jbool (value: bool): Value = identity value
+let jnull: Value = JsonValue.Null
 
-let jnull: Value = identity (null: obj)
-
-let jobject (props: (string * Value) list) : Value =
+let jobject (props: (string * Value) seq) : Value =
     props
-    |> List.map (fun (n, v) -> Linq.JProperty(n, v))
-    |> Linq.JObject
-    |> unbox
+    |> Seq.toArray
+    |> JsonValue.Record
 
-let jlist (list: Value list) : Value =
-    unbox (Linq.JArray(list))
+let jlist (list: Value seq) : Value =
+    JsonValue.Array (Seq.toArray list)
