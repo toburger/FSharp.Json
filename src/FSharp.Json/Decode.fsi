@@ -1,11 +1,12 @@
-﻿module FSharp.Json.Decode
+﻿/// A way to turn Json values into F# values. A Decoder<'a> represents a decoding operation that will either produce a value of type 'a, or fail.
+module FSharp.Json.Decode
 
 open Chessie.ErrorHandling
 
 /// Represents a JavaScript value.
 type Value = FSharp.Json.Utils.Value
 
-/// Represents a way of decoding JSON values. If you have a (Decoder (List String)) it will attempt to take some JSON value and turn it into a list of strings. These decoders are easy to put together so you can create more and more complex decoders.
+/// Represents a way of decoding JSON values. If you have a (Decoder<list<string>>) it will attempt to take some JSON value and turn it into a list of strings. These decoders are easy to put together so you can create more and more complex decoders.
 type Decoder<'a> = Decoder of (Value -> Result<'a, string>)
 
 /// A decoder that always succeeds. Useful when paired with andThen or oneOf but everything is supposed to work out at the end. For example, maybe you have an optional field that can have a default value when it is missing.
