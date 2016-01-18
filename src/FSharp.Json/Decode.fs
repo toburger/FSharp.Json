@@ -168,7 +168,7 @@ let dint : Decoder<int> =
         | JsonValue.Number n -> ok (int n)
         | value -> crash "a Int" value)
 
-let list (Decoder decoder : Decoder<'a>) : Decoder<list<'a>> =
+let dlist (Decoder decoder : Decoder<'a>) : Decoder<list<'a>> =
     Decoder (function
         | JsonValue.Array elems ->
             elems

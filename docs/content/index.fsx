@@ -34,10 +34,10 @@ This example demonstrates using a function defined in this sample library.
 open Chessie.ErrorHandling
 open FSharp.Json.Decode
 
-let json = "42"
-let parsed = decodeString dint json
+let json = "[1..10]"
+let parsed = decodeString (dlist dint) json
 let result = parsed |> Trial.returnOrFail
-printfn "answer = %i" result
+printfn "answer = %A" result
 
 (**
 Some more info

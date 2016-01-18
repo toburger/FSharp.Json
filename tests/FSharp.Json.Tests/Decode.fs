@@ -60,7 +60,7 @@ let ``returns object2`` () =
 let ``returns integer list`` () =
     [1..10] ==
         decodeString
-            (list dint)
+            (dlist dint)
             "[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]"
 
 [<Test>]
@@ -133,7 +133,7 @@ module Trial =
 [<Test>]
 let ``returns crazy formatted data`` () =
     let variadic2 (f: 'a -> 'b -> 'c list -> 'value) a b (cs: Decoder<'c>): Decoder<'value> =
-        customDecoder (list value) (function
+        customDecoder (dlist value) (function
             | one::two::rest ->
                 let rest' =
                     List.map (decodeValue cs) rest

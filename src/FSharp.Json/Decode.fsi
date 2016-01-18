@@ -31,7 +31,7 @@ val maybe : Decoder<'a> -> Decoder<'a option>
 
 val oneOf : Decoder<'a> list -> Decoder<'a>
 
-val list : Decoder<'a> -> Decoder<'a list>
+val dlist : Decoder<'a> -> Decoder<'a list>
 
 val (:=) : (string -> Decoder<'a> -> Decoder<'a>)
 

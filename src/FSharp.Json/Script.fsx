@@ -68,7 +68,7 @@ decodeValue
     (jint (4))
 
 decodeValue
-    (list dint)
+    (dlist dint)
     (jlist ([1..10] |> List.map jint))
 
 module Trial =
@@ -80,7 +80,7 @@ module Trial =
     }
 
 let variadic2 (f: 'a -> 'b -> 'c list -> 'value) a b (cs: Decoder<'c>): Decoder<'value> =
-    customDecoder (list value) (function
+    customDecoder (dlist value) (function
         | one::two::rest ->
             let rest' =
                 List.map (decodeValue cs) rest
