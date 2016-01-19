@@ -50,7 +50,7 @@ let decodeField (field: string) (Decoder decoder) : Decoder<'b> =
 
 let (:=) = decodeField
 
-let private apply (Decoder decoder) v = decoder v
+let private run (Decoder decoder) v = decoder v
 
 let private object' f =
     Decoder (function
@@ -58,75 +58,75 @@ let private object' f =
         | value -> crash "a Object" value)
 
 let object1 (mapping: 'a -> 'value) decoder : Decoder<'value> =
-    object' (apply decoder >> Trial.lift mapping)
+    object' (run decoder >> Trial.lift mapping)
 
 let object2 (mapping: 'a -> 'b -> 'value) (decoder1: Decoder<'a>) (decoder2: Decoder<'b>) : Decoder<'value> =
     object' (fun o -> trial {
-        let! prop1 = apply decoder1 o
-        let! prop2 = apply decoder2 o
+        let! prop1 = run decoder1 o
+        let! prop2 = run decoder2 o
         return mapping prop1 prop2
     })
 
 let object3 (mapping: 'a -> 'b -> 'c -> 'value) (decoder1 : Decoder<'a>) (decoder2: Decoder<'b>) (decoder3: Decoder<'c>) : Decoder<'value> =
     object' (fun o -> trial {
-        let! prop1 = apply decoder1 o
-        let! prop2 = apply decoder2 o
-        let! prop3 = apply decoder3 o
+        let! prop1 = run decoder1 o
+        let! prop2 = run decoder2 o
+        let! prop3 = run decoder3 o
         return mapping prop1 prop2 prop3
     })
 
 let object4 mapping decoder1 decoder2 decoder3 decoder4 =
     object' (fun o -> trial {
-        let! prop1 = apply decoder1 o
-        let! prop2 = apply decoder2 o
-        let! prop3 = apply decoder3 o
-        let! prop4 = apply decoder4 o
+        let! prop1 = run decoder1 o
+        let! prop2 = run decoder2 o
+        let! prop3 = run decoder3 o
+        let! prop4 = run decoder4 o
         return mapping prop1 prop2 prop3 prop4
     })
 
 let object5 mapping decoder1 decoder2 decoder3 decoder4 decoder5 =
     object' (fun o -> trial {
-        let! prop1 = apply decoder1 o
-        let! prop2 = apply decoder2 o
-        let! prop3 = apply decoder3 o
-        let! prop4 = apply decoder4 o
-        let! prop5 = apply decoder5 o
+        let! prop1 = run decoder1 o
+        let! prop2 = run decoder2 o
+        let! prop3 = run decoder3 o
+        let! prop4 = run decoder4 o
+        let! prop5 = run decoder5 o
         return mapping prop1 prop2 prop3 prop4 prop5
     })
 
 let object6 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 =
     object' (fun o -> trial {
-        let! prop1 = apply decoder1 o
-        let! prop2 = apply decoder2 o
-        let! prop3 = apply decoder3 o
-        let! prop4 = apply decoder4 o
-        let! prop5 = apply decoder5 o
-        let! prop6 = apply decoder6 o
+        let! prop1 = run decoder1 o
+        let! prop2 = run decoder2 o
+        let! prop3 = run decoder3 o
+        let! prop4 = run decoder4 o
+        let! prop5 = run decoder5 o
+        let! prop6 = run decoder6 o
         return mapping prop1 prop2 prop3 prop4 prop5 prop6
     })
 
 let object7 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 decoder7 =
     object' (fun o -> trial {
-        let! prop1 = apply decoder1 o
-        let! prop2 = apply decoder2 o
-        let! prop3 = apply decoder3 o
-        let! prop4 = apply decoder4 o
-        let! prop5 = apply decoder5 o
-        let! prop6 = apply decoder6 o
-        let! prop7 = apply decoder7 o
+        let! prop1 = run decoder1 o
+        let! prop2 = run decoder2 o
+        let! prop3 = run decoder3 o
+        let! prop4 = run decoder4 o
+        let! prop5 = run decoder5 o
+        let! prop6 = run decoder6 o
+        let! prop7 = run decoder7 o
         return mapping prop1 prop2 prop3 prop4 prop5 prop6 prop7
     })
 
 let object8 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 decoder7 decoder8 =
     object' (fun o -> trial {
-        let! prop1 = apply decoder1 o
-        let! prop2 = apply decoder2 o
-        let! prop3 = apply decoder3 o
-        let! prop4 = apply decoder4 o
-        let! prop5 = apply decoder5 o
-        let! prop6 = apply decoder6 o
-        let! prop7 = apply decoder7 o
-        let! prop8 = apply decoder8 o
+        let! prop1 = run decoder1 o
+        let! prop2 = run decoder2 o
+        let! prop3 = run decoder3 o
+        let! prop4 = run decoder4 o
+        let! prop5 = run decoder5 o
+        let! prop6 = run decoder6 o
+        let! prop7 = run decoder7 o
+        let! prop8 = run decoder8 o
         return mapping prop1 prop2 prop3 prop4 prop5 prop6 prop7 prop8
     })
 
