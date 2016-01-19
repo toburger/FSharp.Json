@@ -1,33 +1,25 @@
 ﻿module FSharp.Json.Encode
 
-open FSharp.Data
 open System.Globalization
+open JsonParser
 
 type Value = Utils.Value
 
-let encode indent (value: Value) =
-    use sw = new System.IO.StringWriter(CultureInfo.InvariantCulture)
-    let saveOptions =
-        if indent
-        then JsonSaveOptions.None
-        else JsonSaveOptions.DisableFormatting
-    value.WriteTo(sw, saveOptions)
-    sw.ToString()
+let encode (indent: bool) (value: Value): string =
+    failwith "not implemented"
 
-let jstring (value: string): Value = JsonValue.String value
+let jstring (value: string): Value = JString value
 
-let jint (value: int): Value = JsonValue.Number (decimal value)
+let jint (value: int): Value = JNumber (float value)
 
-let jfloat (value: float): Value = JsonValue.Number (decimal value)
+let jfloat (value: float): Value = JNumber value
 
-let jbool (value: bool): Value = JsonValue.Boolean value
+let jbool (value: bool): Value = JBool value
 
-let jnull: Value = JsonValue.Null
+let jnull: Value = JNull
 
 let jobject (props: (string * Value) seq) : Value =
-    props
-    |> Seq.toArray
-    |> JsonValue.Record
+    JObject (Map.ofSeq props)
 
 let jlist (list: Value seq) : Value =
-    JsonValue.Array (Seq.toArray list)
+    JArray (List.ofSeq list)

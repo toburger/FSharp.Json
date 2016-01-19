@@ -1,7 +1,7 @@
 module FSharp.Json.Decode
 
 open Chessie.ErrorHandling
-open FSharp.Data
+open JsonParser
 
 type Value = Encode.Value
 
@@ -30,16 +30,14 @@ let map (mapper: 'a -> 'b) (Decoder decoder): Decoder<'b> =
     Decoder (decoder >> Trial.lift mapper)
 
 let decodeString (Decoder decoder) (s : string) : Result<_, _> =
-    decoder (parse s)
+    match ParserLibrary.run jValue s with
+    | ParserLibrary.Success (v, _) -> decoder v
+    | ParserLibrary.Failure (label, error, position) -> Trial.fail (sprintf "%A" (label, error, position))
 
 let (|RecordField|_|) field record =
     match record with
-    | JsonValue.Record properties ->
-        properties
-        |> Array.tryPick (fun (n, v) ->
-            if n = field
-            then Some v
-            else None)
+    | JObject properties ->
+        properties |> Map.tryFind field
     | _ -> None
 
 let decodeField (field: string) (Decoder decoder) : Decoder<'b> =
@@ -54,7 +52,7 @@ let private run (Decoder decoder) v = decoder v
 
 let private object' f =
     Decoder (function
-        | JsonValue.Record _ as record -> f record
+        | JObject _ as record -> f record
         | value -> crash "a Object" value)
 
 let object1 (mapping: 'a -> 'value) decoder : Decoder<'value> =
@@ -135,35 +133,35 @@ let dvalue (decoder: Value -> Result<'a, _>) : Decoder<'a> =
 
 let dbool : Decoder<bool> =
     dvalue (function
-        | JsonValue.Boolean b -> ok b
+        | JBool b -> ok b
         | value -> crash "a Boolean" value)
 
 let dstring : Decoder<string> =
     dvalue (function
-        | JsonValue.String s -> ok s
+        | JString s -> ok s
         | value -> crash "a String" value)
 
 let dfloat : Decoder<float> =
     dvalue (function
-        | JsonValue.Number n -> ok (float n)
+        | JNumber n -> ok n
         | value -> crash "a Float" value)
 
 let dint : Decoder<int> =
     dvalue (function
-        | JsonValue.Number n -> ok (int n)
+        | JNumber n -> ok (int n)
         | value -> crash "a Int" value)
 
 let dlist (Decoder decoder : Decoder<'a>) : Decoder<list<'a>> =
     Decoder (function
-        | JsonValue.Array elems ->
+        | JArray elems ->
             elems
-            |> Seq.map decoder
+            |> List.map decoder
             |> Trial.collect
         |  value -> crash "a Array" value)
 
 let dnull (v: 'a) : Decoder<'a> =
     Decoder (function
-        | JsonValue.Null -> ok v
+        | JNull -> ok v
         | value -> crash "null" value)
 
 let maybe (Decoder decoder: Decoder<'a>) : Decoder<option<'a>> =
@@ -182,9 +180,9 @@ let oneOf (decoders: list<Decoder<'a>>) : Decoder<'a> =
 
 let keyValuePairs (Decoder decoder: Decoder<'a>) : Decoder<list<string * 'a>> =
     Decoder (function
-        | JsonValue.Record props ->
+        | JObject props ->
             props
-            |> Seq.map (fun (name, value) ->
+            |> Seq.map (fun (KeyValue (name, value)) ->
                 decoder value
                 |> Trial.lift (fun v -> name, v))
             |> Trial.collect
@@ -204,7 +202,7 @@ let decodeValue (Decoder decoder: Decoder<'a>) (value: Value) : Result<'a, _> =
 
 let tuple' c f =
     Decoder (function
-        | JsonValue.Array els when els.Length = c -> f els
+        | JArray els when els.Length = c -> f els
         | value -> crash (sprintf "a Tuple of length %i" c) value)
 
 let tuple1 (f: 'a -> 'value) (Decoder decoder: Decoder<'a>) : Decoder<'value> =

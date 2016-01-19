@@ -3,9 +3,9 @@
 module internal FSharp.Json.Utils
 
 open System.Globalization
-open FSharp.Data
+open JsonParser
+open ParserLibrary
 
-type Value = JsonValue
+type Value = JsonParser.JValue
 
-let parse s = JsonValue.Parse(s, CultureInfo.InvariantCulture)
 let serialize (v: Value) = string v
