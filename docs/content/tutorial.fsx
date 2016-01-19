@@ -76,3 +76,28 @@ decodeString shape
     """{ "tag": "circle", "radius": 90 }"""
 decodeString shape
     """{ "tag": "other" }"""
+
+(**
+
+#### Decode oddly shaped values
+
+*)
+
+open FSharp.Json.Decode
+
+type Person =
+    { name: string
+      age: int
+      profession: string option }
+
+let dperson =
+    object3 (fun n a p -> { name = n; age = a; profession = p })
+            ("name" := dstring)
+            ("age" := dint)
+            (maybe ("profession" := dstring))
+
+decodeString dperson """{ "name": "Tom", "age": 31, "profession": "plumber" }"""
+decodeString dperson """{ "name": "Sue", "age": 42 }"""
+decodeString dperson """{ "name": "Amy", "age": 27, "profession": null }"""
+decodeString dperson """{ "name": "Tom", "age": 31, "profession": ["something", "unexpected"] }"""
+

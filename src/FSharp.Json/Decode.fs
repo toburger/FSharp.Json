@@ -167,11 +167,8 @@ let dnull (v: 'a) : Decoder<'a> =
         | value -> crash "null" value)
 
 let maybe (Decoder decoder: Decoder<'a>) : Decoder<option<'a>> =
-    Decoder (function
-        | JsonValue.Null -> ok None
-        | v ->
-            decoder v
-            |> Trial.bind (ok << Some))
+    Decoder (decoder >> Trial.either (fun (v, _) -> ok (Some v))
+                                     (fun _ -> ok None))
 
 let oneOf (decoders: list<Decoder<'a>>) : Decoder<'a> =
     Decoder (fun v ->
