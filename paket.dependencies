@@ -1,6 +1,8 @@
 source https://nuget.org/api/v2
 
 github fsprojects/Chessie src/Chessie/ErrorHandling.fs
+gist toburger/d7115b9bf9a0f07277ff ParserLibrary.fs
+gist toburger/b2eca0f8b5bb58b5bf88 JsonParser.fs
 
 group Build
   source https://nuget.org/api/v2

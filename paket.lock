@@ -3,6 +3,13 @@ GITHUB
   remote: fsprojects/Chessie
   specs:
     src/Chessie/ErrorHandling.fs (ee4acb4cda067b0b0329d3678a594808ce4650ac)
+GIST
+  remote: toburger/d7115b9bf9a0f07277ff
+  specs:
+    ParserLibrary.fs (0f389de19c8c229a9a954095d80c4a2f621cfc38)
+  remote: toburger/b2eca0f8b5bb58b5bf88
+  specs:
+    JsonParser.fs (80b657f429ef9dd7ae32aafaba8651a424cd2bbf)
 GROUP Build
 NUGET
   remote: https://nuget.org/api/v2

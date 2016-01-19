@@ -59,12 +59,18 @@
   -->
   <Import Project="..\..\.paket\paket.targets" />
   <ItemGroup>
+    <Compile Include="..\..\paket-files\toburger\d7115b9bf9a0f07277ff\ParserLibrary.fs">
+      <Paket>True</Paket>
+      <Link>Linked/ParserLibrary.fs</Link>
+    </Compile>
+    <Compile Include="..\..\paket-files\toburger\b2eca0f8b5bb58b5bf88\JsonParser.fs">
+      <Paket>True</Paket>
+      <Link>Linked/JsonParser.fs</Link>
+    </Compile>
     <Compile Include="..\..\paket-files\fsprojects\Chessie\src\Chessie\ErrorHandling.fs">
       <Paket>True</Paket>
       <Link>Linked/ErrorHandling.fs</Link>
     </Compile>
-    <Compile Include="ParserLibrary.fs" />
-    <Compile Include="JsonParser.fs" />
     <Compile Include="Json.fs" />
     <Compile Include="Encode.fsi" />
     <Compile Include="Encode.fs" />
