@@ -9,8 +9,8 @@
 #load "Encode.fs"
 #load "Decode.fs"
 
-open FSharp.Json.Decode
 open Chessie.ErrorHandling
+open FSharp.Json.Decode
 open FSharp.Data
 
 decodeValue dint (JsonValue.Number 42M)
@@ -89,7 +89,7 @@ let variadic2 (f: 'a -> 'b -> 'c list -> 'value) a b (cs: Decoder<'c>): Decoder<
                 (decodeValue a one)
                 (decodeValue b two)
                 rest'
-        | _ -> fail "expecting at least two elements in array")
+        | _ -> Trial.fail "expecting at least two elements in array")
 
 decodeString
     (variadic2 (fun a b c -> a, b, c) dbool dstring dint)
@@ -99,6 +99,5 @@ decodeValue
     (customDecoder dstring (fun v ->
         match System.Int32.TryParse v with
         | true, v -> ok v
-        | false, _ -> fail "not a integer"))
+        | false, _ -> Trial.fail "not a integer"))
     (jstring "42")
-

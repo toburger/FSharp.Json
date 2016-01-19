@@ -9,7 +9,7 @@
 Tutorial
 ========================
 
-Encoder
+### Encoder
 
 *)
 
@@ -24,7 +24,9 @@ encode true <|
 
 (**
 
-Decoder
+### Decoder
+
+#### Decode a Record
 
 *)
 
@@ -47,4 +49,30 @@ printfn "%A" parsed
 
 (**
 
+#### Decode a discriminated Union
+
 *)
+
+open FSharp.Json.Decode
+
+type Shape =
+    | Rectangle of float * float
+    | Circle of float
+
+let shapeInfo tag =
+    match tag with
+    | "rectangle" ->
+        object2 (fun w h -> Rectangle(w, h)) ("width" := dfloat) ("height" := dfloat)
+    | "circle" ->
+        object1 Circle ("radius" := dfloat)
+    | _ -> fail (tag + " is not a recognized tag for shape")
+
+let shape =
+    ("tag" := dstring) >>= shapeInfo
+
+decodeString shape
+    """{ "tag": "rectangle", "width": 100, "height": 40 }"""
+decodeString shape
+    """{ "tag": "circle", "radius": 90 }"""
+decodeString shape
+    """{ "tag": "other" }"""

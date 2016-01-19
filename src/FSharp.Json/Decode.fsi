@@ -21,6 +21,8 @@ val map : ('a -> 'b) -> decoder: Decoder<'a> -> Decoder<'b>
 /// Helpful when one field will determine the shape of a bunch of other fields.
 val bind : ('a -> Decoder<'b>) -> decoder: Decoder<'a> -> Decoder<'b>
 
+val (>>=) : decoder: Decoder<'a> -> ('a -> Decoder<'b>) -> Decoder<'b>
+
 /// Using a certain decoder, attempt to parse a raw Json.Value. You can pass a Json.Value into Elm through a port, so this can let you handle data with extra weird shapes or stuff that currently is not allowed through ports automatically.
 val decodeValue : decoder: Decoder<'a> -> value: Value -> Result<'a, string>
 
