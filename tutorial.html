@@ -34,7 +34,7 @@
         <div class="span9" id="main">
           
 <h1><a name="Tutorial" class="anchor" href="#Tutorial">Tutorial</a></h1>
-<p>Encoder</p>
+<h3><a name="Encoder" class="anchor" href="#Encoder">Encoder</a></h3>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -55,7 +55,8 @@
 </code></pre></td>
 </tr>
 </table>
-<p>Decoder</p>
+<h3><a name="Decoder" class="anchor" href="#Decoder">Decoder</a></h3>
+<h4><a name="Decode-a-Record" class="anchor" href="#Decode-a-Record">Decode a Record</a></h4>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -92,6 +93,96 @@
 </code></pre></td>
 </tr>
 </table>
+<h4><a name="Decode-a-discriminated-Union" class="anchor" href="#Decode-a-discriminated-Union">Decode a discriminated Union</a></h4>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 36)" onmouseover="showTip(event, 'fs1', 36)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 37)" onmouseover="showTip(event, 'fs2', 37)" class="i">Json</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 38)" onmouseover="showTip(event, 'fs11', 38)" class="i">Decode</span>
+
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs29', 39)" onmouseover="showTip(event, 'fs29', 39)" class="t">Shape</span> <span class="o">=</span>
+    | <span onmouseout="hideTip(event, 'fs30', 40)" onmouseover="showTip(event, 'fs30', 40)" class="p">Rectangle</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs31', 41)" onmouseover="showTip(event, 'fs31', 41)" class="t">float</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs31', 42)" onmouseover="showTip(event, 'fs31', 42)" class="t">float</span>
+    | <span onmouseout="hideTip(event, 'fs32', 43)" onmouseover="showTip(event, 'fs32', 43)" class="p">Circle</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs31', 44)" onmouseover="showTip(event, 'fs31', 44)" class="t">float</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 45)" onmouseover="showTip(event, 'fs33', 45)" class="f">shapeInfo</span> <span onmouseout="hideTip(event, 'fs34', 46)" onmouseover="showTip(event, 'fs34', 46)" class="i">tag</span> <span class="o">=</span>
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs34', 47)" onmouseover="showTip(event, 'fs34', 47)" class="i">tag</span> <span class="k">with</span>
+    | <span class="s">&quot;rectangle&quot;</span> <span class="k">-&gt;</span>
+        <span onmouseout="hideTip(event, 'fs35', 48)" onmouseover="showTip(event, 'fs35', 48)" class="f">object2</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs36', 49)" onmouseover="showTip(event, 'fs36', 49)" class="i">w</span> <span onmouseout="hideTip(event, 'fs37', 50)" onmouseover="showTip(event, 'fs37', 50)" class="i">h</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs30', 51)" onmouseover="showTip(event, 'fs30', 51)" class="p">Rectangle</span>(<span onmouseout="hideTip(event, 'fs36', 52)" onmouseover="showTip(event, 'fs36', 52)" class="i">w</span>, <span onmouseout="hideTip(event, 'fs37', 53)" onmouseover="showTip(event, 'fs37', 53)" class="i">h</span>)) (<span class="s">&quot;width&quot;</span> <span class="o">:=</span> <span onmouseout="hideTip(event, 'fs38', 54)" onmouseover="showTip(event, 'fs38', 54)" class="i">dfloat</span>) (<span class="s">&quot;height&quot;</span> <span class="o">:=</span> <span onmouseout="hideTip(event, 'fs38', 55)" onmouseover="showTip(event, 'fs38', 55)" class="i">dfloat</span>)
+    | <span class="s">&quot;circle&quot;</span> <span class="k">-&gt;</span>
+        <span onmouseout="hideTip(event, 'fs39', 56)" onmouseover="showTip(event, 'fs39', 56)" class="f">object1</span> <span onmouseout="hideTip(event, 'fs32', 57)" onmouseover="showTip(event, 'fs32', 57)" class="p">Circle</span> (<span class="s">&quot;radius&quot;</span> <span class="o">:=</span> <span onmouseout="hideTip(event, 'fs38', 58)" onmouseover="showTip(event, 'fs38', 58)" class="i">dfloat</span>)
+    | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs40', 59)" onmouseover="showTip(event, 'fs40', 59)" class="f">fail</span> (<span onmouseout="hideTip(event, 'fs34', 60)" onmouseover="showTip(event, 'fs34', 60)" class="i">tag</span> <span class="o">+</span> <span class="s">&quot; is not a recognized tag for shape&quot;</span>)
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs41', 61)" onmouseover="showTip(event, 'fs41', 61)" class="i">shape</span> <span class="o">=</span>
+    (<span class="s">&quot;tag&quot;</span> <span class="o">:=</span> <span onmouseout="hideTip(event, 'fs25', 62)" onmouseover="showTip(event, 'fs25', 62)" class="i">dstring</span>) <span class="o">&gt;</span><span class="o">&gt;</span><span class="o">=</span> <span onmouseout="hideTip(event, 'fs33', 63)" onmouseover="showTip(event, 'fs33', 63)" class="f">shapeInfo</span>
+
+<span onmouseout="hideTip(event, 'fs20', 64)" onmouseover="showTip(event, 'fs20', 64)" class="f">decodeString</span> <span onmouseout="hideTip(event, 'fs41', 65)" onmouseover="showTip(event, 'fs41', 65)" class="i">shape</span>
+    <span class="s">&quot;&quot;&quot;{ &quot;tag&quot;: &quot;rectangle&quot;, &quot;width&quot;: 100, &quot;height&quot;: 40 }&quot;&quot;&quot;</span>
+<span onmouseout="hideTip(event, 'fs20', 66)" onmouseover="showTip(event, 'fs20', 66)" class="f">decodeString</span> <span onmouseout="hideTip(event, 'fs41', 67)" onmouseover="showTip(event, 'fs41', 67)" class="i">shape</span>
+    <span class="s">&quot;&quot;&quot;{ &quot;tag&quot;: &quot;circle&quot;, &quot;radius&quot;: 90 }&quot;&quot;&quot;</span>
+<span onmouseout="hideTip(event, 'fs20', 68)" onmouseover="showTip(event, 'fs20', 68)" class="f">decodeString</span> <span onmouseout="hideTip(event, 'fs41', 69)" onmouseover="showTip(event, 'fs41', 69)" class="i">shape</span>
+    <span class="s">&quot;&quot;&quot;{ &quot;tag&quot;: &quot;other&quot; }&quot;&quot;&quot;</span>
+</code></pre></td>
+</tr>
+</table>
+<h4><a name="Decode-oddly-shaped-values" class="anchor" href="#Decode-oddly-shaped-values">Decode oddly shaped values</a></h4>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 70)" onmouseover="showTip(event, 'fs1', 70)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 71)" onmouseover="showTip(event, 'fs2', 71)" class="i">Json</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 72)" onmouseover="showTip(event, 'fs11', 72)" class="i">Decode</span>
+
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs42', 73)" onmouseover="showTip(event, 'fs42', 73)" class="t">Person</span> <span class="o">=</span>
+    { <span onmouseout="hideTip(event, 'fs43', 74)" onmouseover="showTip(event, 'fs43', 74)" class="i">name</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs14', 75)" onmouseover="showTip(event, 'fs14', 75)" class="t">string</span>
+      <span onmouseout="hideTip(event, 'fs44', 76)" onmouseover="showTip(event, 'fs44', 76)" class="i">age</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs16', 77)" onmouseover="showTip(event, 'fs16', 77)" class="t">int</span>
+      <span onmouseout="hideTip(event, 'fs45', 78)" onmouseover="showTip(event, 'fs45', 78)" class="i">profession</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs14', 79)" onmouseover="showTip(event, 'fs14', 79)" class="t">string</span> <span onmouseout="hideTip(event, 'fs46', 80)" onmouseover="showTip(event, 'fs46', 80)" class="t">option</span> }
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs47', 81)" onmouseover="showTip(event, 'fs47', 81)" class="i">dperson</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs21', 82)" onmouseover="showTip(event, 'fs21', 82)" class="f">object3</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs48', 83)" onmouseover="showTip(event, 'fs48', 83)" class="i">n</span> <span onmouseout="hideTip(event, 'fs49', 84)" onmouseover="showTip(event, 'fs49', 84)" class="i">a</span> <span onmouseout="hideTip(event, 'fs50', 85)" onmouseover="showTip(event, 'fs50', 85)" class="i">p</span> <span class="k">-&gt;</span> { <span class="i">name</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs48', 86)" onmouseover="showTip(event, 'fs48', 86)" class="i">n</span>; <span class="i">age</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs49', 87)" onmouseover="showTip(event, 'fs49', 87)" class="i">a</span>; <span class="i">profession</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs50', 88)" onmouseover="showTip(event, 'fs50', 88)" class="i">p</span> })
+            (<span class="s">&quot;name&quot;</span> <span class="o">:=</span> <span onmouseout="hideTip(event, 'fs25', 89)" onmouseover="showTip(event, 'fs25', 89)" class="i">dstring</span>)
+            (<span class="s">&quot;age&quot;</span> <span class="o">:=</span> <span onmouseout="hideTip(event, 'fs26', 90)" onmouseover="showTip(event, 'fs26', 90)" class="i">dint</span>)
+            (<span onmouseout="hideTip(event, 'fs51', 91)" onmouseover="showTip(event, 'fs51', 91)" class="f">maybe</span> (<span class="s">&quot;profession&quot;</span> <span class="o">:=</span> <span onmouseout="hideTip(event, 'fs25', 92)" onmouseover="showTip(event, 'fs25', 92)" class="i">dstring</span>))
+
+<span onmouseout="hideTip(event, 'fs20', 93)" onmouseover="showTip(event, 'fs20', 93)" class="f">decodeString</span> <span onmouseout="hideTip(event, 'fs47', 94)" onmouseover="showTip(event, 'fs47', 94)" class="i">dperson</span> <span class="s">&quot;&quot;&quot;{ &quot;name&quot;: &quot;Tom&quot;, &quot;age&quot;: 31, &quot;profession&quot;: &quot;plumber&quot; }&quot;&quot;&quot;</span>
+<span onmouseout="hideTip(event, 'fs20', 95)" onmouseover="showTip(event, 'fs20', 95)" class="f">decodeString</span> <span onmouseout="hideTip(event, 'fs47', 96)" onmouseover="showTip(event, 'fs47', 96)" class="i">dperson</span> <span class="s">&quot;&quot;&quot;{ &quot;name&quot;: &quot;Sue&quot;, &quot;age&quot;: 42 }&quot;&quot;&quot;</span>
+<span onmouseout="hideTip(event, 'fs20', 97)" onmouseover="showTip(event, 'fs20', 97)" class="f">decodeString</span> <span onmouseout="hideTip(event, 'fs47', 98)" onmouseover="showTip(event, 'fs47', 98)" class="i">dperson</span> <span class="s">&quot;&quot;&quot;{ &quot;name&quot;: &quot;Amy&quot;, &quot;age&quot;: 27, &quot;profession&quot;: null }&quot;&quot;&quot;</span>
+<span onmouseout="hideTip(event, 'fs20', 99)" onmouseover="showTip(event, 'fs20', 99)" class="f">decodeString</span> <span onmouseout="hideTip(event, 'fs47', 100)" onmouseover="showTip(event, 'fs47', 100)" class="i">dperson</span> <span class="s">&quot;&quot;&quot;{ &quot;name&quot;: &quot;Tom&quot;, &quot;age&quot;: 31, &quot;profession&quot;: [&quot;something&quot;, &quot;unexpected&quot;] }&quot;&quot;&quot;</span>
+</code></pre></td>
+</tr>
+</table>
 
 <div class="tip" id="fs1">Multiple items<br />namespace FSharp<br /><br />--------------------<br />namespace Microsoft.FSharp</div>
 <div class="tip" id="fs2">namespace FSharp.Json</div>
@@ -112,8 +203,8 @@
 <div class="tip" id="fs17">Record.prop3: bool</div>
 <div class="tip" id="fs18">type bool = System.Boolean<br /><br />Full name: Microsoft.FSharp.Core.bool</div>
 <div class="tip" id="fs19">val parsed : Chessie.ErrorHandling.Result&lt;Record,string&gt;<br /><br />Full name: Tutorial.parsed</div>
-<div class="tip" id="fs20">val decodeString : Decoder&lt;&#39;a&gt; -&gt; string -&gt; Chessie.ErrorHandling.Result&lt;&#39;a,string&gt;<br /><br />Full name: FSharp.Json.Decode.decodeString</div>
-<div class="tip" id="fs21">val object3 : (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;value&gt;<br /><br />Full name: FSharp.Json.Decode.object3</div>
+<div class="tip" id="fs20">val decodeString : decoder:Decoder&lt;&#39;a&gt; -&gt; input:string -&gt; Chessie.ErrorHandling.Result&lt;&#39;a,string&gt;<br /><br />Full name: FSharp.Json.Decode.decodeString</div>
+<div class="tip" id="fs21">val object3 : mapper:(&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;value) -&gt; decoder1:Decoder&lt;&#39;a&gt; -&gt; decoder2:Decoder&lt;&#39;b&gt; -&gt; decoder3:Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;value&gt;<br /><br />Full name: FSharp.Json.Decode.object3</div>
 <div class="tip" id="fs22">val p1 : string</div>
 <div class="tip" id="fs23">val p2 : int</div>
 <div class="tip" id="fs24">val p3 : bool</div>
@@ -121,6 +212,29 @@
 <div class="tip" id="fs26">val dint : Decoder&lt;int&gt;<br /><br />Full name: FSharp.Json.Decode.dint</div>
 <div class="tip" id="fs27">val dbool : Decoder&lt;bool&gt;<br /><br />Full name: FSharp.Json.Decode.dbool</div>
 <div class="tip" id="fs28">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+<div class="tip" id="fs29">type Shape =<br />&#160;&#160;| Rectangle of float * float<br />&#160;&#160;| Circle of float<br /><br />Full name: Tutorial.Shape</div>
+<div class="tip" id="fs30">union case Shape.Rectangle: float * float -&gt; Shape</div>
+<div class="tip" id="fs31">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.float<br /><br />--------------------<br />type float = System.Double<br /><br />Full name: Microsoft.FSharp.Core.float<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float<br /><br />Full name: Microsoft.FSharp.Core.float&lt;_&gt;</div>
+<div class="tip" id="fs32">union case Shape.Circle: float -&gt; Shape</div>
+<div class="tip" id="fs33">val shapeInfo : tag:string -&gt; Decoder&lt;Shape&gt;<br /><br />Full name: Tutorial.shapeInfo</div>
+<div class="tip" id="fs34">val tag : string</div>
+<div class="tip" id="fs35">val object2 : mapper:(&#39;a -&gt; &#39;b -&gt; &#39;value) -&gt; decoder1:Decoder&lt;&#39;a&gt; -&gt; decoder2:Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;value&gt;<br /><br />Full name: FSharp.Json.Decode.object2</div>
+<div class="tip" id="fs36">val w : float</div>
+<div class="tip" id="fs37">val h : float</div>
+<div class="tip" id="fs38">val dfloat : Decoder&lt;float&gt;<br /><br />Full name: FSharp.Json.Decode.dfloat</div>
+<div class="tip" id="fs39">val object1 : mapper:(&#39;a -&gt; &#39;value) -&gt; decoder:Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;value&gt;<br /><br />Full name: FSharp.Json.Decode.object1</div>
+<div class="tip" id="fs40">val fail : string -&gt; Decoder&lt;&#39;a&gt;<br /><br />Full name: FSharp.Json.Decode.fail</div>
+<div class="tip" id="fs41">val shape : Decoder&lt;Shape&gt;<br /><br />Full name: Tutorial.shape</div>
+<div class="tip" id="fs42">type Person =<br />&#160;&#160;{name: string;<br />&#160;&#160;&#160;age: int;<br />&#160;&#160;&#160;profession: string option;}<br /><br />Full name: Tutorial.Person</div>
+<div class="tip" id="fs43">Person.name: string</div>
+<div class="tip" id="fs44">Person.age: int</div>
+<div class="tip" id="fs45">Person.profession: string option</div>
+<div class="tip" id="fs46">type &#39;T option = Option&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.option&lt;_&gt;</div>
+<div class="tip" id="fs47">val dperson : Decoder&lt;Person&gt;<br /><br />Full name: Tutorial.dperson</div>
+<div class="tip" id="fs48">val n : string</div>
+<div class="tip" id="fs49">val a : int</div>
+<div class="tip" id="fs50">val p : string option</div>
+<div class="tip" id="fs51">val maybe : decoder:Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;a option&gt;<br /><br />Full name: FSharp.Json.Decode.maybe</div>
 
         </div>
         <div class="span3">

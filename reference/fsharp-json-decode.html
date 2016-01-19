@@ -104,14 +104,33 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '146', 146)" onmouseover="showTip(event, '146', 146)">
-            at arg1 arg2
+            ( &gt;&gt;= ) decoder arg2
           </code>
           <div class="tip" id="146">
-            <strong>Signature:</strong> string list -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;a&gt;<br />
+            <strong>Signature:</strong> decoder:Decoder&lt;&#39;a&gt; -&gt; (&#39;a -&gt; Decoder&lt;&#39;b&gt;) -&gt; Decoder&lt;&#39;b&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'b          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L27-27" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>op_GreaterGreaterEquals</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '147', 147)" onmouseover="showTip(event, '147', 147)">
+            at path decoder
+          </code>
+          <div class="tip" id="147">
+            <strong>Signature:</strong> path:string list -&gt; decoder:Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;a&gt;<br />
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L199-199" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L196-196" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -123,11 +142,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '147', 147)" onmouseover="showTip(event, '147', 147)">
-            bind arg1 arg2
+          <code onmouseout="hideTip(event, '148', 148)" onmouseover="showTip(event, '148', 148)">
+            bind arg1 decoder
           </code>
-          <div class="tip" id="147">
-            <strong>Signature:</strong> (&#39;a -&gt; Decoder&lt;&#39;b&gt;) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt;<br />
+          <div class="tip" id="148">
+            <strong>Signature:</strong> (&#39;a -&gt; Decoder&lt;&#39;b&gt;) -&gt; decoder:Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'b          </div>
         </td>
         <td class="xmldoc">
@@ -143,15 +162,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '148', 148)" onmouseover="showTip(event, '148', 148)">
-            customDecoder arg1 callback
+          <code onmouseout="hideTip(event, '149', 149)" onmouseover="showTip(event, '149', 149)">
+            customDecoder decoder callback
           </code>
-          <div class="tip" id="148">
-            <strong>Signature:</strong> Decoder&lt;&#39;a&gt; -&gt; callback:(&#39;a -&gt; Result&lt;&#39;value,string&gt;) -&gt; Decoder&lt;&#39;value&gt;<br />
+          <div class="tip" id="149">
+            <strong>Signature:</strong> decoder:Decoder&lt;&#39;a&gt; -&gt; callback:(&#39;a -&gt; Result&lt;&#39;value,string&gt;) -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L289-289" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L286-286" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -163,10 +182,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '149', 149)" onmouseover="showTip(event, '149', 149)">
+          <code onmouseout="hideTip(event, '150', 150)" onmouseover="showTip(event, '150', 150)">
             dbool 
           </code>
-          <div class="tip" id="149">
+          <div class="tip" id="150">
             <strong>Signature:</strong> Decoder&lt;bool&gt;<br />
                       </div>
         </td>
@@ -183,11 +202,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '150', 150)" onmouseover="showTip(event, '150', 150)">
-            decodeString arg1 arg2
+          <code onmouseout="hideTip(event, '151', 151)" onmouseover="showTip(event, '151', 151)">
+            decodeString decoder input
           </code>
-          <div class="tip" id="150">
-            <strong>Signature:</strong> Decoder&lt;&#39;a&gt; -&gt; string -&gt; Result&lt;&#39;a,string&gt;<br />
+          <div class="tip" id="151">
+            <strong>Signature:</strong> decoder:Decoder&lt;&#39;a&gt; -&gt; input:string -&gt; Result&lt;&#39;a,string&gt;<br />
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
@@ -203,15 +222,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '151', 151)" onmouseover="showTip(event, '151', 151)">
-            decodeValue arg1 arg2
+          <code onmouseout="hideTip(event, '152', 152)" onmouseover="showTip(event, '152', 152)">
+            decodeValue decoder value
           </code>
-          <div class="tip" id="151">
-            <strong>Signature:</strong> Decoder&lt;&#39;a&gt; -&gt; Value -&gt; Result&lt;&#39;a,string&gt;<br />
+          <div class="tip" id="152">
+            <strong>Signature:</strong> decoder:Decoder&lt;&#39;a&gt; -&gt; value:Value -&gt; Result&lt;&#39;a,string&gt;<br />
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L205-205" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L202-202" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -223,10 +242,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '152', 152)" onmouseover="showTip(event, '152', 152)">
+          <code onmouseout="hideTip(event, '153', 153)" onmouseover="showTip(event, '153', 153)">
             dfloat 
           </code>
-          <div class="tip" id="152">
+          <div class="tip" id="153">
             <strong>Signature:</strong> Decoder&lt;float&gt;<br />
                       </div>
         </td>
@@ -243,10 +262,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '153', 153)" onmouseover="showTip(event, '153', 153)">
+          <code onmouseout="hideTip(event, '154', 154)" onmouseover="showTip(event, '154', 154)">
             dint 
           </code>
-          <div class="tip" id="153">
+          <div class="tip" id="154">
             <strong>Signature:</strong> Decoder&lt;int&gt;<br />
                       </div>
         </td>
@@ -263,11 +282,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '154', 154)" onmouseover="showTip(event, '154', 154)">
-            dlist arg1
+          <code onmouseout="hideTip(event, '155', 155)" onmouseover="showTip(event, '155', 155)">
+            dlist decoder
           </code>
-          <div class="tip" id="154">
-            <strong>Signature:</strong> Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;a list&gt;<br />
+          <div class="tip" id="155">
+            <strong>Signature:</strong> decoder:Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;a list&gt;<br />
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
@@ -283,15 +302,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '155', 155)" onmouseover="showTip(event, '155', 155)">
-            dmap arg1
+          <code onmouseout="hideTip(event, '156', 156)" onmouseover="showTip(event, '156', 156)">
+            dmap decoder
           </code>
-          <div class="tip" id="155">
-            <strong>Signature:</strong> Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;Map&lt;string,&#39;a&gt;&gt;<br />
+          <div class="tip" id="156">
+            <strong>Signature:</strong> decoder:Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;Map&lt;string,&#39;a&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L196-196" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L193-193" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -303,11 +322,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '156', 156)" onmouseover="showTip(event, '156', 156)">
-            dnull arg1
+          <code onmouseout="hideTip(event, '157', 157)" onmouseover="showTip(event, '157', 157)">
+            dnull defaultValue
           </code>
-          <div class="tip" id="156">
-            <strong>Signature:</strong> &#39;a -&gt; Decoder&lt;&#39;a&gt;<br />
+          <div class="tip" id="157">
+            <strong>Signature:</strong> defaultValue:&#39;a -&gt; Decoder&lt;&#39;a&gt;<br />
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
@@ -323,10 +342,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '157', 157)" onmouseover="showTip(event, '157', 157)">
+          <code onmouseout="hideTip(event, '158', 158)" onmouseover="showTip(event, '158', 158)">
             dstring 
           </code>
-          <div class="tip" id="157">
+          <div class="tip" id="158">
             <strong>Signature:</strong> Decoder&lt;string&gt;<br />
                       </div>
         </td>
@@ -343,10 +362,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '158', 158)" onmouseover="showTip(event, '158', 158)">
+          <code onmouseout="hideTip(event, '159', 159)" onmouseover="showTip(event, '159', 159)">
             fail arg1
           </code>
-          <div class="tip" id="158">
+          <div class="tip" id="159">
             <strong>Signature:</strong> string -&gt; Decoder&lt;&#39;a&gt;<br />
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
@@ -363,15 +382,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '159', 159)" onmouseover="showTip(event, '159', 159)">
-            keyValuePairs arg1
+          <code onmouseout="hideTip(event, '160', 160)" onmouseover="showTip(event, '160', 160)">
+            keyValuePairs decoder
           </code>
-          <div class="tip" id="159">
-            <strong>Signature:</strong> Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;(string * &#39;a) list&gt;<br />
+          <div class="tip" id="160">
+            <strong>Signature:</strong> decoder:Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;(string * &#39;a) list&gt;<br />
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L186-186" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L183-183" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -383,11 +402,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '160', 160)" onmouseover="showTip(event, '160', 160)">
-            map arg1 arg2
+          <code onmouseout="hideTip(event, '161', 161)" onmouseover="showTip(event, '161', 161)">
+            map arg1 decoder
           </code>
-          <div class="tip" id="160">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt;<br />
+          <div class="tip" id="161">
+            <strong>Signature:</strong> (&#39;a -&gt; &#39;b) -&gt; decoder:Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'b          </div>
         </td>
         <td class="xmldoc">
@@ -403,11 +422,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '161', 161)" onmouseover="showTip(event, '161', 161)">
-            maybe arg1
+          <code onmouseout="hideTip(event, '162', 162)" onmouseover="showTip(event, '162', 162)">
+            maybe decoder
           </code>
-          <div class="tip" id="161">
-            <strong>Signature:</strong> Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;a option&gt;<br />
+          <div class="tip" id="162">
+            <strong>Signature:</strong> decoder:Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;a option&gt;<br />
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
@@ -423,11 +442,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '162', 162)" onmouseover="showTip(event, '162', 162)">
-            object1 arg1 arg2
+          <code onmouseout="hideTip(event, '163', 163)" onmouseover="showTip(event, '163', 163)">
+            object1 mapper decoder
           </code>
-          <div class="tip" id="162">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+          <div class="tip" id="163">
+            <strong>Signature:</strong> mapper:(&#39;a -&gt; &#39;value) -&gt; decoder:Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'value          </div>
         </td>
         <td class="xmldoc">
@@ -443,11 +462,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '163', 163)" onmouseover="showTip(event, '163', 163)">
-            object2 arg1 arg2 arg3
+          <code onmouseout="hideTip(event, '164', 164)" onmouseover="showTip(event, '164', 164)">
+            object2 mapper decoder1 decoder2
           </code>
-          <div class="tip" id="163">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+          <div class="tip" id="164">
+            <strong>Signature:</strong> mapper:(&#39;a -&gt; &#39;b -&gt; &#39;value) -&gt; decoder1:Decoder&lt;&#39;a&gt; -&gt; decoder2:Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'b, 'value          </div>
         </td>
         <td class="xmldoc">
@@ -463,11 +482,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '164', 164)" onmouseover="showTip(event, '164', 164)">
-            object3 arg1 arg2 arg3 arg4
+          <code onmouseout="hideTip(event, '165', 165)" onmouseover="showTip(event, '165', 165)">
+            object3 (...)
           </code>
-          <div class="tip" id="164">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+          <div class="tip" id="165">
+            <strong>Signature:</strong> mapper:(&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;value) -&gt; decoder1:Decoder&lt;&#39;a&gt; -&gt; decoder2:Decoder&lt;&#39;b&gt; -&gt; decoder3:Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'value          </div>
         </td>
         <td class="xmldoc">
@@ -483,11 +502,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '165', 165)" onmouseover="showTip(event, '165', 165)">
-            object4 arg1 arg2 arg3 arg4 arg5
+          <code onmouseout="hideTip(event, '166', 166)" onmouseover="showTip(event, '166', 166)">
+            object4 (...)
           </code>
-          <div class="tip" id="165">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+          <div class="tip" id="166">
+            <strong>Signature:</strong> mapper:(&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;value) -&gt; decoder1:Decoder&lt;&#39;a&gt; -&gt; decoder2:Decoder&lt;&#39;b&gt; -&gt; decoder3:Decoder&lt;&#39;c&gt; -&gt; decoder4:Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'value          </div>
         </td>
         <td class="xmldoc">
@@ -501,11 +520,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '166', 166)" onmouseover="showTip(event, '166', 166)">
-            object5 arg1 arg2 arg3 arg4 arg5 arg6
+          <code onmouseout="hideTip(event, '167', 167)" onmouseover="showTip(event, '167', 167)">
+            object5 (...)
           </code>
-          <div class="tip" id="166">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+          <div class="tip" id="167">
+            <strong>Signature:</strong> mapper:(&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;value) -&gt; decoder1:Decoder&lt;&#39;a&gt; -&gt; decoder2:Decoder&lt;&#39;b&gt; -&gt; decoder3:Decoder&lt;&#39;c&gt; -&gt; decoder4:Decoder&lt;&#39;d&gt; -&gt; decoder5:Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'value          </div>
         </td>
         <td class="xmldoc">
@@ -519,11 +538,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '167', 167)" onmouseover="showTip(event, '167', 167)">
+          <code onmouseout="hideTip(event, '168', 168)" onmouseover="showTip(event, '168', 168)">
             object6 (...)
           </code>
-          <div class="tip" id="167">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;f -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;f&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+          <div class="tip" id="168">
+            <strong>Signature:</strong> mapper:(&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;f -&gt; &#39;value) -&gt; decoder1:Decoder&lt;&#39;a&gt; -&gt; decoder2:Decoder&lt;&#39;b&gt; -&gt; decoder3:Decoder&lt;&#39;c&gt; -&gt; decoder4:Decoder&lt;&#39;d&gt; -&gt; decoder5:Decoder&lt;&#39;e&gt; -&gt; decoder6:Decoder&lt;&#39;f&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'value          </div>
         </td>
         <td class="xmldoc">
@@ -537,10 +556,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '168', 168)" onmouseover="showTip(event, '168', 168)">
+          <code onmouseout="hideTip(event, '169', 169)" onmouseover="showTip(event, '169', 169)">
             object7 (...)
           </code>
-          <div class="tip" id="168">
+          <div class="tip" id="169">
             <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;f -&gt; &#39;g -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;f&gt; -&gt; Decoder&lt;&#39;g&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'value          </div>
         </td>
@@ -555,10 +574,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '169', 169)" onmouseover="showTip(event, '169', 169)">
+          <code onmouseout="hideTip(event, '170', 170)" onmouseover="showTip(event, '170', 170)">
             object8 (...)
           </code>
-          <div class="tip" id="169">
+          <div class="tip" id="170">
             <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;f -&gt; &#39;g -&gt; &#39;h -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;f&gt; -&gt; Decoder&lt;&#39;g&gt; -&gt; Decoder&lt;&#39;h&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'value          </div>
         </td>
@@ -573,15 +592,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '170', 170)" onmouseover="showTip(event, '170', 170)">
-            oneOf arg1
+          <code onmouseout="hideTip(event, '171', 171)" onmouseover="showTip(event, '171', 171)">
+            oneOf decoders
           </code>
-          <div class="tip" id="170">
-            <strong>Signature:</strong> Decoder&lt;&#39;a&gt; list -&gt; Decoder&lt;&#39;a&gt;<br />
+          <div class="tip" id="171">
+            <strong>Signature:</strong> decoders:Decoder&lt;&#39;a&gt; list -&gt; Decoder&lt;&#39;a&gt;<br />
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L176-176" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L173-173" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -593,11 +612,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '171', 171)" onmouseover="showTip(event, '171', 171)">
-            succeed arg1
+          <code onmouseout="hideTip(event, '172', 172)" onmouseover="showTip(event, '172', 172)">
+            succeed value
           </code>
-          <div class="tip" id="171">
-            <strong>Signature:</strong> &#39;a -&gt; Decoder&lt;&#39;a&gt;<br />
+          <div class="tip" id="172">
+            <strong>Signature:</strong> value:&#39;a -&gt; Decoder&lt;&#39;a&gt;<br />
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
@@ -613,15 +632,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '172', 172)" onmouseover="showTip(event, '172', 172)">
-            tuple1 f arg2
+          <code onmouseout="hideTip(event, '173', 173)" onmouseover="showTip(event, '173', 173)">
+            tuple1 mapper decoder
           </code>
-          <div class="tip" id="172">
-            <strong>Signature:</strong> f:(&#39;a -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+          <div class="tip" id="173">
+            <strong>Signature:</strong> mapper:(&#39;a -&gt; &#39;value) -&gt; decoder:Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L213-213" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L210-210" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -633,15 +652,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '173', 173)" onmouseover="showTip(event, '173', 173)">
-            tuple2 arg1 arg2 arg3
+          <code onmouseout="hideTip(event, '174', 174)" onmouseover="showTip(event, '174', 174)">
+            tuple2 mapper decoder1 decoder2
           </code>
-          <div class="tip" id="173">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+          <div class="tip" id="174">
+            <strong>Signature:</strong> mapper:(&#39;a -&gt; &#39;b -&gt; &#39;value) -&gt; decoder1:Decoder&lt;&#39;a&gt; -&gt; decoder2:Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'b, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L216-216" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L213-213" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -653,15 +672,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '174', 174)" onmouseover="showTip(event, '174', 174)">
-            tuple3 arg1 arg2 arg3 arg4
+          <code onmouseout="hideTip(event, '175', 175)" onmouseover="showTip(event, '175', 175)">
+            tuple3 mapper decoder1 decoder2 decoder3
           </code>
-          <div class="tip" id="174">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+          <div class="tip" id="175">
+            <strong>Signature:</strong> mapper:(&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;value) -&gt; decoder1:Decoder&lt;&#39;a&gt; -&gt; decoder2:Decoder&lt;&#39;b&gt; -&gt; decoder3:Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L223-223" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L220-220" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -673,33 +692,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '175', 175)" onmouseover="showTip(event, '175', 175)">
-            tuple4 arg1 arg2 arg3 arg4 arg5
+          <code onmouseout="hideTip(event, '176', 176)" onmouseover="showTip(event, '176', 176)">
+            tuple4 (...)
           </code>
-          <div class="tip" id="175">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+          <div class="tip" id="176">
+            <strong>Signature:</strong> mapper:(&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;value) -&gt; decoder1:Decoder&lt;&#39;a&gt; -&gt; decoder2:Decoder&lt;&#39;b&gt; -&gt; decoder3:Decoder&lt;&#39;c&gt; -&gt; decoder4:Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L231-231" class="github-link">
-              <img src="../content/img/github.png" class="normal" />
-              <img src="../content/img/github-blue.png" class="hover" />
-            </a>
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '176', 176)" onmouseover="showTip(event, '176', 176)">
-            tuple5 arg1 arg2 arg3 arg4 arg5 arg6
-          </code>
-          <div class="tip" id="176">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
-                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'value          </div>
-        </td>
-        <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L240-240" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L228-228" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -710,14 +711,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '177', 177)" onmouseover="showTip(event, '177', 177)">
-            tuple6 (...)
+            tuple5 arg1 arg2 arg3 arg4 arg5 arg6
           </code>
           <div class="tip" id="177">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;f -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;f&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
-                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'value          </div>
+            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L250-250" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L237-237" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -728,14 +729,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '178', 178)" onmouseover="showTip(event, '178', 178)">
-            tuple7 (...)
+            tuple6 (...)
           </code>
           <div class="tip" id="178">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;f -&gt; &#39;g -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;f&gt; -&gt; Decoder&lt;&#39;g&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
-                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'value          </div>
+            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;f -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;f&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L262-262" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L247-247" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -746,14 +747,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '179', 179)" onmouseover="showTip(event, '179', 179)">
-            tuple8 (...)
+            tuple7 (...)
           </code>
           <div class="tip" id="179">
-            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;f -&gt; &#39;g -&gt; &#39;h -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;f&gt; -&gt; Decoder&lt;&#39;g&gt; -&gt; Decoder&lt;&#39;h&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
-                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'value          </div>
+            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;f -&gt; &#39;g -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;f&gt; -&gt; Decoder&lt;&#39;g&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'value          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L275-275" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L259-259" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -764,14 +765,32 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '180', 180)" onmouseover="showTip(event, '180', 180)">
-            value 
+            tuple8 (...)
           </code>
           <div class="tip" id="180">
+            <strong>Signature:</strong> (&#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e -&gt; &#39;f -&gt; &#39;g -&gt; &#39;h -&gt; &#39;value) -&gt; Decoder&lt;&#39;a&gt; -&gt; Decoder&lt;&#39;b&gt; -&gt; Decoder&lt;&#39;c&gt; -&gt; Decoder&lt;&#39;d&gt; -&gt; Decoder&lt;&#39;e&gt; -&gt; Decoder&lt;&#39;f&gt; -&gt; Decoder&lt;&#39;g&gt; -&gt; Decoder&lt;&#39;h&gt; -&gt; Decoder&lt;&#39;value&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'value          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L272-272" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '181', 181)" onmouseover="showTip(event, '181', 181)">
+            value 
+          </code>
+          <div class="tip" id="181">
             <strong>Signature:</strong> Decoder&lt;Value&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L202-202" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Decode.fs#L199-199" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
