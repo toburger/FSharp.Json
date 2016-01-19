@@ -62,7 +62,9 @@ type Shape =
 let shapeInfo tag =
     match tag with
     | "rectangle" ->
-        object2 (fun w h -> Rectangle(w, h)) ("width" := dfloat) ("height" := dfloat)
+        object2 (fun w h -> Rectangle(w, h))
+                ("width" := dfloat)
+                ("height" := dfloat)
     | "circle" ->
         object1 Circle ("radius" := dfloat)
     | _ -> fail (tag + " is not a recognized tag for shape")
