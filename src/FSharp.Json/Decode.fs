@@ -163,86 +163,73 @@ let value : Decoder<Value> =
 let decodeValue (Decoder decoder: Decoder<'a>) (value: Value) : Result<'a, _> =
     decoder value
 
-let tuple' c f =
+let dtuple c =
     Decoder (function
-        | JsonValue.Array els when els.Length = c -> f els
+        | JsonValue.Array els when els.Length = c -> ok els
         | value -> crash (sprintf "a Tuple of length %i" c) value)
 
-let tuple1 (f: 'a -> 'value) (Decoder decoder: Decoder<'a>) : Decoder<'value> =
-    tuple' 1 (fun arr -> decoder arr.[0] |> Trial.lift f)
+let always d v =
+    (Decoder (fun _ -> run d v))
 
-let tuple2 (f: 'a -> 'b -> 'value) (Decoder decoder1) (Decoder decoder2) : Decoder<'value> =
-    tuple' 2 (fun arr -> trial {
-        let! res1 = decoder1 arr.[0]
-        let! res2 = decoder2 arr.[1]
-        return f res1 res2
-    })
+let tuple1 (f: 'a -> 'b) (d: Decoder<'a>) : Decoder<'b> =
+    dtuple 1 >>= fun arr ->
+        succeed f <*> always d arr.[0]
 
-let tuple3 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) =
-    tuple' 3 (fun arr -> trial {
-        let! res1 = decoder1 arr.[0]
-        let! res2 = decoder2 arr.[1]
-        let! res3 = decoder3 arr.[2]
-        return f res1 res2 res3
-    })
+let tuple2 f d1 d2 =
+    dtuple 2 >>= fun arr ->
+        f <!> always d1 arr.[0]
+          <*> always d2 arr.[1]
 
-let tuple4 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4) =
-    tuple' 4 (fun arr -> trial {
-        let! res1 = decoder1 arr.[0]
-        let! res2 = decoder2 arr.[1]
-        let! res3 = decoder3 arr.[2]
-        let! res4 = decoder4 arr.[3]
-        return f res1 res2 res3 res4
-    })
+let tuple3 f d1 d2 d3 =
+    dtuple 3 >>= fun arr ->
+        f <!> always d1 arr.[0]
+          <*> always d2 arr.[1]
+          <*> always d3 arr.[2]
 
-let tuple5 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4) (Decoder decoder5) =
-    tuple' 5 (fun arr -> trial {
-        let! res1 = decoder1 arr.[0]
-        let! res2 = decoder2 arr.[1]
-        let! res3 = decoder3 arr.[2]
-        let! res4 = decoder4 arr.[3]
-        let! res5 = decoder5 arr.[4]
-        return f res1 res2 res3 res4 res5
-    })
+let tuple4 f d1 d2 d3 d4 =
+    dtuple 4 >>= fun arr ->
+        f <!> always d1 arr.[0]
+          <*> always d2 arr.[1]
+          <*> always d3 arr.[2]
+          <*> always d4 arr.[3]
 
-let tuple6 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4)
-             (Decoder decoder5) (Decoder decoder6) =
-    tuple' 6 (fun arr -> trial {
-        let! res1 = decoder1 arr.[0]
-        let! res2 = decoder2 arr.[1]
-        let! res3 = decoder3 arr.[2]
-        let! res4 = decoder4 arr.[3]
-        let! res5 = decoder5 arr.[4]
-        let! res6 = decoder6 arr.[5]
-        return f res1 res2 res3 res4 res5 res6
-    })
+let tuple5 f d1 d2 d3 d4 d5 =
+    dtuple 5 >>= fun arr ->
+        f <!> always d1 arr.[0]
+          <*> always d2 arr.[1]
+          <*> always d3 arr.[2]
+          <*> always d4 arr.[3]
+          <*> always d5 arr.[4]
 
-let tuple7 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4)
-             (Decoder decoder5) (Decoder decoder6) (Decoder decoder7) =
-    tuple' 7 (fun arr -> trial {
-        let! res1 = decoder1 arr.[0]
-        let! res2 = decoder2 arr.[1]
-        let! res3 = decoder3 arr.[2]
-        let! res4 = decoder4 arr.[3]
-        let! res5 = decoder5 arr.[4]
-        let! res6 = decoder6 arr.[5]
-        let! res7 = decoder7 arr.[6]
-        return f res1 res2 res3 res4 res5 res6 res7
-    })
+let tuple6 f d1 d2 d3 d4 d5 d6 =
+    dtuple 6 >>= fun arr ->
+        f <!> always d1 arr.[0]
+          <*> always d2 arr.[1]
+          <*> always d3 arr.[2]
+          <*> always d4 arr.[3]
+          <*> always d5 arr.[4]
+          <*> always d6 arr.[5]
 
-let tuple8 f (Decoder decoder1) (Decoder decoder2) (Decoder decoder3) (Decoder decoder4)
-             (Decoder decoder5) (Decoder decoder6) (Decoder decoder7) (Decoder decoder8) =
-    tuple' 8 (fun arr -> trial {
-        let! res1 = decoder1 arr.[0]
-        let! res2 = decoder2 arr.[1]
-        let! res3 = decoder3 arr.[2]
-        let! res4 = decoder4 arr.[3]
-        let! res5 = decoder5 arr.[4]
-        let! res6 = decoder6 arr.[5]
-        let! res7 = decoder7 arr.[6]
-        let! res8 = decoder8 arr.[7]
-        return f res1 res2 res3 res4 res5 res6 res7 res8
-    })
+let tuple7 f d1 d2 d3 d4 d5 d6 d7 =
+    dtuple 7 >>= fun arr ->
+        f <!> always d1 arr.[0]
+          <*> always d2 arr.[1]
+          <*> always d3 arr.[2]
+          <*> always d4 arr.[3]
+          <*> always d5 arr.[4]
+          <*> always d6 arr.[5]
+          <*> always d7 arr.[6]
+          
+let tuple8 f d1 d2 d3 d4 d5 d6 d7 d8 =
+    dtuple 8 >>= fun arr ->
+        f <!> always d1 arr.[0]
+          <*> always d2 arr.[1]
+          <*> always d3 arr.[2]
+          <*> always d4 arr.[3]
+          <*> always d5 arr.[4]
+          <*> always d6 arr.[5]
+          <*> always d7 arr.[6]
+          <*> always d8 arr.[7]
 
 let customDecoder (Decoder decoder: Decoder<'a>) (callback: 'a -> Result<'b, _>) : Decoder<'b> =
     Decoder (fun value ->
