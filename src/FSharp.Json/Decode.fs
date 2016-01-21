@@ -67,8 +67,8 @@ let (:=) = decodeField
 let dobject =
     Decoder (function | JsonValue.Record v -> ok v | v -> crash "a Object" v)
 
-let object1 (mapping: 'a -> 'value) (Decoder decoder: Decoder<'a>) : Decoder<'value> =
-    dobject >>= fun _ -> Decoder (decoder >> Trial.lift mapping)
+let object1 mapping decoder =
+    dobject >>= fun _ -> succeed mapping <*> decoder
 
 let object2 mapping decoder1 decoder2 =
     dobject >>= (fun _ -> mapping <!> decoder1 <*> decoder2)
