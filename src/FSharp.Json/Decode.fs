@@ -13,6 +13,8 @@ let fail (msg: string): Decoder<_> =
 let succeed (a: 'a) : Decoder<'a> =
     Decoder (fun _ -> ok a)
 
+let private run (Decoder decoder) v = decoder v
+
 let private crash expected actual =
     Trial.fail (sprintf "expecting %s but got %s" expected (serialize actual))
 
@@ -28,6 +30,18 @@ let (>>=) decoder binder = bind binder decoder
 
 let map (mapper: 'a -> 'b) (Decoder decoder): Decoder<'b> =
     Decoder (decoder >> Trial.lift mapper)
+
+let (<!>) = map
+
+let apply (Decoder f: Decoder<'a -> 'b>) (Decoder d: Decoder<'a>): Decoder<'b> =
+    Decoder (fun value ->
+        trial {
+            let! f = f value
+            let! a = d value
+            return f a
+        })
+
+let (<*>) = apply
 
 let decodeString (Decoder decoder) (s : string) : Result<_, _> =
     decoder (parse s)
@@ -50,85 +64,32 @@ let decodeField (field: string) (Decoder decoder) : Decoder<'b> =
 
 let (:=) = decodeField
 
-let private run (Decoder decoder) v = decoder v
+let dobject =
+    Decoder (function | JsonValue.Record v -> ok v | v -> crash "a Object" v)
 
-let private object' f =
-    Decoder (function
-        | JsonValue.Record _ as record -> f record
-        | value -> crash "a Object" value)
+let object1 (mapping: 'a -> 'value) (Decoder decoder: Decoder<'a>) : Decoder<'value> =
+    dobject >>= fun _ -> Decoder (decoder >> Trial.lift mapping)
 
-let object1 (mapping: 'a -> 'value) decoder : Decoder<'value> =
-    object' (run decoder >> Trial.lift mapping)
+let object2 mapping decoder1 decoder2 =
+    dobject >>= (fun _ -> mapping <!> decoder1 <*> decoder2)
 
-let object2 (mapping: 'a -> 'b -> 'value) (decoder1: Decoder<'a>) (decoder2: Decoder<'b>) : Decoder<'value> =
-    object' (fun o -> trial {
-        let! prop1 = run decoder1 o
-        let! prop2 = run decoder2 o
-        return mapping prop1 prop2
-    })
+let object3 mapping d1 d2 d3 =
+    dobject >>= (fun _ -> mapping <!> d1 <*> d2 <*> d3)
 
-let object3 (mapping: 'a -> 'b -> 'c -> 'value) (decoder1 : Decoder<'a>) (decoder2: Decoder<'b>) (decoder3: Decoder<'c>) : Decoder<'value> =
-    object' (fun o -> trial {
-        let! prop1 = run decoder1 o
-        let! prop2 = run decoder2 o
-        let! prop3 = run decoder3 o
-        return mapping prop1 prop2 prop3
-    })
+let object4 mapping d1 d2 d3 d4 =
+    dobject >>= (fun _ -> mapping <!> d1 <*> d2 <*> d3 <*> d4)
 
-let object4 mapping decoder1 decoder2 decoder3 decoder4 =
-    object' (fun o -> trial {
-        let! prop1 = run decoder1 o
-        let! prop2 = run decoder2 o
-        let! prop3 = run decoder3 o
-        let! prop4 = run decoder4 o
-        return mapping prop1 prop2 prop3 prop4
-    })
+let object5 mapping d1 d2 d3 d4 d5 =
+    dobject >>= (fun _ -> mapping <!> d1 <*> d2 <*> d3 <*> d4 <*> d5)
 
-let object5 mapping decoder1 decoder2 decoder3 decoder4 decoder5 =
-    object' (fun o -> trial {
-        let! prop1 = run decoder1 o
-        let! prop2 = run decoder2 o
-        let! prop3 = run decoder3 o
-        let! prop4 = run decoder4 o
-        let! prop5 = run decoder5 o
-        return mapping prop1 prop2 prop3 prop4 prop5
-    })
+let object6 mapping d1 d2 d3 d4 d5 d6 =
+    dobject >>= (fun _ -> mapping <!> d1 <*> d2 <*> d3 <*> d4 <*> d5 <*> d6)
 
-let object6 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 =
-    object' (fun o -> trial {
-        let! prop1 = run decoder1 o
-        let! prop2 = run decoder2 o
-        let! prop3 = run decoder3 o
-        let! prop4 = run decoder4 o
-        let! prop5 = run decoder5 o
-        let! prop6 = run decoder6 o
-        return mapping prop1 prop2 prop3 prop4 prop5 prop6
-    })
+let object7 mapping d1 d2 d3 d4 d5 d6 d7 =
+    dobject >>= (fun _ -> mapping <!> d1 <*> d2 <*> d3 <*> d4 <*> d5 <*> d6 <*> d7)
 
-let object7 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 decoder7 =
-    object' (fun o -> trial {
-        let! prop1 = run decoder1 o
-        let! prop2 = run decoder2 o
-        let! prop3 = run decoder3 o
-        let! prop4 = run decoder4 o
-        let! prop5 = run decoder5 o
-        let! prop6 = run decoder6 o
-        let! prop7 = run decoder7 o
-        return mapping prop1 prop2 prop3 prop4 prop5 prop6 prop7
-    })
-
-let object8 mapping decoder1 decoder2 decoder3 decoder4 decoder5 decoder6 decoder7 decoder8 =
-    object' (fun o -> trial {
-        let! prop1 = run decoder1 o
-        let! prop2 = run decoder2 o
-        let! prop3 = run decoder3 o
-        let! prop4 = run decoder4 o
-        let! prop5 = run decoder5 o
-        let! prop6 = run decoder6 o
-        let! prop7 = run decoder7 o
-        let! prop8 = run decoder8 o
-        return mapping prop1 prop2 prop3 prop4 prop5 prop6 prop7 prop8
-    })
+let object8 mapping d1 d2 d3 d4 d5 d6 d7 d8 =
+    dobject >>= (fun _ -> mapping <!> d1 <*> d2 <*> d3 <*> d4 <*> d5 <*> d6 <*> d7 <*> d8)
 
 let dvalue (decoder: Value -> Result<'a, _>) : Decoder<'a> =
     Decoder decoder

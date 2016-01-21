@@ -101,3 +101,22 @@ decodeValue
         | true, v -> ok v
         | false, _ -> Trial.fail "not a integer"))
     (jstring "42")
+
+type User =
+    { id: int
+      username: string option
+      email: string option }
+
+let metaDecoder f =
+    f <!> ("id" := dint)
+      <*> ("username" := maybe dstring)
+      <*> ("email" := maybe dstring)
+
+let userDecoder =
+    metaDecoder
+        (fun id username email -> { id = id; username = username; email = email})
+
+decodeString
+    userDecoder
+    """{ "id": 42, "username": "john", "email": "email@sample.com" }"""
+
