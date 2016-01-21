@@ -169,7 +169,7 @@ let dtuple c =
         | value -> crash (sprintf "a Tuple of length %i" c) value)
 
 let always d v =
-    (Decoder (fun _ -> run d v))
+    Decoder (fun _ -> run d v)
 
 let tuple1 (f: 'a -> 'b) (d: Decoder<'a>) : Decoder<'b> =
     dtuple 1 >>= fun arr ->
