@@ -18,6 +18,13 @@ val fail : string -> Decoder<'a>
 /// Transform the value returned by a decoder. Most useful when paired with the oneOf function.
 val map : ('a -> 'b) -> decoder: Decoder<'a> -> Decoder<'b>
 
+val (<!>) : (('a -> 'b) -> Decoder<'a> -> Decoder<'b>)
+
+/// Can be helpful when decoding large objects incrementally.
+val apply : (Decoder<'a -> 'b>) -> decoder: Decoder<'a> -> Decoder<'b>
+
+val (<*>) : ((Decoder<'a -> 'b>) -> Decoder<'a> -> Decoder<'b>)
+
 /// Helpful when one field will determine the shape of a bunch of other fields.
 val bind : ('a -> Decoder<'b>) -> decoder: Decoder<'a> -> Decoder<'b>
 
