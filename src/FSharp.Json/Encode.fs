@@ -1,19 +1,26 @@
 ﻿module FSharp.Json.Encode
 
-open FSharp.Data
-open System.Globalization
-open JsonParser
+let rec format = function
+  | JString s -> sprintf "\"%s\"" s
+  | JNumber i -> string i
+  | JBool true -> "true"
+  | JBool false -> "false"
+  | JNull -> "null"
+  | JObject map ->
+      map
+      |> Seq.map (fun (KeyValue(k, v)) ->
+        sprintf "\"%s\":%s" k (format v))
+      |> String.concat ","
+      |> sprintf "{%s}"
+  | JArray list ->
+      list
+      |> List.map format
+      |> String.concat ","
+      |> sprintf "[%s]"
 
-let encode (indent: bool) (value: JValue) =
-    "todo"
-
-//    use sw = new System.IO.StringWriter(CultureInfo.InvariantCulture)
-//    let saveOptions =
-//        if indent
-//        then JsonSaveOptions.None
-//        else JsonSaveOptions.DisableFormatting
-//    value.WriteTo(sw, saveOptions)
-//    sw.ToString()
+let encode indent value =
+    if indent then failwith "parser cannot produce indented JSON at the moment"
+    format value
 
 let jstring (value: string): JValue = JString value
 
