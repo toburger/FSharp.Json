@@ -2,10 +2,19 @@ module FSharp.Json.Decode
 
 open Chessie.ErrorHandling
 open FSharp.Data
+open JsonParser
 
-type Value = Encode.Value
+let serialize obj =
+  match obj: obj with
+  | :? JValue as v -> Encode.encode false v
+  | v -> string v
 
-type Decoder<'a> = Decoder of (Value -> Result<'a, string>)
+let parse s =
+  match EmParsec.run JsonParser.jValue s with
+  | Choice1Of2 r -> r
+  | Choice2Of2 m -> failwith m
+
+type Decoder<'a> = Decoder of (JValue -> Result<'a, string>)
 
 let fail (msg: string): Decoder<_> =
     Decoder (fun _ -> fail msg)
@@ -48,12 +57,9 @@ let decodeString (Decoder decoder) (s : string) : Result<_, _> =
 
 let (|RecordField|_|) field record =
     match record with
-    | JsonValue.Record properties ->
+    | JObject properties ->
         properties
-        |> Array.tryPick (fun (n, v) ->
-            if n = field
-            then Some v
-            else None)
+        |> Map.tryFind field
     | _ -> None
 
 let decodeField (field: string) (Decoder decoder) : Decoder<'b> =
@@ -65,7 +71,7 @@ let decodeField (field: string) (Decoder decoder) : Decoder<'b> =
 let (:=) = decodeField
 
 let dobject =
-    Decoder (function | JsonValue.Record v -> ok v | v -> crash "a Object" v)
+    Decoder (function | JObject v -> ok v | v -> crash "a Object" v)
 
 let object1 mapping decoder =
     dobject >>= fun _ -> succeed mapping <*> decoder
@@ -91,32 +97,32 @@ let object7 mapping d1 d2 d3 d4 d5 d6 d7 =
 let object8 mapping d1 d2 d3 d4 d5 d6 d7 d8 =
     dobject >>= (fun _ -> mapping <!> d1 <*> d2 <*> d3 <*> d4 <*> d5 <*> d6 <*> d7 <*> d8)
 
-let dvalue (decoder: Value -> Result<'a, _>) : Decoder<'a> =
+let dvalue (decoder: JValue -> Result<'a, _>) : Decoder<'a> =
     Decoder decoder
 
 let dbool : Decoder<bool> =
     dvalue (function
-        | JsonValue.Boolean b -> ok b
+        | JBool b -> ok b
         | value -> crash "a Boolean" value)
 
 let dstring : Decoder<string> =
     dvalue (function
-        | JsonValue.String s -> ok s
+        | JString s -> ok s
         | value -> crash "a String" value)
 
 let dfloat : Decoder<float> =
     dvalue (function
-        | JsonValue.Number n -> ok (float n)
+        | JNumber n -> ok (float n)
         | value -> crash "a Float" value)
 
 let dint : Decoder<int> =
     dvalue (function
-        | JsonValue.Number n -> ok (int n)
+        | JNumber n -> ok (int n)
         | value -> crash "a Int" value)
 
 let dlist (Decoder decoder : Decoder<'a>) : Decoder<list<'a>> =
     Decoder (function
-        | JsonValue.Array elems ->
+        | JArray elems ->
             elems
             |> Seq.map decoder
             |> Trial.collect
@@ -124,7 +130,7 @@ let dlist (Decoder decoder : Decoder<'a>) : Decoder<list<'a>> =
 
 let dnull (v: 'a) : Decoder<'a> =
     Decoder (function
-        | JsonValue.Null -> ok v
+        | JNull -> ok v
         | value -> crash "null" value)
 
 let maybe (Decoder decoder: Decoder<'a>) : Decoder<option<'a>> =
@@ -143,9 +149,9 @@ let oneOf (decoders: list<Decoder<'a>>) : Decoder<'a> =
 
 let keyValuePairs (Decoder decoder: Decoder<'a>) : Decoder<list<string * 'a>> =
     Decoder (function
-        | JsonValue.Record props ->
+        | JObject props ->
             props
-            |> Seq.map (fun (name, value) ->
+            |> Seq.map (fun (KeyValue (name, value)) ->
                 decoder value
                 |> Trial.lift (fun v -> name, v))
             |> Trial.collect
@@ -157,15 +163,15 @@ let dmap (decoder: Decoder<'a>) : Decoder<Map<string, 'a>> =
 let at (fields: list<string>) (decoder: Decoder<'a>) : Decoder<'a> =
     List.foldBack (:=) fields decoder
 
-let value : Decoder<Value> =
+let value : Decoder<JValue> =
     Decoder ok
 
-let decodeValue (Decoder decoder: Decoder<'a>) (value: Value) : Result<'a, _> =
+let decodeValue (Decoder decoder: Decoder<'a>) (value: JValue) : Result<'a, _> =
     decoder value
 
 let dtuple c =
     Decoder (function
-        | JsonValue.Array els when els.Length = c -> ok els
+        | JArray els when els.Length = c -> ok els
         | value -> crash (sprintf "a Tuple of length %i" c) value)
 
 let always d v =
@@ -219,7 +225,7 @@ let tuple7 f d1 d2 d3 d4 d5 d6 d7 =
           <*> always d5 arr.[4]
           <*> always d6 arr.[5]
           <*> always d7 arr.[6]
-          
+
 let tuple8 f d1 d2 d3 d4 d5 d6 d7 d8 =
     dtuple 8 >>= fun arr ->
         f <!> always d1 arr.[0]

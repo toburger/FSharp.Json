@@ -1,11 +1,9 @@
-﻿[<AutoOpen>]
-[<RequireQualifiedAccess>]
-module internal FSharp.Json.Utils
+﻿namespace FSharp.Json
 
-open System.Globalization
-open FSharp.Data
-
-type Value = JsonValue
-
-let parse s = JsonValue.Parse(s, CultureInfo.InvariantCulture)
-let serialize (v: Value) = string v
+type JValue =
+    | JString of string
+    | JNumber of float
+    | JBool   of bool
+    | JNull
+    | JObject of Map<string, JValue>
+    | JArray  of JValue list

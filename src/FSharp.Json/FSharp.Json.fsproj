@@ -59,31 +59,17 @@
   -->
   <Import Project="..\..\.paket\paket.targets" />
   <ItemGroup>
+    <Compile Include="Compat.fs" />
+    <Compile Include="..\..\paket-files\mavnn\EmParsec\EmParsec.fs">
+      <Paket>True</Paket>
+      <Link>Linked/EmParsec.fs</Link>
+    </Compile>
     <Compile Include="..\..\paket-files\fsprojects\Chessie\src\Chessie\ErrorHandling.fs">
       <Paket>True</Paket>
       <Link>Linked/ErrorHandling.fs</Link>
     </Compile>
-    <Compile Include="..\..\paket-files\fsharp\FSharp.Data\src\Net\UriUtils.fs">
-      <Paket>True</Paket>
-      <Link>Linked/UriUtils.fs</Link>
-    </Compile>
-    <Compile Include="..\..\paket-files\fsharp\FSharp.Data\src\Net\Http.fs">
-      <Paket>True</Paket>
-      <Link>Linked/Http.fs</Link>
-    </Compile>
-    <Compile Include="..\..\paket-files\fsharp\FSharp.Data\src\CommonRuntime\TextConversions.fs">
-      <Paket>True</Paket>
-      <Link>Linked/TextConversions.fs</Link>
-    </Compile>
-    <Compile Include="..\..\paket-files\fsharp\FSharp.Data\src\CommonRuntime\IO.fs">
-      <Paket>True</Paket>
-      <Link>Linked/IO.fs</Link>
-    </Compile>
-    <Compile Include="..\..\paket-files\fsharp\FSharp.Data\src\Json\JsonValue.fs">
-      <Paket>True</Paket>
-      <Link>Linked/JsonValue.fs</Link>
-    </Compile>
     <Compile Include="Json.fs" />
+    <Compile Include="JsonParser.fs" />
     <Compile Include="Encode.fsi" />
     <Compile Include="Encode.fs" />
     <Compile Include="Decode.fsi" />

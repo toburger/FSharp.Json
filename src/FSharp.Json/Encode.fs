@@ -2,32 +2,33 @@
 
 open FSharp.Data
 open System.Globalization
+open JsonParser
 
-type Value = Utils.Value
+let encode (indent: bool) (value: JValue) =
+    "todo"
 
-let encode indent (value: Value) =
-    use sw = new System.IO.StringWriter(CultureInfo.InvariantCulture)
-    let saveOptions =
-        if indent
-        then JsonSaveOptions.None
-        else JsonSaveOptions.DisableFormatting
-    value.WriteTo(sw, saveOptions)
-    sw.ToString()
+//    use sw = new System.IO.StringWriter(CultureInfo.InvariantCulture)
+//    let saveOptions =
+//        if indent
+//        then JsonSaveOptions.None
+//        else JsonSaveOptions.DisableFormatting
+//    value.WriteTo(sw, saveOptions)
+//    sw.ToString()
 
-let jstring (value: string): Value = JsonValue.String value
+let jstring (value: string): JValue = JString value
 
-let jint (value: int): Value = JsonValue.Number (decimal value)
+let jint (value: int): JValue = JNumber (float value)
 
-let jfloat (value: float): Value = JsonValue.Number (decimal value)
+let jfloat (value: float): JValue = JNumber (float value)
 
-let jbool (value: bool): Value = JsonValue.Boolean value
+let jbool (value: bool): JValue = JBool value
 
-let jnull: Value = JsonValue.Null
+let jnull: JValue = JNull
 
-let jobject (props: (string * Value) seq) : Value =
+let jobject (props: (string * JValue) seq) : JValue =
     props
-    |> Seq.toArray
-    |> JsonValue.Record
+    |> Map.ofSeq
+    |> JObject
 
-let jlist (list: Value seq) : Value =
-    JsonValue.Array (Seq.toArray list)
+let jlist (list: JValue seq) : JValue =
+    JArray (Seq.toList list)

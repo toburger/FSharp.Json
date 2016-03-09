@@ -1,22 +1,19 @@
 ﻿/// Library for turning F# values into Json values.
 module FSharp.Json.Encode
 
-/// Represents a JavaScript value.
-type Value = FSharp.Json.Utils.Value
-
 /// Convert a Value into a prettified string. The first argument specifies the indentation in the resulting string.
-val encode : indent: bool -> value: Value -> string
+val encode : indent: bool -> value: JValue -> string
 
-val jstring : value: string -> Value
+val jstring : value: string -> JValue
 
-val jint : value: int -> Value
+val jint : value: int -> JValue
 
-val jfloat : value: float -> Value
+val jfloat : value: float -> JValue
 
-val jbool : value: bool -> Value
+val jbool : value: bool -> JValue
 
-val jnull : Value
+val jnull : JValue
 
-val jobject : props: (string * Value) seq -> Value
+val jobject : props: (string * JValue) seq -> JValue
 
-val jlist : list: Value seq -> Value
+val jlist : list: JValue seq -> JValue
