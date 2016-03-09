@@ -1,21 +1,18 @@
-#r @"..\..\packages\Newtonsoft.Json\lib\net40\Newtonsoft.Json.dll"
 #load @"..\..\paket-files\fsprojects\Chessie\src\Chessie\ErrorHandling.fs"
-#load @"..\..\paket-files\fsharp\FSharp.Data\src\Net\UriUtils.fs"
-#load @"..\..\paket-files\fsharp\FSharp.Data\src\Net\Http.fs"
-#load @"..\..\paket-files\fsharp\FSharp.Data\src\CommonRuntime\TextConversions.fs"
-#load @"..\..\paket-files\fsharp\FSharp.Data\src\CommonRuntime\IO.fs"
-#load @"..\..\paket-files\fsharp\FSharp.Data\src\Json\JsonValue.fs"
+#load @"..\..\paket-files\mavnn\EmParsec\EmParsec.fs"
 #load "Json.fs"
+#load "JsonParser.fs"
 #load "Encode.fs"
 #load "Decode.fs"
 
 open Chessie.ErrorHandling
+open FSharp.Json
 open FSharp.Json.Decode
 open FSharp.Data
 
-decodeValue dint (JsonValue.Number 42M)
-decodeValue (dnull 42) (JsonValue.Null)
-decodeValue (maybe dint) (JsonValue.Number 42M)
+decodeValue dint (JNumber 42.)
+decodeValue (dnull 42) (JNull)
+decodeValue (maybe dint) (JNumber 42.)
 
 type Record =
     { prop1: string
@@ -24,7 +21,7 @@ type Record =
 
 decodeValue
     (object1 id ("prop1" := dint))
-    (JsonValue.Record [|"prop1", JsonValue.Number 12M|])
+    (JObject (Map.ofList [ "prop1", JNumber 12. ]))
 
 decodeString
     (object3 (fun p1 p2 p3 -> { prop1 = p1; prop2 = p2; prop3 = p3 })
