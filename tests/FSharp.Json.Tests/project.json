@@ -1,0 +1,25 @@
+{
+    "version": "1.0.0-*",
+    "compilationOptions": {},
+
+    "compilerName": "fsc",
+    "compileFiles": [
+        "Encode.fs",
+        "Decode.fs"
+    ],
+  
+    "dependencies": {
+        "NUnit": "3.2.0",
+        "FSharp.Json":  { "version": "1.0.0", "type": "build" }
+    },
+
+    "frameworks": {
+        "dnxcore50" : {},
+        "net46" : {
+            "frameworkAssemblies": {
+                "System": "",
+                "System.Core": ""
+            }
+        }
+    }
+}

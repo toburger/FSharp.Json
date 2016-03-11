@@ -1,0 +1,29 @@
+{
+    "version": "1.0.0-*",
+    "compilationOptions": {},
+
+    "compilerName": "fsc",
+    "compileFiles": [
+        "AssemblyInfo.fs",
+        "../../paket-files/mavnn/EmParsec/EmParsec.fs",
+        "../../paket-files/fsprojects/Chessie/src/Chessie/ErrorHandling.fs",
+        "Json.fs",
+        "JsonParser.fs",
+        "Encode.fs",
+        "Decode.fs"
+    ],
+
+    "frameworks": {
+        "dnxcore50": {
+            "dependencies": {
+                "Microsoft.FSharp.Core.netcore": "1.0.0-alpha-151221",
+                "NETStandard.Library": "1.0.0-rc2-23811"
+            }
+        },
+        "net46": {
+            "dependencies": {
+                "FSharp.Core": "4.0.0.1"
+            }
+         }
+    }
+}
