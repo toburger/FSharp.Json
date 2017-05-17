@@ -237,7 +237,7 @@ let jObject =
 
     // set up the list parser
     let keyValue = (key .>> colon) .>>. value
-    let keyValues = sepBy1 keyValue comma
+    let keyValues = sepBy keyValue comma
 
     // set up the main parser
     between left right keyValues
