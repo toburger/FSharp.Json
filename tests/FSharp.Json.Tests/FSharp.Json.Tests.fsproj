@@ -63,9 +63,6 @@
   -->
   <Import Project="..\..\.paket\paket.targets" />
   <ItemGroup>
-    <Compile Include="..\..\src\FSharp.Json\Result.fs">
-      <Link>Result.fs</Link>
-    </Compile>
     <Compile Include="Encode.fs" />
     <Compile Include="Decode.fs" />
     <None Include="paket.references" />
