@@ -31,12 +31,11 @@ This example demonstrates using a function defined in this sample library.
 
 *)
 #r "FSharp.Json.dll"
-open Chessie.ErrorHandling
 open FSharp.Json.Decode
 
 let json = "[1..10]"
 let parsed = decodeString (dlist dint) json
-let result = parsed |> Trial.returnOrFail
+let result = parsed |> Result.returnOrFail
 printfn "answer = %A" result
 
 (**

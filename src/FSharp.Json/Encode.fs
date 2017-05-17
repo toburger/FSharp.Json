@@ -6,9 +6,9 @@ let rec format = function
   | JBool true -> "true"
   | JBool false -> "false"
   | JNull -> "null"
-  | JObject map ->
-      map
-      |> Seq.map (fun (KeyValue(k, v)) ->
+  | JObject list ->
+      list
+      |> List.map (fun (k, v) ->
         sprintf "\"%s\":%s" k (format v))
       |> String.concat ","
       |> sprintf "{%s}"
@@ -34,7 +34,7 @@ let jnull: JValue = JNull
 
 let jobject (props: (string * JValue) seq) : JValue =
     props
-    |> Map.ofSeq
+    |> Seq.toList
     |> JObject
 
 let jlist (list: JValue seq) : JValue =

@@ -1,18 +1,22 @@
 source https://nuget.org/api/v2
-github fsprojects/Chessie src/Chessie/ErrorHandling.fs
-github mavnn/EmParsec     EmParsec.fs
+framework: net46
+
+nuget FParsec
 
 group Build
   source https://nuget.org/api/v2
+  framework: net46
 
-  nuget SourceLink.Fake
   nuget FAKE
+  nuget FSharp.Compiler.Tools
+  nuget SourceLink.Fake
   nuget FSharp.Formatting
 
   github fsharp/FAKE modules/Octokit/Octokit.fsx
 
 group Test
   source https://nuget.org/api/v2
+  framework: net46
 
-  nuget NUnit ~> 3
-  nuget NUnit.Runners ~> 3
+  nuget NUnit
+  nuget NUnit.Runners

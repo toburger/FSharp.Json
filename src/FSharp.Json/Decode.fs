@@ -1,54 +1,49 @@
 module FSharp.Json.Decode
 
-open Chessie.ErrorHandling
-open FSharp.Data
-open JsonParser
-
 let serialize obj =
   match obj: obj with
   | :? JValue as v -> Encode.encode false v
   | v -> string v
 
 let parse s =
-  match EmParsec.run JsonParser.jValue s with
-  | Choice1Of2 r -> r
-  | Choice2Of2 m -> failwith m
+  match FParsec.CharParsers.run JsonParser.jValue s with
+  | FParsec.CharParsers.Success (r, _, _) -> r
+  | FParsec.CharParsers.Failure (m, _, _) -> failwith m
 
 type Decoder<'a> = Decoder of (JValue -> Result<'a, string>)
 
 let fail (msg: string): Decoder<_> =
-    Decoder (fun _ -> fail msg)
+    Decoder (fun _ -> Result.fail msg)
 
 let succeed (a: 'a) : Decoder<'a> =
-    Decoder (fun _ -> ok a)
+    Decoder (fun _ -> Result.ok a)
 
 let private run (Decoder decoder) v = decoder v
 
 let private crash expected actual =
-    Trial.fail (sprintf "expecting %s but got %s" expected (serialize actual))
+    Result.fail (sprintf "expecting %s but got %s" expected (serialize actual))
 
 let bind (binder: 'a -> Decoder<'b>) (Decoder decoder): Decoder<'b> =
     Decoder (fun value ->
         match decoder value with
-        | Ok (v, _) ->
+        | Ok v ->
             let (Decoder result) = binder v
             result value
-        | Bad e -> Bad e)
+        | Error e -> Error e)
 
 let (>>=) decoder binder = bind binder decoder
 
 let map (mapper: 'a -> 'b) (Decoder decoder): Decoder<'b> =
-    Decoder (decoder >> Trial.lift mapper)
+    Decoder (decoder >> Result.map mapper)
 
 let (<!>) = map
 
 let apply (Decoder f: Decoder<'a -> 'b>) (Decoder d: Decoder<'a>): Decoder<'b> =
     Decoder (fun value ->
-        trial {
-            let! f = f value
-            let! a = d value
-            return f a
-        })
+        f value
+        |> Result.bind (fun f ->
+            d value
+            |> Result.map (fun a -> f a)))
 
 let (<*>) = apply
 
@@ -59,7 +54,8 @@ let (|RecordField|_|) field record =
     match record with
     | JObject properties ->
         properties
-        |> Map.tryFind field
+        |> List.tryFind (fst >> ((=) field))
+        |> Option.map snd
     | _ -> None
 
 let decodeField (field: string) (Decoder decoder) : Decoder<'b> =
@@ -71,7 +67,7 @@ let decodeField (field: string) (Decoder decoder) : Decoder<'b> =
 let (:=) = decodeField
 
 let dobject =
-    Decoder (function | JObject v -> ok v | v -> crash "a Object" v)
+    Decoder (function | JObject v -> Result.ok v | v -> crash "a Object" v)
 
 let object1 mapping decoder =
     dobject >>= fun _ -> succeed mapping <*> decoder
@@ -102,59 +98,59 @@ let dvalue (decoder: JValue -> Result<'a, _>) : Decoder<'a> =
 
 let dbool : Decoder<bool> =
     dvalue (function
-        | JBool b -> ok b
+        | JBool b -> Result.ok b
         | value -> crash "a Boolean" value)
 
 let dstring : Decoder<string> =
     dvalue (function
-        | JString s -> ok s
+        | JString s -> Result.ok s
         | value -> crash "a String" value)
 
 let dfloat : Decoder<float> =
     dvalue (function
-        | JNumber n -> ok (float n)
+        | JNumber n -> Result.ok (float n)
         | value -> crash "a Float" value)
 
 let dint : Decoder<int> =
     dvalue (function
-        | JNumber n -> ok (int n)
+        | JNumber n -> Result.ok (int n)
         | value -> crash "a Int" value)
 
 let dlist (Decoder decoder : Decoder<'a>) : Decoder<list<'a>> =
     Decoder (function
         | JArray elems ->
             elems
-            |> Seq.map decoder
-            |> Trial.collect
+            |> List.map decoder
+            |> Result.collect
         |  value -> crash "a Array" value)
 
 let dnull (v: 'a) : Decoder<'a> =
     Decoder (function
-        | JNull -> ok v
+        | JNull -> Result.ok v
         | value -> crash "null" value)
 
 let maybe (Decoder decoder: Decoder<'a>) : Decoder<option<'a>> =
-    Decoder (decoder >> Trial.either (fun (v, _) -> ok (Some v))
-                                     (fun _ -> ok None))
+    Decoder (decoder >> Result.either (Result.ok << Some)
+                                      (fun _ -> Result.ok None))
 
 let oneOf (decoders: list<Decoder<'a>>) : Decoder<'a> =
     Decoder (fun v ->
         List.fold (fun s (Decoder decoder) ->
             match decoder v, s with
-            | Ok (v, w), _-> Ok (v, w)
-            | Bad _, Ok (ok, w) -> Ok (ok, w)
-            | Bad err, Bad errs -> Bad (err @ errs))
-            (Bad [])
+            | Ok v, _-> Ok v
+            | Error _, Ok v -> Ok v
+            | Error err, Error errs -> Error (err + ", " + errs))
+            (Error "")
             decoders)
 
 let keyValuePairs (Decoder decoder: Decoder<'a>) : Decoder<list<string * 'a>> =
     Decoder (function
         | JObject props ->
             props
-            |> Seq.map (fun (KeyValue (name, value)) ->
+            |> List.map (fun (name, value) ->
                 decoder value
-                |> Trial.lift (fun v -> name, v))
-            |> Trial.collect
+                |> Result.map (fun v -> name, v))
+            |> Result.collect
         | value -> crash "an Object" value)
 
 let dmap (decoder: Decoder<'a>) : Decoder<Map<string, 'a>> =
@@ -164,14 +160,14 @@ let at (fields: list<string>) (decoder: Decoder<'a>) : Decoder<'a> =
     List.foldBack (:=) fields decoder
 
 let value : Decoder<JValue> =
-    Decoder ok
+    Decoder Result.ok
 
 let decodeValue (Decoder decoder: Decoder<'a>) (value: JValue) : Result<'a, _> =
     decoder value
 
 let dtuple c =
     Decoder (function
-        | JArray els when els.Length = c -> ok els
+        | JArray els when els.Length = c -> Result.ok els
         | value -> crash (sprintf "a Tuple of length %i" c) value)
 
 let always d v =
@@ -240,5 +236,5 @@ let tuple8 f d1 d2 d3 d4 d5 d6 d7 d8 =
 let customDecoder (Decoder decoder: Decoder<'a>) (callback: 'a -> Result<'b, _>) : Decoder<'b> =
     Decoder (fun value ->
         match decoder value with
-        | Ok (v, _) -> callback v
-        | Bad err -> Bad err)
+        | Ok v -> callback v
+        | Error err -> Error err)

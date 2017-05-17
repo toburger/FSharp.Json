@@ -5,5 +5,5 @@ type JValue =
     | JNumber of float
     | JBool   of bool
     | JNull
-    | JObject of Map<string, JValue>
+    | JObject of (string * JValue) list
     | JArray  of JValue list

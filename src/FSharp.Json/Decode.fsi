@@ -1,8 +1,6 @@
 ﻿/// A way to turn Json values into F# values. A Decoder<'a> represents a decoding operation that will either produce a value of type 'a, or fail.
 module FSharp.Json.Decode
 
-open Chessie.ErrorHandling
-
 /// Represents a way of decoding JSON values. If you have a (Decoder<list<string>>) it will attempt to take some JSON value and turn it into a list of strings. These decoders are easy to put together so you can create more and more complex decoders.
 type Decoder<'a> = Decoder of (JValue -> Result<'a, string>)
 

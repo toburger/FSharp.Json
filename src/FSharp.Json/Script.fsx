@@ -1,11 +1,11 @@
-#load @"..\..\paket-files\fsprojects\Chessie\src\Chessie\ErrorHandling.fs"
-#load @"..\..\paket-files\mavnn\EmParsec\EmParsec.fs"
+#r @"..\..\packages\FParsec\lib\net40-client\FParsecCS.dll"
+#r @"..\..\packages\FParsec\lib\net40-client\FParsec.dll"
+#load "Result.fs"
 #load "Json.fs"
 #load "JsonParser.fs"
 #load "Encode.fs"
 #load "Decode.fs"
 
-open Chessie.ErrorHandling
 open FSharp.Json
 open FSharp.Json.Decode
 open FSharp.Data
@@ -21,7 +21,7 @@ type Record =
 
 decodeValue
     (object1 id ("prop1" := dint))
-    (JObject (Map.ofList [ "prop1", JNumber 12. ]))
+    (JObject [ "prop1", JNumber 12. ])
 
 decodeString
     (object3 (fun p1 p2 p3 -> { prop1 = p1; prop2 = p2; prop3 = p3 })
@@ -68,25 +68,17 @@ decodeValue
     (dlist dint)
     (jlist ([1..10] |> List.map jint))
 
-module Trial =
-    let lift3 f res1 res2 res3 = trial {
-        let! r1 = res1
-        let! r2 = res2
-        let! r3 = res3
-        return f r1 r2 r3
-    }
-
 let variadic2 (f: 'a -> 'b -> 'c list -> 'value) a b (cs: Decoder<'c>): Decoder<'value> =
     customDecoder (dlist value) (function
         | one::two::rest ->
             let rest' =
                 List.map (decodeValue cs) rest
-                |> Trial.collect
-            Trial.lift3 f
+                |> Result.collect
+            Result.map3 f
                 (decodeValue a one)
                 (decodeValue b two)
                 rest'
-        | _ -> Trial.fail "expecting at least two elements in array")
+        | _ -> Result.fail "expecting at least two elements in array")
 
 decodeString
     (variadic2 (fun a b c -> a, b, c) dbool dstring dint)
@@ -95,8 +87,8 @@ decodeString
 decodeValue
     (customDecoder dstring (fun v ->
         match System.Int32.TryParse v with
-        | true, v -> ok v
-        | false, _ -> Trial.fail "not a integer"))
+        | true, v -> Result.ok v
+        | false, _ -> Result.fail "not a integer"))
     (jstring "42")
 
 type User =

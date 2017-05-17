@@ -2,13 +2,12 @@ module FSharp.Json.Tests.Decode
 
 open FSharp.Json.Encode
 open FSharp.Json.Decode
-open Chessie.ErrorHandling
 open NUnit.Framework
 
 let (==) expected actual =
     match actual with
-    | Ok (v, _) -> Assert.AreEqual(expected, v)
-    | Bad err -> Assert.Fail(sprintf "%A" err)
+    | Ok v -> Assert.AreEqual(expected, v)
+    | Error err -> Assert.Fail(sprintf "%A" err)
 
 [<Test>]
 let ``returns "hello world"`` () =
@@ -124,12 +123,11 @@ let ``returns tuple (foo, 42, baz, false)`` () =
             "[\"foo\", 42, \"baz\", false]"
 
 module Trial =
-    let lift3 f res1 res2 res3 = trial {
-        let! r1 = res1
-        let! r2 = res2
-        let! r3 = res3
-        return f r1 r2 r3
-    }
+    let lift3 f res1 res2 res3 =
+        res1 |> Result.bind (fun x1 ->
+            res2 |> Result.bind (fun x2 ->
+                res3 |> Result.map (fun x3 ->
+                    f x1 x2 x3)))
 
 [<Test>]
 let ``returns crazy formatted data`` () =
@@ -138,12 +136,12 @@ let ``returns crazy formatted data`` () =
             | one::two::rest ->
                 let rest' =
                     List.map (decodeValue cs) rest
-                    |> Trial.collect
+                    |> Result.collect
                 Trial.lift3 f
                     (decodeValue a one)
                     (decodeValue b two)
                     rest'
-            | _ -> fail "expecting at least two elements in array")
+            | _ -> Result.Error "expecting at least two elements in array")
     (false, "test", [ 42; 12; 12 ]) ==
         decodeString
             (variadic2 (fun a b c -> a, b, c) dbool dstring dint)

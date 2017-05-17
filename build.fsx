@@ -18,6 +18,9 @@ open SourceLink
 
 #endif
 
+let fscToolPath = findToolFolderInSubPath "fsc.exe" "packages"
+let msbuildProps = [ "FscToolPath", fscToolPath ]
+
 // --------------------------------------------------------------------------------------
 // START TODO: Provide project-specific details below
 // --------------------------------------------------------------------------------------
@@ -136,7 +139,7 @@ Target "Build" (fun _ ->
 #if MONO
     |> MSBuildReleaseExt "" [ ("DefineConstants","MONO") ] "Rebuild"
 #else
-    |> MSBuildRelease "" "Rebuild"
+    |> MSBuildReleaseExt "" msbuildProps "Rebuild"
 #endif
     |> ignore
 )

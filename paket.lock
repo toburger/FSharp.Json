@@ -1,49 +1,43 @@
-
+FRAMEWORK: NET46
+NUGET
+  remote: https://www.nuget.org/api/v2
+    FParsec (1.0.2)
 GITHUB
   remote: fsprojects/Chessie
-  specs:
-    src/Chessie/ErrorHandling.fs (d957821d60696cd5e8d4c068bbad9406f00680a8)
-  remote: mavnn/EmParsec
-  specs:
-    EmParsec.fs (5606dcdb027806b6dca7b5a20a06caf04425719b)
+    src/Chessie/ErrorHandling.fs (f0237b5d23da6dbc33d8aab59c8be947f6878dfb)
 GROUP Build
+FRAMEWORK: NET46
 NUGET
   remote: https://www.nuget.org/api/v2
-  specs:
-    FAKE (4.21.4)
+    FAKE (4.61.2)
     FSharp.Compiler.Service (2.0.0.6)
-    FSharp.Formatting (2.14.0)
-      FSharp.Compiler.Service (>= 2.0.0.3 < 2.1.0)
-      FSharpVSPowerTools.Core (>= 2.3.0 < 2.4.0)
-    FSharpVSPowerTools.Core (2.3.0)
+    FSharp.Compiler.Tools (4.1.17)
+    FSharp.Formatting (2.14.4)
+      FSharp.Compiler.Service (2.0.0.6)
+      FSharpVSPowerTools.Core (>= 2.3 < 2.4)
+    FSharpVSPowerTools.Core (2.3)
       FSharp.Compiler.Service (>= 2.0.0.3)
-    Microsoft.Bcl (1.1.10)
-      Microsoft.Bcl.Build (>= 1.0.14)
-    Microsoft.Bcl.Build (1.0.21) - import_targets: false
-    Microsoft.Net.Http (2.2.29)
-      Microsoft.Bcl (>= 1.1.10)
-      Microsoft.Bcl.Build (>= 1.0.14)
-    Octokit (0.18.0)
-      Microsoft.Net.Http
-    SourceLink.Fake (1.1.0)
+    Octokit (0.24)
+    SourceLink.Fake (1.1)
 GITHUB
   remote: fsharp/FAKE
-  specs:
-    modules/Octokit/Octokit.fsx (58dce73f9a069ae7fbfbae993f5e6f06ed9218d5)
-      Octokit
+    modules/Octokit/Octokit.fsx (43917109af4ef38194d8993215c3e7c862b19d36)
+      Octokit (>= 0.20)
 GROUP Test
+FRAMEWORK: NET46
 NUGET
   remote: https://www.nuget.org/api/v2
-  specs:
-    NUnit (3.2.0)
-    NUnit.ConsoleRunner (3.2.0)
-    NUnit.Extension.NUnitProjectLoader (3.2.0)
-    NUnit.Extension.NUnitV2Driver (3.2.0)
-    NUnit.Extension.NUnitV2ResultWriter (3.2.0)
-    NUnit.Extension.VSProjectLoader (3.2.0)
-    NUnit.Runners (3.2.0)
-      NUnit.ConsoleRunner (3.2.0)
-      NUnit.Extension.NUnitProjectLoader (3.2.0)
-      NUnit.Extension.NUnitV2Driver (3.2.0)
-      NUnit.Extension.NUnitV2ResultWriter (3.2.0)
-      NUnit.Extension.VSProjectLoader (3.2.0)
+    NUnit (3.6.1)
+    NUnit.ConsoleRunner (3.6.1)
+    NUnit.Extension.NUnitProjectLoader (3.5)
+    NUnit.Extension.NUnitV2Driver (3.6)
+    NUnit.Extension.NUnitV2ResultWriter (3.5)
+    NUnit.Extension.TeamCityEventListener (1.0.2)
+    NUnit.Extension.VSProjectLoader (3.5)
+    NUnit.Runners (3.6.1)
+      NUnit.ConsoleRunner (>= 3.6.1)
+      NUnit.Extension.NUnitProjectLoader (>= 3.5)
+      NUnit.Extension.NUnitV2Driver (>= 3.6)
+      NUnit.Extension.NUnitV2ResultWriter (>= 3.5)
+      NUnit.Extension.TeamCityEventListener (>= 1.0.2)
+      NUnit.Extension.VSProjectLoader (>= 3.5)

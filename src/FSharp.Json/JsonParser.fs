@@ -1,6 +1,6 @@
 ﻿module internal JsonParser
 
-open EmParsec
+open FParsec
 open System
 open FSharp.Json
 
@@ -26,27 +26,6 @@ The JSON spec is available at [json.org](http://www.json.org/). I'll paraphase i
 * Whitespace can be inserted between any pair of tokens.
 
 *)
-
-/// Convert a list of chars to a string
-let charListToStr charList =
-    String(List.toArray charList)
-
-/// Parses a sequence of zero or more chars with the char parser cp.
-/// It returns the parsed chars as a string.
-let manyChars cp =
-    many cp
-    |>> charListToStr
-
-/// Parses a sequence of one or more chars with the char parser cp.
-/// It returns the parsed chars as a string.
-let manyChars1 cp =
-    many1 cp
-    |>> charListToStr
-
-/// Run the parser on a InputState
-let runOnInput parser input =
-    // call inner function with input
-    parser.UserState input
 
 // ======================================
 // Forward reference
@@ -100,7 +79,7 @@ let jBool =
 
 /// Parse an unescaped char
 let jUnescapedChar =
-    satisfy (fun ch -> ch <> '\\' && ch <> '\"') "char"
+    satisfyL (fun ch -> ch <> '\\' && ch <> '\"') "char"
 
 /// Parse an escaped char
 let jEscapedChar =
@@ -161,17 +140,16 @@ let jString =
 
 /// Parse a JNumber
 let jNumber =
-
     // set up the "primitive" parsers
     let optSign = opt (pchar '-')
 
     let zero = pstring "0"
 
     let digitOneNine =
-        satisfy (fun ch -> Char.IsDigit ch && ch <> '0') "1-9"
+        satisfyL (fun ch -> Char.IsDigit ch && ch <> '0') "1-9"
 
     let digit =
-        satisfy (fun ch -> Char.IsDigit ch ) "digit"
+        satisfyL (fun ch -> Char.IsDigit ch ) "digit"
 
     let point = pchar '.'
 
@@ -185,9 +163,9 @@ let jNumber =
 
     let intPart = zero <|> nonZeroInt
 
-    let fractionPart = point >>. manyChars1 digit
+    let fractionPart = point >>. manyChars digit
 
-    let exponentPart = e >>. optPlusMinus .>>. manyChars1 digit
+    let exponentPart = e >>. optPlusMinus .>>. manyChars digit
 
     // utility function to convert an optional value to a string, or "" if missing
     let ( |>? ) opt f =
@@ -263,7 +241,6 @@ let jObject =
 
     // set up the main parser
     between left right keyValues
-    |>> Map.ofList  // convert the list of keyValues into a Map
     |>> JObject     // wrap in JObject
     <?> "object"    // add label
 
@@ -283,5 +260,5 @@ jValueRef :=
     ]
 
 match run jValue "" with
-| Choice1Of2 r -> printfn "%A" r
-| Choice2Of2 m -> printfn "%s" m
+| Success (r, _, _) -> printfn "%A" r
+| Failure (m, _, _) -> printfn "%s" m
