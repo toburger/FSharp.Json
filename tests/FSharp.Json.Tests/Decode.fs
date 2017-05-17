@@ -88,7 +88,7 @@ let ``returns keyvaluepairs`` () =
 
 [<Test>]
 let ``returns empty map`` () =
-    "{}" ==
+    Map.empty<string, string> ==
         decodeString
             (dmap dstring)
             "{}"
