@@ -213,7 +213,7 @@ let jArray =
     let value = jValue .>> spaces
 
     // set up the list parser
-    let values = sepBy1 value comma
+    let values = sepBy value comma
 
     // set up the main parser
     between left right values
