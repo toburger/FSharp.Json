@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Encode - FSharp.Json</title>
+    <title>JValue - FSharp.Json</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content="Tobias Burger"/>
@@ -35,55 +35,30 @@
 
 
 
-<h1>Encode</h1>
+<h1>JValue</h1>
 <p>
   <span>Namespace: FSharp.Json</span><br />
 </p>
 <div class="xmldoc">
-<p>Library for turning F# values into Json values.</p>
-
 </div>
-
-<!-- Render nested types and modules, if there are any -->
-
-  <h3>Functions and values</h3>
+  <h3>Union Cases</h3>
   <table class="table table-bordered member-list">
     <thead>
-      <tr><td>Function or value</td><td>Description</td></tr>
+      <tr><td>Union Case</td><td>Description</td></tr>
     </thead>
     <tbody>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '38', 38)" onmouseover="showTip(event, '38', 38)">
-            encode indent value
+          <code onmouseout="hideTip(event, '46', 46)" onmouseover="showTip(event, '46', 46)">
+            JArray(JValue list)
           </code>
-          <div class="tip" id="38">
-            <strong>Signature:</strong> indent:bool -&gt; value:JValue -&gt; string<br />
+          <div class="tip" id="46">
+            <strong>Signature:</strong> JValue list<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Encode.fs#L21-21" class="github-link">
-              <img src="../content/img/github.png" class="normal" />
-              <img src="../content/img/github-blue.png" class="hover" />
-            </a>
-          <p>Convert a Value into a prettified string. The first argument specifies the indentation in the resulting string.</p>
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '39', 39)" onmouseover="showTip(event, '39', 39)">
-            jbool value
-          </code>
-          <div class="tip" id="39">
-            <strong>Signature:</strong> value:bool -&gt; JValue<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Encode.fs#L31-31" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Json.fs#L9-9" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -93,15 +68,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '40', 40)" onmouseover="showTip(event, '40', 40)">
-            jfloat value
+          <code onmouseout="hideTip(event, '47', 47)" onmouseover="showTip(event, '47', 47)">
+            JBool(bool)
           </code>
-          <div class="tip" id="40">
-            <strong>Signature:</strong> value:float -&gt; JValue<br />
+          <div class="tip" id="47">
+            <strong>Signature:</strong> bool<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Encode.fs#L29-29" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Json.fs#L6-6" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -111,15 +86,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '41', 41)" onmouseover="showTip(event, '41', 41)">
-            jint value
+          <code onmouseout="hideTip(event, '48', 48)" onmouseover="showTip(event, '48', 48)">
+            JNull
           </code>
-          <div class="tip" id="41">
-            <strong>Signature:</strong> value:int -&gt; JValue<br />
+          <div class="tip" id="48">
+            <strong>Signature:</strong> <br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Encode.fs#L27-27" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Json.fs#L7-7" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -129,15 +104,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '42', 42)" onmouseover="showTip(event, '42', 42)">
-            jlist list
+          <code onmouseout="hideTip(event, '49', 49)" onmouseover="showTip(event, '49', 49)">
+            JNumber(float)
           </code>
-          <div class="tip" id="42">
-            <strong>Signature:</strong> list:seq&lt;JValue&gt; -&gt; JValue<br />
+          <div class="tip" id="49">
+            <strong>Signature:</strong> float<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Encode.fs#L40-40" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Json.fs#L5-5" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -147,15 +122,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '43', 43)" onmouseover="showTip(event, '43', 43)">
-            jnull 
+          <code onmouseout="hideTip(event, '50', 50)" onmouseover="showTip(event, '50', 50)">
+            JObject((string * JValue) list)
           </code>
-          <div class="tip" id="43">
-            <strong>Signature:</strong> JValue<br />
+          <div class="tip" id="50">
+            <strong>Signature:</strong> (string * JValue) list<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Encode.fs#L33-33" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Json.fs#L8-8" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -165,33 +140,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '44', 44)" onmouseover="showTip(event, '44', 44)">
-            jobject props
+          <code onmouseout="hideTip(event, '51', 51)" onmouseover="showTip(event, '51', 51)">
+            JString(string)
           </code>
-          <div class="tip" id="44">
-            <strong>Signature:</strong> props:seq&lt;string * JValue&gt; -&gt; JValue<br />
+          <div class="tip" id="51">
+            <strong>Signature:</strong> string<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Encode.fs#L35-35" class="github-link">
-              <img src="../content/img/github.png" class="normal" />
-              <img src="../content/img/github-blue.png" class="hover" />
-            </a>
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '45', 45)" onmouseover="showTip(event, '45', 45)">
-            jstring value
-          </code>
-          <div class="tip" id="45">
-            <strong>Signature:</strong> value:string -&gt; JValue<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Encode.fs#L25-25" class="github-link">
+            <a href="http://github.com/toburger/FSharp.Json/tree/master/src/FSharp.Json/Json.fs#L4-4" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
