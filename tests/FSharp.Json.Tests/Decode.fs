@@ -135,13 +135,6 @@ let ``returns tuple (foo, 42, baz, false)`` () =
             (tuple4 (fun s i s2 b -> s, i, s2, b) dstring dint dstring dbool)
             "[\"foo\", 42, \"baz\", false]"
 
-module Trial =
-    let lift3 f res1 res2 res3 =
-        res1 |> Result.bind (fun x1 ->
-            res2 |> Result.bind (fun x2 ->
-                res3 |> Result.map (fun x3 ->
-                    f x1 x2 x3)))
-
 [<Test>]
 let ``returns crazy formatted data`` () =
     let variadic2 (f: 'a -> 'b -> 'c list -> 'value) a b (cs: Decoder<'c>): Decoder<'value> =
@@ -150,7 +143,7 @@ let ``returns crazy formatted data`` () =
                 let rest' =
                     List.map (decodeValue cs) rest
                     |> Result.collect
-                Trial.lift3 f
+                Result.map3 f
                     (decodeValue a one)
                     (decodeValue b two)
                     rest'
