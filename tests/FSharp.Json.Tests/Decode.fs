@@ -56,6 +56,12 @@ let ``returns object2`` () =
                      ("age" := dint))
             "{ \"name\": \"foo\", \"age\": 42 }"
 
+let ``return emplty list`` () =
+    [] ==
+        decodeString
+            (dlist dint)
+            "[]"
+
 [<Test>]
 let ``returns integer list`` () =
     [1..10] ==
@@ -79,6 +85,13 @@ let ``returns keyvaluepairs`` () =
         decodeString
             (keyValuePairs dstring)
             "{ \"name\": \"foo\", \"name2\": \"bar\" }"
+
+[<Test>]
+let ``returns empty map`` () =
+    "{}" ==
+        decodeString
+            (dmap dstring)
+            "{}"
 
 [<Test>]
 let ``returns map`` () =
