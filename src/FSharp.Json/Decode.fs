@@ -5,10 +5,12 @@ let serialize obj =
   | :? JValue as v -> Encode.encode false v
   | v -> string v
 
-let parse s =
-  match FParsec.CharParsers.run JsonParser.jValue s with
-  | FParsec.CharParsers.Success (r, _, _) -> r
-  | FParsec.CharParsers.Failure (m, _, _) -> failwith m
+let nat = function
+    | FParsec.CharParsers.Success (r, _, _) -> Ok r
+    | FParsec.CharParsers.Failure (m, _, _) -> Error m
+
+let parse =
+  nat << FParsec.CharParsers.run JsonParser.jValue
 
 type Decoder<'a> = Decoder of (JValue -> Result<'a, string>)
 
@@ -48,7 +50,7 @@ let apply (Decoder f: Decoder<'a -> 'b>) (Decoder d: Decoder<'a>): Decoder<'b> =
 let (<*>) = apply
 
 let decodeString (Decoder decoder) (s : string) : Result<_, _> =
-    decoder (parse s)
+    Result.bind decoder (parse s)
 
 let (|RecordField|_|) field record =
     match record with
