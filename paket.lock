@@ -2,9 +2,10 @@ FRAMEWORK: NET46
 NUGET
   remote: https://www.nuget.org/api/v2
     FParsec (1.0.2)
-GITHUB
-  remote: fsprojects/Chessie
-    src/Chessie/ErrorHandling.fs (f0237b5d23da6dbc33d8aab59c8be947f6878dfb)
+    FSharp.Core (4.1.17) - redirects: force
+      System.ValueTuple (>= 4.3)
+    System.ValueTuple (4.3.1) - redirects: force
+
 GROUP Build
 FRAMEWORK: NET46
 NUGET
