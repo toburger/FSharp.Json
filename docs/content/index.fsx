@@ -35,7 +35,8 @@ open FSharp.Json.Decode
 
 let json = "[1..10]"
 let parsed = decodeString (dlist dint) json
-let result = parsed |> Result.returnOrFail
+let result = Result.returnOrFail parsed
+
 printfn "answer = %A" result
 
 (**

@@ -36,4 +36,4 @@ let map3 f res1 res2 res3 =
 
 let returnOrFail = function
     | Ok x -> x
-    | Error msg -> fail msg
+    | Error msg -> failwith msg
