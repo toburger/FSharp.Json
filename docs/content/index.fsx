@@ -33,7 +33,7 @@ This example demonstrates using a function defined in this sample library.
 #r "FSharp.Json.dll"
 open FSharp.Json.Decode
 
-let json = "[1..10]"
+let json = "[1,2,3,4,5,6,7,8,9,10]"
 let parsed = decodeString (dlist dint) json
 let result = Result.returnOrFail parsed
 
