@@ -138,6 +138,11 @@ let dint : Decoder<int> =
         | JNumber n -> Result.ok (int n)
         | value -> crash "a Int" value)
 
+let ddecimal : Decoder<decimal> =
+    dvalue (function
+        | JNumber n -> Result.ok n
+        | value -> crash "a Decimal" value)
+
 let dlist (Decoder decoder : Decoder<'a>) : Decoder<list<'a>> =
     Decoder (function
         | JArray elems ->

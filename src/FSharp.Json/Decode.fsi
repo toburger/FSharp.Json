@@ -52,6 +52,9 @@ val dint : Decoder<int>
 /// Extract a float.
 val dfloat : Decoder<float>
 
+/// Extract a decimal.
+val ddecimal : Decoder<decimal>
+
 /// Extract a boolean.
 val dbool : Decoder<bool>
 
