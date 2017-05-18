@@ -58,6 +58,9 @@ val oneOf : decoders: Decoder<'a> list -> Decoder<'a>
 /// Applies the decoder to the field with the given name. Fails if the JSON object has no such field.
 val (:=) : (string -> Decoder<'a> -> Decoder<'a>)
 
+/// Match an empty object and returns it as unit. You can see {} in JSON as an isomorphism to unit in ML."
+val dunit: Decoder<unit>
+
 /// Apply a function to a decoder. You can use this function as map if you must (which can be done with any objectN function actually).
 val object1 : mapper: ('a -> 'value) -> decoder: Decoder<'a> -> Decoder<'value>
 

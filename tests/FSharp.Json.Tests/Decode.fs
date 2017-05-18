@@ -10,6 +10,10 @@ let (==) expected actual =
     | Error err -> Assert.Fail(sprintf "%A" err)
 
 [<Test>]
+let ``{} returns unit`` () =
+    () == decodeString dunit "{}"
+
+[<Test>]
 let ``returns "hello world"`` () =
     "hello world" == decodeValue dstring (jstring "hello world")
 

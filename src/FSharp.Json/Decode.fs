@@ -71,6 +71,9 @@ let (:=) = decodeField
 let dobject =
     Decoder (function | JObject v -> Result.ok v | v -> crash "a Object" v)
 
+let dunit =
+    dobject >>= (succeed << ignore)
+
 let object1 mapping decoder =
     dobject >>= fun _ -> succeed mapping <*> decoder
 
