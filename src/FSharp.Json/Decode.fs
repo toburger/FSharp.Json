@@ -40,12 +40,8 @@ let map (mapper: 'a -> 'b) (Decoder decoder): Decoder<'b> =
 
 let (<!>) = map
 
-let apply (Decoder f: Decoder<'a -> 'b>) (Decoder d: Decoder<'a>): Decoder<'b> =
-    Decoder (fun value ->
-        f value
-        |> Result.bind (fun f ->
-            d value
-            |> Result.map (fun a -> f a)))
+let apply (Decoder f: Decoder<'a -> 'b>) (Decoder d: Decoder<'a>) : Decoder<'b> =
+    Decoder (fun value -> Result.map2 (fun f a -> f a) (f value) (d value))
 
 let (<*>) = apply
 
