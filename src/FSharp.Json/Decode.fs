@@ -1,21 +1,21 @@
 module FSharp.Json.Decode
 
 let serialize obj =
-  match obj: obj with
-  | :? JValue as v -> Encode.encode false v
-  | v -> string v
+    match obj: obj with
+    | :? JValue as v -> Encode.encode false v
+    | v -> string v
 
 let nat = function
     | FParsec.CharParsers.Success (r, _, _) -> Ok r
-    | FParsec.CharParsers.Failure (m, _, _) -> Error m
+    | FParsec.CharParsers.Failure (m, _, _) -> Error [m]
 
 let parse =
-  nat << FParsec.CharParsers.run JsonParser.jValue
+    nat << FParsec.CharParsers.run JsonParser.jValue
 
-type Decoder<'a> = Decoder of (JValue -> Result<'a, string>)
+type Decoder<'a> = Decoder of (JValue -> Result<'a, string list>)
 
 let fail (msg: string): Decoder<_> =
-    Decoder (fun _ -> Result.fail msg)
+    Decoder (fun _ -> Result.fail [msg])
 
 let succeed (a: 'a) : Decoder<'a> =
     Decoder (fun _ -> Result.ok a)
@@ -23,7 +23,7 @@ let succeed (a: 'a) : Decoder<'a> =
 let private run (Decoder decoder) v = decoder v
 
 let private crash expected actual =
-    Result.fail (sprintf "expecting %s but got %s" expected (serialize actual))
+    Result.fail [sprintf "expecting %s but got %s" expected (serialize actual)]
 
 let bind (binder: 'a -> Decoder<'b>) (Decoder decoder): Decoder<'b> =
     Decoder (fun value ->
@@ -141,8 +141,8 @@ let oneOf (decoders: list<Decoder<'a>>) : Decoder<'a> =
             match decoder v, s with
             | Ok v, _-> Ok v
             | Error _, Ok v -> Ok v
-            | Error err, Error errs -> Error (err + ", " + errs))
-            (Error "")
+            | Error errs1, Error errs2 -> Error (errs1 @ errs2))
+            (Error [])
             decoders)
 
 let keyValuePairs (Decoder decoder: Decoder<'a>) : Decoder<list<string * 'a>> =
@@ -240,3 +240,11 @@ let customDecoder (Decoder decoder: Decoder<'a>) (callback: 'a -> Result<'b, _>)
         match decoder value with
         | Ok v -> callback v
         | Error err -> Error err)
+
+let collectMessages = function
+    | [] -> invalidOp "No error message found."
+    | [x] -> failwith x
+    | xs -> raise (System.AggregateException("There were errors while parsing the JSON document.", List.map exn xs))
+
+let returnOrFail result =
+    Result.either id collectMessages result

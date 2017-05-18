@@ -1,5 +1,5 @@
 ﻿[<RequireQualifiedAccess>]
-module Result
+module internal Result
 
 let ok x = Ok x
 
@@ -31,6 +31,3 @@ let either okf errf result =
     match result with
     | Ok x -> okf x
     | Error err -> errf err
-
-let returnOrFail result =
-    either id failwith result

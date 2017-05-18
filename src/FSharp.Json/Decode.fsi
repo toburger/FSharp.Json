@@ -2,7 +2,7 @@
 module FSharp.Json.Decode
 
 /// Represents a way of decoding JSON values. If you have a (Decoder<list<string>>) it will attempt to take some JSON value and turn it into a list of strings. These decoders are easy to put together so you can create more and more complex decoders.
-type Decoder<'a> = Decoder of (JValue -> Result<'a, string>)
+type Decoder<'a> = Decoder of (JValue -> Result<'a, string list>)
 
 /// A decoder that always succeeds. Useful when paired with andThen or oneOf but everything is supposed to work out at the end. For example, maybe you have an optional field that can have a default value when it is missing.
 val succeed : value: 'a -> Decoder<'a>
@@ -26,10 +26,10 @@ val bind : ('a -> Decoder<'b>) -> decoder: Decoder<'a> -> Decoder<'b>
 val (>>=) : decoder: Decoder<'a> -> ('a -> Decoder<'b>) -> Decoder<'b>
 
 /// Using a certain decoder, attempt to parse a raw Json.Value. You can pass a Json.Value into Elm through a port, so this can let you handle data with extra weird shapes or stuff that currently is not allowed through ports automatically.
-val decodeValue : decoder: Decoder<'a> -> value: JValue -> Result<'a, string>
+val decodeValue : decoder: Decoder<'a> -> value: JValue -> Result<'a, string list>
 
 /// Using a certain decoder, attempt to parse a JSON string. If the decoder fails, you will get a string message telling you why.
-val decodeString: decoder: Decoder<'a> -> input: string -> Result<'a, string>
+val decodeString: decoder: Decoder<'a> -> input: string -> Result<'a, string list>
 
 /// Extract a string.
 val dstring : Decoder<string>
@@ -125,4 +125,6 @@ val tuple8 : ('a -> 'b -> 'c -> 'd -> 'e -> 'f -> 'g -> 'h -> 'value) -> Decoder
 val value : Decoder<JValue>
 
 /// Create a custom decoder that may do some fancy computation. See the value documentation for an example usage.
-val customDecoder : decoder: Decoder<'a> -> callback: ('a -> Result<'value, string>) -> Decoder<'value>
+val customDecoder : decoder: Decoder<'a> -> callback: ('a -> Result<'value, string list>) -> Decoder<'value>
+
+val returnOrFail: (Result<'value, string list>) -> 'value

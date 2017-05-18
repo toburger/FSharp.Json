@@ -147,7 +147,7 @@ let ``returns crazy formatted data`` () =
                     (decodeValue a one)
                     (decodeValue b two)
                     rest'
-            | _ -> Result.Error "expecting at least two elements in array")
+            | _ -> Error ["expecting at least two elements in array"])
     (false, "test", [ 42; 12; 12 ]) ==
         decodeString
             (variadic2 (fun a b c -> a, b, c) dbool dstring dint)
