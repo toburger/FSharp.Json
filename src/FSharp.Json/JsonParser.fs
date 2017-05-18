@@ -259,6 +259,6 @@ jValueRef :=
         jObject
     ]
 
-match run jValue "" with
-| Success (r, _, _) -> printfn "%A" r
-| Failure (m, _, _) -> printfn "%s" m
+match run jValue "{}" with
+| Success _ -> ()
+| Failure _ -> ()
