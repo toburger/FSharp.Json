@@ -10,6 +10,8 @@ val jint : value: int -> JValue
 
 val jfloat : value: float -> JValue
 
+val jdecimal : value: decimal -> JValue
+
 val jbool : value: bool -> JValue
 
 val jnull : JValue

@@ -76,12 +76,15 @@ let encode indent value =
 
 let jstring (value: string): JValue = JString value
 
-let jint (value: int): JValue = JNumber (float value)
+let jint (value: int): JValue = JNumber (decimal value)
 
 let jfloat (value: float): JValue =
     if System.Double.IsNaN value
     then JNull
-    else JNumber value
+    else JNumber (decimal value)
+
+let jdecimal (value: decimal): JValue =
+    JNumber value
 
 let jbool (value: bool): JValue = JBool value
 

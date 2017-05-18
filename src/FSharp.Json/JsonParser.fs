@@ -192,7 +192,7 @@ let jNumber =
 
         // add the parts together and convert to a float, then wrap in a JNumber
         (signStr + intPart + fractionPartStr + expPartStr)
-        |> float
+        |> decimal
         |> JNumber
 
     // set up the main parser
