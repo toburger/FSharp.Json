@@ -2,7 +2,10 @@ init:
   - git config --global core.autocrlf input
 build_script:
   - cmd: build.cmd
-test: on
+test:
+  assemblies:
+    only:
+      - '**\*.Tests.dll'
 version: 0.0.1.{build}
 artifacts:
   - path: bin
