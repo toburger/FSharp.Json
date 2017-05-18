@@ -12,6 +12,14 @@ let nat = function
 let parse =
     nat << FParsec.CharParsers.run JsonParser.jValue
 
+let parseStreamWithEncoding stream =
+    nat << FParsec.CharParsers.runParserOnStream
+                JsonParser.jValue () "" stream
+
+let parseFileWithEncoding path =
+    nat << FParsec.CharParsers.runParserOnFile
+                JsonParser.jValue () path
+
 type Decoder<'a> = Decoder of (JValue -> Result<'a, string list>)
 
 let fail (msg: string): Decoder<_> =
@@ -47,6 +55,18 @@ let (<*>) = apply
 
 let decodeString (Decoder decoder) (s : string) : Result<_, _> =
     Result.bind decoder (parse s)
+
+let decodeStreamWithEncoding (Decoder decoder) stream encoding : Result<_, _> =
+    Result.bind decoder (parseStreamWithEncoding stream encoding)
+
+let decodeStream decoder stream =
+    decodeStreamWithEncoding decoder stream System.Text.Encoding.UTF8
+
+let decodeFileWithEncoding (Decoder decoder) path encoding : Result<_, _> =
+    Result.bind decoder (parseFileWithEncoding path encoding)
+
+let decodeFile decoder path =
+    decodeFileWithEncoding decoder path System.Text.Encoding.UTF8
 
 let (|RecordField|_|) field record =
     match record with

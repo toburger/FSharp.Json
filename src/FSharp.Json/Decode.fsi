@@ -31,6 +31,18 @@ val decodeValue : decoder: Decoder<'a> -> value: JValue -> Result<'a, string lis
 /// Using a certain decoder, attempt to parse a JSON string. If the decoder fails, you will get a string message telling you why.
 val decodeString: decoder: Decoder<'a> -> input: string -> Result<'a, string list>
 
+/// Using a certain decoder, attemt to parse a JSON stream with the provided encoding.
+val decodeStreamWithEncoding: decoder: Decoder<'a> -> stream: System.IO.Stream -> encoding: System.Text.Encoding -> Result<'a, string list>
+
+/// Using a certain decoder, attemt to parse a JSON stream with UTF-8 encoding.
+val decodeStream: decoder: Decoder<'a> -> stream: System.IO.Stream -> Result<'a, string list>
+
+/// Using a certain decoder, attemt to parse a JSON file with the provided file encoding.
+val decodeFileWithEncoding: decoder: Decoder<'a> -> path: string -> encoding: System.Text.Encoding -> Result<'a, string list>
+
+/// Using a certain decoder, attemt to parse a JSON file with the UTF-8 file encoding.
+val decodeFile: decoder: Decoder<'a> -> path: string -> Result<'a, string list>
+
 /// Extract a string.
 val dstring : Decoder<string>
 
