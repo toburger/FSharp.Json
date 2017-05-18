@@ -8,14 +8,17 @@ open FSharp.Json.Decode
 type MapKey = Key of string
 
 type ListObject = {
-    Number: float
+    Int: int
+    Float: float
+    Decimal: decimal
+    Tuple: (int * string)
 }
 
 type MapObject = {
     List: ListObject list
 }
 
-type Object = {
+type Record = {
     Name: string
     Number: int
     MaybeNumber: int option
@@ -24,12 +27,21 @@ type Object = {
 }
 
 type Union =
-    | Object of Object
-    | Number of int
+    | Single
+    | Record of Record
+    | Complex of int * ListObject list
+    | Recursive of Union
 
 module Encoders =
     let encodeListObject (o: ListObject) =
-        jobject [ "number", jfloat o.Number ]
+        jobject
+            [ "int", jint o.Int
+              "float", jfloat o.Float
+              "decimal", jdecimal o.Decimal
+              "tuple",
+                jlist
+                    [ jint (fst o.Tuple)
+                      jstring (snd o.Tuple) ] ]
 
     let encodeList =
         jlist << List.map encodeListObject
@@ -37,26 +49,53 @@ module Encoders =
     let encodeMapObject (o: MapObject) =
         jobject [ "list", encodeList o.List ]
 
-    let encodeMap (map: Map<_, _>) =
-        Seq.map (fun (KeyValue(Key k, v)) -> k, encodeMapObject v) map
-        |> jobject
+    let encodeMap =
+        Seq.map (fun (KeyValue(Key k, v)) ->
+                    k, encodeMapObject v)
+        >> jobject
 
     let encodeObject o =
         [ "name",  if o.Name = null then jnull else jstring o.Name
           "number", jint o.Number
-          "maybeNumber", o.MaybeNumber |> Option.map jint |> Option.defaultValue jnull
+          "maybeNumber", Option.fold (fun _ -> jint) jnull o.MaybeNumber
           "list", encodeList o.List
           "map", encodeMap o.Map ]
 
-    let encodeUnion = function
-        | Object o -> jobject (("type", jstring "object") :: encodeObject o)
-        | Number n -> jobject [ "type", jstring "number"; "n", jint n ]
+    let rec encodeUnion = function
+        | Single ->
+            jobject [ "type", jstring "single" ]
+        | Record o ->
+            jobject
+                (("type", jstring "record")
+                 :: encodeObject o)
+        | Complex (n, xs) ->
+            jobject
+                [ "type", jstring "complex"
+                  "number", jint n
+                  "list", encodeList xs ]
+        | Recursive u ->
+            jobject
+                [ "type", jstring "recursive"
+                  "data", encodeUnion u ]
+
+#nowarn "40"
 
 module Decoders =
     let decodeListObject =
-        object1
-            (fun number -> { ListObject.Number = number })
-            ("number" := dfloat)
+        object4
+            (fun i f d t ->
+                { Int = i
+                  Float = f
+                  Decimal = d
+                  Tuple = t })
+            ("int" := dint)
+            ("float" := dfloat)
+            ("decimal" := ddecimal)
+            ("tuple" :=
+                tuple2
+                    (fun i s -> i, s)
+                    dint
+                    (oneOf [ dnull null; dstring ]))
 
     let decodeList =
         dlist decodeListObject
@@ -72,17 +111,28 @@ module Decoders =
 
     let decodeObject =
         object5 (fun name number maybeNumber list map ->
-            { Name = name; Number = number; MaybeNumber = maybeNumber; List = list; Map = map })
+            { Name = name
+              Number = number
+              MaybeNumber = maybeNumber
+              List = list
+              Map = map })
             ("name" := oneOf [ dnull null; dstring ])
             ("number" := dint)
             ("maybeNumber" := maybe dint)
             ("list" := decodeList)
             ("map" := decodeMap)
 
-    let decodeUnion =
+    let rec decodeUnion =
         ("type" := dstring) >>= function
-            | "object" -> object1 Object decodeObject
-            | "number" -> object1 Number ("n" := dint)
+            | "single" -> succeed Single
+            | "record" -> object1 Record decodeObject
+            | "complex" ->
+                object2
+                    (fun n xs -> Complex (n, xs))
+                    ("number" := dint)
+                    ("list" := decodeList)
+            | "recursive" ->
+                object1 Recursive ("data" := decodeUnion)
             | _ -> invalidOp ""
 
 module Generators =
