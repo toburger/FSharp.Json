@@ -26,7 +26,10 @@ let jstring (value: string): JValue = JString value
 
 let jint (value: int): JValue = JNumber (float value)
 
-let jfloat (value: float): JValue = JNumber (float value)
+let jfloat (value: float): JValue =
+    if System.Double.IsNaN value
+    then JNull
+    else JNumber value
 
 let jbool (value: bool): JValue = JBool value
 

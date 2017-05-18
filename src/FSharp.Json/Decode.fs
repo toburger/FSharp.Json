@@ -130,6 +130,7 @@ let dstring : Decoder<string> =
 let dfloat : Decoder<float> =
     dvalue (function
         | JNumber n -> Result.ok (float n)
+        | JNull -> Result.ok nan
         | value -> crash "a Float" value)
 
 let dint : Decoder<int> =
