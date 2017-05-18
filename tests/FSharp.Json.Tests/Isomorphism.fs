@@ -40,7 +40,7 @@ module Encoders =
     let encodeMap (map: Map<_, _>) =
         Seq.map (fun (KeyValue(Key k, v)) -> k, encodeMapObject v) map
         |> jobject
-        
+
     let encodeObject o =
         [ "name",  if o.Name = null then jnull else jstring o.Name
           "number", jint o.Number
@@ -86,26 +86,23 @@ module Decoders =
             | _ -> invalidOp ""
 
 module Generators =
-    let genAlphanumString = gen {
-        let validChars = ['a'..'z'] @ ['A'..'Z'] @ ['0'..'9']
-        let! chars = Gen.nonEmptyListOf (Gen.oneof (List.map Gen.constant validChars))
-        return System.String(List.toArray chars)
-    }
-    
+    let genKey =
+        Arb.generate<string>
+        |> Gen.filter (not << isNull)
+        |> Gen.map Key
+
     let genFloat =
         Arb.generate<NormalFloat>
-        |> Gen.map (fun x -> System.Math.Round(float x, 10))
+        |> Gen.map (fun x -> System.Math.Round(float x, 8))
 
 type Generators =
-    static member String(): Arbitrary<string> =
-        Arb.fromGen Generators.genAlphanumString
     static member MapKey(): Arbitrary<MapKey> =
-        Arb.fromGen <| Gen.map Key Generators.genAlphanumString
+        Arb.fromGen Generators.genKey
     static member Float(): Arbitrary<float> =
         Arb.fromGen Generators.genFloat
 
 [<Property(Arbitrary = [| typeof<Generators> |])>]
-let testIsomorphism (original: Union) =
+let ``serializing a value and then deserializing from json should result in the same value`` (original: Union) =
     let res =
         Encoders.encodeUnion original
         |> encode false
