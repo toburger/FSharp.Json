@@ -21,3 +21,5 @@ group Test
 
   nuget NUnit
   nuget NUnit.Runners
+  nuget FsCheck
+  nuget FsCheck.NUnit
