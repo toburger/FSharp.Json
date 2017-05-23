@@ -22,16 +22,16 @@ NUGET
     SourceLink.Fake (1.1)
 GITHUB
   remote: fsharp/FAKE
-    modules/Octokit/Octokit.fsx (43917109af4ef38194d8993215c3e7c862b19d36)
+    modules/Octokit/Octokit.fsx (1ada6a9c84aada940bd7e6a7b63c0dc62e2fa56e)
       Octokit (>= 0.20)
 GROUP Test
 FRAMEWORK: NET46
 NUGET
   remote: https://www.nuget.org/api/v2
-    FsCheck (2.8.2)
-      FSharp.Core (>= 3.1.2.5)
-    FsCheck.Nunit (2.8.2)
-      FsCheck (>= 2.8.2)
+    FsCheck (2.9)
+      FSharp.Core (>= 4.1)
+    FsCheck.Nunit (2.9)
+      FsCheck (>= 2.9)
       NUnit (>= 3.6.1 < 3.7)
     FSharp.Core (4.1.17)
       System.ValueTuple (>= 4.3)
