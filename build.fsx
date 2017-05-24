@@ -178,6 +178,7 @@ Target "SourceLink" (fun _ ->
 // Build a NuGet package
 
 Target "NuGet" (fun _ ->
+    printfn "%A" release
     Paket.Pack(fun p ->
         { p with
             OutputPath = "bin"
@@ -188,6 +189,8 @@ Target "NuGet" (fun _ ->
 Target "PublishNuget" (fun _ ->
     Paket.Push(fun p ->
         { p with
+            PublishUrl = "https://www.myget.org/F/toburger"
+            ApiKey = environVar "MyGetApiKey"
             WorkingDir = "bin" })
 )
 
