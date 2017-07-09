@@ -1,18 +1,16 @@
-FRAMEWORK: NET46
+RESTRICTION: == net46
 NUGET
   remote: https://www.nuget.org/api/v2
     FParsec (1.0.2)
-    FSharp.Core (4.1.17) - redirects: force
-      System.ValueTuple (>= 4.3)
-    System.ValueTuple (4.3.1) - redirects: force
+    FSharp.Core (4.2.1) - redirects: force
 
 GROUP Build
-FRAMEWORK: NET46
+RESTRICTION: == net46
 NUGET
   remote: https://www.nuget.org/api/v2
-    FAKE (4.61.2)
+    FAKE (4.62.1)
     FSharp.Compiler.Service (2.0.0.6)
-    FSharp.Compiler.Tools (4.1.17)
+    FSharp.Compiler.Tools (4.1.23)
     FSharp.Formatting (2.14.4)
       FSharp.Compiler.Service (2.0.0.6)
       FSharpVSPowerTools.Core (>= 2.3 < 2.4)
@@ -22,10 +20,10 @@ NUGET
     SourceLink.Fake (1.1)
 GITHUB
   remote: fsharp/FAKE
-    modules/Octokit/Octokit.fsx (1ada6a9c84aada940bd7e6a7b63c0dc62e2fa56e)
+    modules/Octokit/Octokit.fsx (09b5bc7ac1602dc3c3d55eeaee185363209b73cf)
       Octokit (>= 0.20)
 GROUP Test
-FRAMEWORK: NET46
+RESTRICTION: == net46
 NUGET
   remote: https://www.nuget.org/api/v2
     FsCheck (2.9)
@@ -33,8 +31,7 @@ NUGET
     FsCheck.Nunit (2.9)
       FsCheck (>= 2.9)
       NUnit (>= 3.6.1 < 3.7)
-    FSharp.Core (4.1.17)
-      System.ValueTuple (>= 4.3)
+    FSharp.Core (4.2.1)
     NUnit (3.6.1)
     NUnit.ConsoleRunner (3.6.1)
     NUnit.Extension.NUnitProjectLoader (3.5)
@@ -49,4 +46,3 @@ NUGET
       NUnit.Extension.NUnitV2ResultWriter (>= 3.5)
       NUnit.Extension.TeamCityEventListener (>= 1.0.2)
       NUnit.Extension.VSProjectLoader (>= 3.5)
-    System.ValueTuple (4.3.1)
