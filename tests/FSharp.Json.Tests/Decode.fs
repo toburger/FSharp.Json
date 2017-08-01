@@ -75,7 +75,7 @@ let ``returns failing object1 deserializer`` () =
                 ("name" := dstring))
             "{}"
 
-let ``return emplty list`` () =
+let ``return empty list`` () =
     [] ==
         decodeString
             (dlist dint)
