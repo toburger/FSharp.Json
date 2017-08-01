@@ -9,6 +9,12 @@ let (==) expected actual =
     | Ok v -> Assert.AreEqual(expected, v)
     | Error err -> Assert.Fail(sprintf "%A" err)
 
+let inline expectErrorWitMessages msgs actual =
+    match actual with
+    | Ok v -> Assert.Fail("expected an error")
+    | Error ms when ms = msgs -> ()
+    | Error ms -> Assert.Fail(sprintf "Expected an error with messages: %A, but got %A" msgs ms)
+
 [<Test>]
 let ``{} returns unit`` () =
     () == decodeString dunit "{}"
@@ -59,6 +65,15 @@ let ``returns object2`` () =
                      ("name" := dstring)
                      ("age" := dint))
             "{ \"name\": \"foo\", \"age\": 42 }"
+
+[<Test>]
+let ``returns failing object1 deserializer`` () =
+    expectErrorWitMessages
+        ["expecting a Field \"name\" but got {}"]
+        <| decodeString
+            (object1 id
+                ("name" := dstring))
+            "{}"
 
 let ``return emplty list`` () =
     [] ==
