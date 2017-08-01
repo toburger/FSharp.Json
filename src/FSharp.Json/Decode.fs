@@ -80,7 +80,7 @@ let decodeField (field: string) (Decoder decoder) : Decoder<'b> =
     Decoder (function
         | RecordField field value ->
             decoder value
-        | value -> crash "a Property" value)
+        | value -> crash (sprintf "a Property \"%s\"" field) value)
 
 let (:=) = decodeField
 
