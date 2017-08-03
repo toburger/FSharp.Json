@@ -156,10 +156,6 @@ let dnull (v: 'a) : Decoder<'a> =
         | JNull -> Result.ok v
         | value -> crash "null" value)
 
-let maybe (Decoder decoder: Decoder<'a>) : Decoder<option<'a>> =
-    Decoder (decoder >> Result.either (Result.ok << Some)
-                                      (fun _ -> Result.ok None))
-
 let oneOf (decoders: list<Decoder<'a>>) : Decoder<'a> =
     Decoder (fun v ->
         List.fold (fun s (Decoder decoder) ->
@@ -169,6 +165,9 @@ let oneOf (decoders: list<Decoder<'a>>) : Decoder<'a> =
             | Error errs1, Error errs2 -> Error (errs1 @ errs2))
             (Error [])
             decoders)
+
+let maybe (decoder: Decoder<'a>) : Decoder<option<'a>> =
+    oneOf [ dnull None; decoder |> map Some ]
 
 let keyValuePairs (Decoder decoder: Decoder<'a>) : Decoder<list<string * 'a>> =
     Decoder (function
