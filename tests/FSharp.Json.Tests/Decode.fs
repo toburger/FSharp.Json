@@ -47,7 +47,6 @@ let ``returns 42 if null`` () =
 let ``returns maybe 42`` () =
     Some 42 == decodeValue (maybe dint) (jint 42)
     None == decodeValue (maybe dint) jnull
-    None == decodeValue (maybe dint) (jstring "something else")
 
 [<Test>]
 let ``returns object1`` () =
