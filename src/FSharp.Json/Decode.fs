@@ -85,7 +85,7 @@ let decodeField (field: string) (Decoder decoder) : Decoder<'b> =
 let (:=) = decodeField
 
 let dobject =
-    Decoder (function | JObject v -> Result.ok v | v -> crash "a Object" v)
+    Decoder (function | JObject v -> Result.ok v | v -> crash "a Field" v)
 
 let dunit =
     dobject >>= (succeed << ignore)
@@ -178,7 +178,7 @@ let keyValuePairs (Decoder decoder: Decoder<'a>) : Decoder<list<string * 'a>> =
                 decoder value
                 |> Result.map (fun v -> name, v))
             |> Result.collect
-        | value -> crash "an Object" value)
+        | value -> crash "a Field" value)
 
 let dmap (decoder: Decoder<'a>) : Decoder<Map<string, 'a>> =
     map Map.ofList (keyValuePairs decoder)
